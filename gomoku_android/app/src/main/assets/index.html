@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Gomoku</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background-color: #f0d9b5; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        h1 { margin-bottom: 10px; color: #5d4037; }
+        #game-board { background-color: #e6b800; border: 2px solid #5d4037; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); width: 90vw; height: 90vw; max-width: 600px; max-height: 600px; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); }
+        .cell { border: 1px solid #5d4037; position: relative; box-sizing: border-box; }
+        .piece { width: 80%; height: 80%; border-radius: 50%; position: absolute; top: 10%; left: 10%; box-shadow: 2px 2px 2px rgba(0,0,0,0.3); }
+        .black { background-color: #000; }
+        .white { background-color: #fff; }
+        #status { margin-top: 20px; font-size: 1.2em; font-weight: bold; color: #333; }
+        button { margin-top: 20px; padding: 10px 20px; font-size: 1em; background: #5d4037; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>五子棋 (Gomoku)</h1>
+    <div id="game-board"></div>
+    <div id="status">当前回合: 黑棋</div>
+    <button onclick="resetGame()">重新开始</button>
+
+    <script>
+        const BOARD_SIZE = 15;
+        let board = [];
+        let currentPlayer = 'black'; // 'black' or 'white'
+        let gameOver = false;
+
+        const boardEl = document.getElementById('game-board');
+        const statusEl = document.getElementById('status');
+
+        function initGame() {
+            board = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
+            boardEl.innerHTML = '';
+            currentPlayer = 'black';
+            gameOver = false;
+            statusEl.innerText = '当前回合: 黑棋';
+
+            for (let r = 0; r < BOARD_SIZE; r++) {
+                for (let c = 0; c < BOARD_SIZE; c++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.dataset.r = r;
+                    cell.dataset.c = c;
+                    cell.addEventListener('click', () => makeMove(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+
+        function makeMove(r, c) {
+            if (gameOver || board[r][c]) return;
+
+            board[r][c] = currentPlayer;
+            renderPiece(r, c, currentPlayer);
+
+            if (checkWin(r, c, currentPlayer)) {
+                statusEl.innerText = (currentPlayer === 'black' ? '黑棋' : '白棋') + ' 获胜!';
+                gameOver = true;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
+            statusEl.innerText = '当前回合: ' + (currentPlayer === 'black' ? '黑棋' : '白棋');
+        }
+
+        function renderPiece(r, c, player) {
+            const index = r * BOARD_SIZE + c;
+            const cell = boardEl.children[index];
+            const piece = document.createElement('div');
+            piece.classList.add('piece', player);
+            cell.appendChild(piece);
+        }
+
+        function checkWin(r, c, player) {
+            const directions = [
+                [[0, 1], [0, -1]], // Horizontal
+                [[1, 0], [-1, 0]], // Vertical
+                [[1, 1], [-1, -1]], // Diagonal \
+                [[1, -1], [-1, 1]]  // Diagonal /
+            ];
+
+            for (let dir of directions) {
+                let count = 1;
+                for (let side of dir) {
+                    let nr = r + side[0];
+                    let nc = c + side[1];
+                    while (nr >= 0 && nr < BOARD_SIZE && nc >= 0 && nc < BOARD_SIZE && board[nr][nc] === player) {
+                        count++;
+                        nr += side[0];
+                        nc += side[1];
+                    }
+                }
+                if (count >= 5) return true;
+            }
+            return false;
+        }
+
+        function resetGame() {
+            initGame();
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
