@@ -1,0 +1,7 @@
+chromadb==0.3.23
+pymupdf
+pydantic<2.0.0
+pytesseract
+Pillow
+python-dotenv
+google-generativeai

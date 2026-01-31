@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="header">
+    <text class="status" wx:if="{{!winner}}">当前回合: {{currentTurn === 'black' ? '⚫ 黑棋' : '⚪ 白棋'}}</text>
+    <text class="status winner" wx:if="{{winner}}">🏆 获胜者: {{winner === 'black' ? '⚫ 黑棋' : '⚪ 白棋'}}</text>
+  </view>
+
+  <view class="board-wrapper">
+    <!-- 棋盘背景、网格线 -->
+    <view class="board">
+      <!-- 绘制15x15网格交叉点 -->
+      <view class="row" wx:for="{{board}}" wx:for-index="y" wx:for-item="row" wx:key="y">
+        <view class="cell" wx:for="{{row}}" wx:for-index="x" wx:for-item="cell" wx:key="x" bindtap="onPlacePiece" data-x="{{x}}" data-y="{{y}}">
+          <!-- 交叉线 -->
+          <view class="grid-line-horizontal"></view>
+          <view class="grid-line-vertical"></view>
+          
+          <!-- 棋子 -->
+          <view class="piece black" wx:if="{{cell === 1}}"></view>
+          <view class="piece white" wx:if="{{cell === 2}}"></view>
+          
+          <!-- 最后落子标记 -->
+          <view class="last-move-marker" wx:if="{{lastMove && lastMove.x === x && lastMove.y === y}}"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="controls">
+    <button class="restart-btn" type="primary" bindtap="resetGame">重新开始</button>
+  </view>
+</view>
