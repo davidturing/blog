@@ -47,13 +47,6 @@ def extract_detailed_chapter(chapter_name, cache_name, output_path, spec_content
     6. 确保关键术语在每节首次出现时**加粗**。
     7. 所有的提示、注意、警告内容必须使用 _斜体_。
     8. 嵌套列表必须使用 **4个空格** 的缩进。
-    9. 顶部必须包含 CSS 样式块（如下所示）：
-    <style>
-    body {{ font-family: "Microsoft YaHei", sans-serif; }}
-    h1, h2, h3, h4, h5, h6 {{ font-family: "SimSun", serif; }}
-    strong {{ font-weight: 700; color: #000; }}
-    em {{ font-style: italic; color: #555; }}
-    </style>
     """
 
     response = client.models.generate_content(
