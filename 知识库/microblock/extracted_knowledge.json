@@ -1,0 +1,1939 @@
+[
+  {
+    "summary": "The article is about an AI creation park by Yinghe (è±è) focusing on AI programming education and imagination & creativity cultivation. The page seems to be a portal or directory related to AI and educational resources.",
+    "entities": [
+      {
+        "name": "è±è (Yinghe)",
+        "type": "ORGANIZATION",
+        "description": "An organization involved in AI creation and education."
+      },
+      {
+        "name": "AI programming education",
+        "type": "CONCEPT",
+        "description": "Educational programs focused on artificial intelligence programming."
+      },
+      {
+        "name": "Imagination & creativity cultivation",
+        "type": "CONCEPT",
+        "description": "Education focusing on fostering imagination and creativity."
+      }
+    ],
+    "relations": [
+      {
+        "source": "è±è (Yinghe)",
+        "target": "AI programming education",
+        "relation": "PROVIDES",
+        "description": "Yinghe provides AI programming education."
+      },
+      {
+        "source": "è±è (Yinghe)",
+        "target": "Imagination & creativity cultivation",
+        "relation": "PROVIDES",
+        "description": "Yinghe provides Imagination & creativity cultivation."
+      }
+    ],
+    "source_url": "http://www.aimaker.space/details/?id=143",
+    "source_title": "è±è AI åé ä¹å­ | AI ç¼ç¨æè²_æ³è±¡ååé åæè²"
+  },
+  {
+    "summary": "The provided content is a title for a Chinese Wiki dedicated to MicroBlocks, suggesting a resource for Chinese-speaking users to learn about and use MicroBlocks. It implies the existence of documentation and community support for MicroBlocks in Chinese.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language and environment designed for microcontroller-based projects."
+      },
+      {
+        "name": "中文 Wiki",
+        "type": "SOFTWARE",
+        "description": "A Chinese language Wiki for MicroBlocks"
+      }
+    ],
+    "relations": [
+      {
+        "source": "中文 Wiki",
+        "target": "MicroBlocks",
+        "relation": "SUPPORTS",
+        "description": "The Chinese Wiki supports the MicroBlocks environment by providing information and resources in Chinese."
+      }
+    ],
+    "source_url": "https://angilent.github.io/microblocksdoc/",
+    "source_title": "MicroBlocks 中文 Wiki"
+  },
+  {
+    "summary": "This article discusses the MicroBlocks BLE extension for MIT App Inventor, which simplifies connecting to microcontrollers via Bluetooth Low Energy. It provides blocks for connecting, disconnecting, sending messages, and handling connection and message events, and also provides some examples.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A blocks programming language for physical computing."
+      },
+      {
+        "name": "micro:bit",
+        "type": "HARDWARE",
+        "description": "A microcontroller board."
+      },
+      {
+        "name": "Calliope mini",
+        "type": "HARDWARE",
+        "description": "A microcontroller board."
+      },
+      {
+        "name": "AdaFruit Circuit Playground Express",
+        "type": "HARDWARE",
+        "description": "A microcontroller board."
+      },
+      {
+        "name": "Bluetooth LE",
+        "type": "SOFTWARE",
+        "description": "Bluetooth Low Energy extension for MIT App Inventor."
+      },
+      {
+        "name": "App Inventor",
+        "type": "SOFTWARE",
+        "description": "A blocks-based programming environment for creating mobile apps."
+      },
+      {
+        "name": "ConnectBlock",
+        "type": "SOFTWARE",
+        "description": "A block in the MicroBlocks BLE extension that connects to a MicroBlocks device."
+      },
+      {
+        "name": "DisconnectBlock",
+        "type": "SOFTWARE",
+        "description": "A block in the MicroBlocks BLE extension that disconnects from a BluetoothLE device."
+      },
+      {
+        "name": "IsDeviceConnectedBlock",
+        "type": "SOFTWARE",
+        "description": "A block in the MicroBlocks BLE extension that returns true if a device is connected."
+      },
+      {
+        "name": "SendMessageBlock",
+        "type": "SOFTWARE",
+        "description": "A block in the MicroBlocks BLE extension that sends a message to MicroBlocks."
+      },
+      {
+        "name": "ConnectionChangedBlock",
+        "type": "SOFTWARE",
+        "description": "An event in the MicroBlocks BLE extension that is run when a device is connected or disconnected."
+      },
+      {
+        "name": "MicroBlocksMessageReceivedBlock",
+        "type": "SOFTWARE",
+        "description": "An event in the MicroBlocks BLE extension that is run when a MicroBlocks message is received."
+      },
+      {
+        "name": "Akshat Developer's Documentation Generator",
+        "type": "SOFTWARE",
+        "description": "Tool used to generate the documentation."
+      },
+      {
+        "name": "Tools Extension",
+        "type": "SOFTWARE",
+        "description": "App Inventor extension used to keep the screen on."
+      },
+      {
+        "name": "Taifun",
+        "type": "PERSON",
+        "description": "Creator of the Tools Extension."
+      },
+      {
+        "name": "App Inventor Foundation",
+        "type": "ORGANIZATION",
+        "description": "Organization supporting App Inventor."
+      },
+      {
+        "name": "Peter",
+        "type": "PERSON",
+        "description": "Author of the MicroBlocks BLE extension."
+      },
+      {
+        "name": "EWPatton",
+        "type": "PERSON",
+        "description": "Contributor to the BluetoothLE extension"
+      },
+      {
+        "name": "Raspberry Pi Pico W",
+        "type": "HARDWARE",
+        "description": "A microcontroller board"
+      },
+      {
+        "name": "Alex_Nolan",
+        "type": "PERSON",
+        "description": "User of the MicroBlocks BLE Extension"
+      },
+      {
+        "name": "TIMAI2",
+        "type": "PERSON",
+        "description": "Person providing support for App Inventor"
+      },
+      {
+        "name": "Doit ESP32 devkit V1",
+        "type": "HARDWARE",
+        "description": "An ESP32 development board"
+      },
+      {
+        "name": "ESP32",
+        "type": "HARDWARE",
+        "description": "A microcontroller"
+      },
+      {
+        "name": "ESP32 S3",
+        "type": "HARDWARE",
+        "description": "A microcontroller"
+      },
+      {
+        "name": "CoCube",
+        "type": "HARDWARE",
+        "description": "A microcontroller"
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks BLE Extension",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "The extension is used to connect to devices running MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks BLE Extension",
+        "target": "App Inventor",
+        "relation": "EXTENDS",
+        "description": "The MicroBlocks BLE extension extends the functionality of App Inventor."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "micro:bit",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks can run on the micro:bit."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Calliope mini",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks can run on the Calliope mini."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "AdaFruit Circuit Playground Express",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks can run on the AdaFruit Circuit Playground Express."
+      },
+      {
+        "source": "ConnectBlock",
+        "target": "Bluetooth LE",
+        "relation": "REQUIRES",
+        "description": "ConnectBlock requires the Bluetooth LE extension."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "ESP32",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks supports ESP32."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "ESP32 S3",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks supports ESP32 S3."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "CoCube",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks supports CoCube."
+      },
+      {
+        "source": "Peter",
+        "target": "MicroBlocks BLE Extension",
+        "relation": "DEVELOPED_BY",
+        "description": "Peter developed the MicroBlocks BLE Extension"
+      }
+    ],
+    "source_url": "https://community.appinventor.mit.edu/t/microblocks-ble-extension/129412",
+    "source_title": "MicroBlocks BLE Extension - Extensions - MIT App Inventor Community"
+  },
+  {
+    "summary": "This document introduces Microblocks, a free, open-source graphical programming environment similar to Scratch, designed for real-time execution on microcontrollers like Micro:bit, ESP32/ESP8266, and Raspberry Pi Pico. It highlights the use of Microblocks with the FoxBit development board and XGO robot dog, showcasing how users can control actions, sensors, and AI functionalities by dragging and dropping code blocks.",
+    "entities": [
+      {
+        "name": "Microblocks",
+        "type": "SOFTWARE",
+        "description": "An open-source and free graphical programming environment similar to Scratch."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and website targeted primarily at children."
+      },
+      {
+        "name": "Micro:bit",
+        "type": "HARDWARE",
+        "description": "A pocket-sized computer designed to make learning and teaching easy and fun."
+      },
+      {
+        "name": "ESP32",
+        "type": "HARDWARE",
+        "description": "A low-cost, low-power system on a chip (SoC) series with Wi-Fi and Bluetooth capabilities."
+      },
+      {
+        "name": "ESP8266",
+        "type": "HARDWARE",
+        "description": "A low-cost Wi-Fi microchip, with a full TCP/IP stack and microcontroller capability."
+      },
+      {
+        "name": "Raspberry Pi Pico",
+        "type": "HARDWARE",
+        "description": "A small, fast, and versatile board built using RP2040, a brand new microcontroller chip designed by Raspberry Pi."
+      },
+      {
+        "name": "FoxBit",
+        "type": "HARDWARE",
+        "description": "A development board that works with Microblocks and XGO robot dog."
+      },
+      {
+        "name": "XGO robot dog",
+        "type": "HARDWARE",
+        "description": "A robotic dog that can be programmed with Microblocks."
+      },
+      {
+        "name": "XGO-lite",
+        "type": "SOFTWARE",
+        "description": "A library for Microblocks to control XGO robot dog."
+      }
+    ],
+    "relations": [
+      {
+        "source": "Microblocks",
+        "target": "Micro:bit",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Microblocks can run directly on Micro:bit."
+      },
+      {
+        "source": "Microblocks",
+        "target": "ESP32",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Microblocks can run directly on ESP32."
+      },
+      {
+        "source": "Microblocks",
+        "target": "ESP8266",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Microblocks can run directly on ESP8266."
+      },
+      {
+        "source": "Microblocks",
+        "target": "Raspberry Pi Pico",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Microblocks can run directly on Raspberry Pi Pico."
+      },
+      {
+        "source": "FoxBit",
+        "target": "Microblocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "FoxBit is a development board that works with Microblocks."
+      },
+      {
+        "source": "XGO robot dog",
+        "target": "Microblocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "XGO robot dog can be programmed with Microblocks."
+      },
+      {
+        "source": "XGO-lite",
+        "target": "Microblocks",
+        "relation": "EXTENDS",
+        "description": "XGO-lite library extends Microblocks to control XGO robot dog."
+      },
+      {
+        "source": "XGO robot dog",
+        "target": "FoxBit",
+        "relation": "COMPATIBLE_WITH",
+        "description": "XGO robot dog connects with FoxBit development board."
+      }
+    ],
+    "source_url": "https://docs.keyestudio.com/projects/FB0004/en/latest/docs/4.Microblocks%20Development%20Environment.html",
+    "source_title": "4.Microblocks & XGO: No Threshold! Journey of Robot Programming — keyestudio WiKi  documentation"
+  },
+  {
+    "summary": "The article appears to be a PDF document related to MicroBlocks running on the Zephyr operating system. It contains various metadata and content streams, possibly including text and images related to this topic.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language for microcontrollers."
+      },
+      {
+        "name": "Zephyr",
+        "type": "SOFTWARE",
+        "description": "A real-time operating system (RTOS) for connected, resource-constrained devices."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "Zephyr",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks is running on the Zephyr operating system."
+      }
+    ],
+    "source_url": "https://events.canonical.com/event/89/contributions/470/attachments/260/376/MicroBlocks%20on%20Zephyr.pdf",
+    "source_title": "No Title"
+  },
+  {
+    "summary": "The article is about FlowUs, which is presented as a one-stop knowledge creation and distribution platform. It states that the current browser environment cannot run the content and advises copying the link to open it in another browser.",
+    "entities": [],
+    "relations": [],
+    "source_url": "https://flowus.cn/share/66c9bac7-3f27-44c4-9e32-19ca81643765",
+    "source_title": "FlowUs æ¯æµï½ä¸ç«å¼ç¥è¯åä½ä¸åå¸å¹³å°"
+  },
+  {
+    "summary": "The article compares several graphical hardware programming platforms, highlighting MicroBlocks as a standout project due to its support for interactive programming and powerful virtual machine. It contrasts MicroBlocks with other platforms like MakeCode, Makeblock, and Scratch, emphasizing MicroBlocks' unique approach to seamlessly integrate interactive and embedded programming, facilitating exploration and creativity for makers.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A graphical hardware programming platform known for its interactive programming capabilities and powerful virtual machine."
+      },
+      {
+        "name": "MakeCode",
+        "type": "SOFTWARE",
+        "description": "A graphical programming platform developed by Microsoft."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and online community targeted primarily at children."
+      },
+      {
+        "name": "Blockly",
+        "type": "SOFTWARE",
+        "description": "A client-side JavaScript library for creating block-based visual programming languages and editors."
+      },
+      {
+        "name": "Etoys",
+        "type": "SOFTWARE",
+        "description": "A visual programming environment for children, inspired by Smalltalk."
+      },
+      {
+        "name": "Snap!",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language based on Scratch."
+      },
+      {
+        "name": "GP blocks",
+        "type": "SOFTWARE",
+        "description": "A graphical programming environment"
+      },
+      {
+        "name": "Mind+",
+        "type": "SOFTWARE",
+        "description": "A graphical programming software."
+      },
+      {
+        "name": "Mixly",
+        "type": "SOFTWARE",
+        "description": "A graphical programming environment based on Blockly."
+      },
+      {
+        "name": "Kittenbot",
+        "type": "SOFTWARE",
+        "description": "A graphical programming environment"
+      },
+      {
+        "name": "慧编程",
+        "type": "SOFTWARE",
+        "description": "Makeblock's graphical programming environment."
+      },
+      {
+        "name": "Maker IDE",
+        "type": "SOFTWARE",
+        "description": "A graphical programming environment."
+      },
+      {
+        "name": "John Maloney",
+        "type": "PERSON",
+        "description": "Key contributor and developer of MicroBlocks."
+      },
+      {
+        "name": "Alan Kay",
+        "type": "PERSON",
+        "description": "A pioneer in personal computing and object-oriented programming, influential in the field of graphical programming."
+      },
+      {
+        "name": "Seymour Papert",
+        "type": "PERSON",
+        "description": "A mathematician, computer scientist, and educator, known for his work on educational technologies like Logo."
+      },
+      {
+        "name": "Cynthia Solomon",
+        "type": "PERSON",
+        "description": "An American computer scientist and educator known for her work in artificial intelligence and the development of educational software for children."
+      },
+      {
+        "name": "Mitchel Resnick",
+        "type": "PERSON",
+        "description": "Professor of Learning Research at the MIT Media Lab and heads the lab's Lifelong Kindergarten group. He developed Scratch."
+      },
+      {
+        "name": "Natalie Rusk",
+        "type": "PERSON",
+        "description": "Research scientist at the MIT Media Lab, focuses on designing and developing creative learning environments and technologies for children."
+      },
+      {
+        "name": "Makeblock",
+        "type": "ORGANIZATION",
+        "description": "A STEM education solution provider."
+      },
+      {
+        "name": "MIT Media Lab",
+        "type": "ORGANIZATION",
+        "description": "A research laboratory at the Massachusetts Institute of Technology (MIT)."
+      },
+      {
+        "name": "CodeLab",
+        "type": "ORGANIZATION",
+        "description": "An organization related to educational tools and environments, possibly focused on programming."
+      },
+      {
+        "name": "Microbit More",
+        "type": "SOFTWARE",
+        "description": "A hardware extension that combines Microbit and Scratch."
+      },
+      {
+        "name": "MicroPython",
+        "type": "SOFTWARE",
+        "description": "A lean and efficient implementation of the Python 3 programming language that is optimized to run on microcontrollers."
+      },
+      {
+        "name": "Smalltalk",
+        "type": "SOFTWARE",
+        "description": "An object-oriented, dynamically typed reflective programming language."
+      },
+      {
+        "name": "STEM/STEAM",
+        "type": "CONCEPT",
+        "description": "An approach to education that focuses on science, technology, engineering, art, and mathematics."
+      },
+      {
+        "name": "Maker",
+        "type": "CONCEPT",
+        "description": "A movement which focuses on hands-on creation and learning."
+      },
+      {
+        "name": "Physical Computing",
+        "type": "CONCEPT",
+        "description": "Interactive physical systems by the use of software and hardware."
+      },
+      {
+        "name": "Live programming",
+        "type": "CONCEPT",
+        "description": "A programming paradigm where program modifications yield immediate results."
+      },
+      {
+        "name": "Virtual Machine",
+        "type": "SOFTWARE",
+        "description": "Software that emulates a physical computer."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "John Maloney",
+        "relation": "DEVELOPED_BY",
+        "description": "MicroBlocks is developed by John Maloney."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Scratch",
+        "relation": "EXTENDS",
+        "description": "MicroBlocks takes inspiration from Scratch."
+      },
+      {
+        "source": "Snap!",
+        "target": "Scratch",
+        "relation": "EXTENDS",
+        "description": "Snap! is based on Scratch."
+      },
+      {
+        "source": "慧编程",
+        "target": "Makeblock",
+        "relation": "DEVELOPED_BY",
+        "description": "慧编程 is developed by Makeblock."
+      },
+      {
+        "source": "Microbit More",
+        "target": "Scratch",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Microbit More combines Microbit and Scratch."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Smalltalk",
+        "relation": "EXTENDS",
+        "description": "MicroBlocks takes inspiration from Smalltalk."
+      }
+    ],
+    "source_url": "https://juejin.cn/post/7167674458415579143",
+    "source_title": "比较图形化硬件编程平台在图形化硬件编程领域，出色的项目极少，上一个值得被批评的项目是微软的 MakeCode，迄今为止， - 掘金"
+  },
+  {
+    "summary": "The article discusses using MicroBlocks to control an xlight rainbow light with a micro:bit, bypassing the original software and hardware. It highlights MicroBlocks' advantages, such as real-time programming, ease of use, and its roots in Smalltalk and GPblocks, positioning it as a superior alternative to other graphical programming tools like MakeCode.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A graphical programming environment for microcontrollers, created by John Maloney."
+      },
+      {
+        "name": "micro:bit",
+        "type": "HARDWARE",
+        "description": "A small programmable computer."
+      },
+      {
+        "name": "xlight",
+        "type": "HARDWARE",
+        "description": "A rainbow light project by MakeBlock."
+      },
+      {
+        "name": "MakeBlock",
+        "type": "ORGANIZATION",
+        "description": "A company known for educational robotics and DIY electronics."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and online community."
+      },
+      {
+        "name": "John Maloney",
+        "type": "PERSON",
+        "description": "The creator of MicroBlocks and a former lead architect of Scratch."
+      },
+      {
+        "name": "GPblocks",
+        "type": "SOFTWARE",
+        "description": "A self-bootstrapped graphical programming language that serves as the basis for MicroBlocks."
+      },
+      {
+        "name": "Alan Kay",
+        "type": "PERSON",
+        "description": "A pioneering computer scientist known for his work on Smalltalk and object-oriented programming."
+      },
+      {
+        "name": "MakeCode",
+        "type": "SOFTWARE",
+        "description": "A block-based coding platform by Microsoft."
+      },
+      {
+        "name": "CodeLab Adapter",
+        "type": "SOFTWARE",
+        "description": "A software adapter that allows Scratch to interact with hardware like micro:bit."
+      },
+      {
+        "name": "ws281x",
+        "type": "HARDWARE",
+        "description": "A type of programmable LED."
+      },
+      {
+        "name": "Smalltalk",
+        "type": "CONCEPT",
+        "description": "An object-oriented, dynamically typed reflective programming language."
+      },
+      {
+        "name": "NeoPixel",
+        "type": "SOFTWARE",
+        "description": "A library for controlling WS2812B addressable LEDs with MicroBlocks."
+      },
+      {
+        "name": "恩孚",
+        "type": "ORGANIZATION",
+        "description": "A company that manufactures micro:bit extension boards."
+      },
+      {
+        "name": "英荔",
+        "type": "ORGANIZATION",
+        "description": "A company that partners with 恩孚."
+      },
+      {
+        "name": "morphic",
+        "type": "SOFTWARE",
+        "description": "A graphical user interface framework."
+      },
+      {
+        "name": "etoys",
+        "type": "SOFTWARE",
+        "description": "An object-oriented programming environment for education."
+      },
+      {
+        "name": "Bootstrapping",
+        "type": "CONCEPT",
+        "description": "The technique of writing a compiler (or assembler) in the language that it compiles."
+      },
+      {
+        "name": "灌入式",
+        "type": "CONCEPT",
+        "description": "One of the hardware programming styles mentioned in the article."
+      },
+      {
+        "name": "交互式",
+        "type": "CONCEPT",
+        "description": "Another of the hardware programming styles mentioned in the article."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "John Maloney",
+        "relation": "DEVELOPED_BY",
+        "description": "MicroBlocks was created by John Maloney."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "GPblocks",
+        "relation": "BASED_ON",
+        "description": "MicroBlocks is based on GPblocks."
+      },
+      {
+        "source": "micro:bit",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks can be used to program the micro:bit."
+      },
+      {
+        "source": "xlight",
+        "target": "micro:bit",
+        "relation": "CONTROLLED_BY",
+        "description": "xlight rainbow light can be controlled by micro:bit using MicroBlocks."
+      },
+      {
+        "source": "John Maloney",
+        "target": "Scratch",
+        "relation": "FORMER_ARCHITECT",
+        "description": "John Maloney was the former lead architect of Scratch."
+      },
+      {
+        "source": "Scratch",
+        "target": "CodeLab Adapter",
+        "relation": "EXTENDS",
+        "description": "CodeLab Adapter extends Scratch to interact with hardware."
+      },
+      {
+        "source": "Smalltalk",
+        "target": "MicroBlocks",
+        "relation": "INFLUENCED_BY",
+        "description": "MicroBlocks architecture is influenced by Smalltalk."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "灌入式",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks supports the 灌入式 hardware programming style."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "交互式",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks supports the 交互式 hardware programming style."
+      },
+      {
+        "source": "恩孚",
+        "target": "英荔",
+        "relation": "PARTNER_OF",
+        "description": "恩孚 is a partner of 英荔"
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "NeoPixel",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks supports the NeoPixel library."
+      },
+      {
+        "source": "GPblocks",
+        "target": "Smalltalk",
+        "relation": "INFLUENCED_BY",
+        "description": "GPblocks' text format is similar to Smalltalk72."
+      }
+    ],
+    "source_url": "https://juejin.cn/post/7167915712537690126",
+    "source_title": "MicroBlocks 编程案例: 使用 micro:bit 接管 xlight彩虹灯很好看，小巧而明媚。 但我不想用它 - 掘金"
+  },
+  {
+    "summary": "MicroBlocks originated from John Maloney's explorations of programming systems for children, drawing inspiration from Logo, Smalltalk, and other projects. The immediate inspiration was a presentation on the BBC micro:bit, leading to a collaboration between John Maloney, Jens Mönig, and Bernat Romagosa to create a live programming system that avoids \"download fatigue\".",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A live programming system based on blocks."
+      },
+      {
+        "name": "John Maloney",
+        "type": "PERSON",
+        "description": "One of the creators of MicroBlocks, formerly worked on Scratch."
+      },
+      {
+        "name": "Jens Mönig",
+        "type": "PERSON",
+        "description": "Collaborator on MicroBlocks, creator of Snap!."
+      },
+      {
+        "name": "Bernat Romagosa",
+        "type": "PERSON",
+        "description": "Collaborator on MicroBlocks, created Snap! for Arduino."
+      },
+      {
+        "name": "Logo",
+        "type": "SOFTWARE",
+        "description": "Programming language created by Seymour Papert, Cynthia Solomon, and Wally Feurzeig."
+      },
+      {
+        "name": "Smalltalk",
+        "type": "SOFTWARE",
+        "description": "Programming language created by Alan Kay's research group at Xerox PARC."
+      },
+      {
+        "name": "BBC micro:bit",
+        "type": "HARDWARE",
+        "description": "A small programmable computer."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and online community."
+      },
+      {
+        "name": "Alan Kay",
+        "type": "PERSON",
+        "description": "Pioneer of object-oriented programming and creator of Smalltalk."
+      },
+      {
+        "name": "Squeak",
+        "type": "SOFTWARE",
+        "description": "A Smalltalk-based programming environment."
+      },
+      {
+        "name": "Etoys",
+        "type": "SOFTWARE",
+        "description": "A blocks programming system."
+      },
+      {
+        "name": "MIT Media Lab",
+        "type": "ORGANIZATION",
+        "description": "Research laboratory at the Massachusetts Institute of Technology."
+      },
+      {
+        "name": "Sue Sentance",
+        "type": "PERSON",
+        "description": "Presented on the BBC micro:bit at SIGCSE 2017."
+      },
+      {
+        "name": "SIGCSE",
+        "type": "EVENT",
+        "description": "Special Interest Group in Computer Science Education Technical Symposium."
+      },
+      {
+        "name": "LogoChip",
+        "type": "HARDWARE",
+        "description": "Hardware project by Brian Silverman and Robbie Berg"
+      },
+      {
+        "name": "White Cat",
+        "type": "SOFTWARE",
+        "description": "Research project from Citilab"
+      },
+      {
+        "name": "Brian Silverman",
+        "type": "PERSON",
+        "description": "Creator of LogoChip"
+      },
+      {
+        "name": "Robbie Berg",
+        "type": "PERSON",
+        "description": "Creator of LogoChip"
+      },
+      {
+        "name": "Snap!",
+        "type": "SOFTWARE",
+        "description": "Block-based programming language."
+      },
+      {
+        "name": "Arduino",
+        "type": "HARDWARE",
+        "description": "Open-source electronics platform."
+      },
+      {
+        "name": "GP Blocks",
+        "type": "SOFTWARE",
+        "description": "Research project exploring a blocks-based program system."
+      },
+      {
+        "name": "Yoshiki Ohshima",
+        "type": "PERSON",
+        "description": "Collaborated on GP Blocks"
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "John Maloney",
+        "relation": "DEVELOPED_BY",
+        "description": "John Maloney is one of the creators of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Jens Mönig",
+        "relation": "DEVELOPED_BY",
+        "description": "Jens Mönig is one of the creators of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Bernat Romagosa",
+        "relation": "DEVELOPED_BY",
+        "description": "Bernat Romagosa is one of the creators of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Logo",
+        "relation": "INSPIRED_BY",
+        "description": "MicroBlocks was deeply influenced by Logo."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Smalltalk",
+        "relation": "INSPIRED_BY",
+        "description": "MicroBlocks was deeply influenced by Smalltalk."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "BBC micro:bit",
+        "relation": "INSPIRED_BY",
+        "description": "The micro:bit inspired the creation of MicroBlocks."
+      },
+      {
+        "source": "John Maloney",
+        "target": "Scratch",
+        "relation": "DEVELOPED_BY",
+        "description": "John Maloney was a co-designer and lead developer of Scratch."
+      },
+      {
+        "source": "Jens Mönig",
+        "target": "Snap!",
+        "relation": "DEVELOPED_BY",
+        "description": "Jens Mönig created Snap!."
+      },
+      {
+        "source": "Bernat Romagosa",
+        "target": "Snap!",
+        "relation": "EXTENDS",
+        "description": "Bernat Romagosa created Snap! for Arduino."
+      },
+      {
+        "source": "John Maloney",
+        "target": "Alan Kay",
+        "relation": "WORKED_WITH",
+        "description": "John Maloney worked with Alan Kay."
+      },
+      {
+        "source": "GP Blocks",
+        "target": "John Maloney",
+        "relation": "DEVELOPED_BY",
+        "description": "John Maloney worked on GP Blocks."
+      },
+      {
+        "source": "GP Blocks",
+        "target": "Jens Mönig",
+        "relation": "DEVELOPED_BY",
+        "description": "Jens Mönig worked on GP Blocks."
+      },
+      {
+        "source": "GP Blocks",
+        "target": "Yoshiki Ohshima",
+        "relation": "DEVELOPED_BY",
+        "description": "Yoshiki Ohshima worked on GP Blocks."
+      },
+      {
+        "source": "LogoChip",
+        "target": "Brian Silverman",
+        "relation": "DEVELOPED_BY",
+        "description": "Brian Silverman created LogoChip"
+      },
+      {
+        "source": "LogoChip",
+        "target": "Robbie Berg",
+        "relation": "DEVELOPED_BY",
+        "description": "Robbie Berg created LogoChip"
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "LogoChip",
+        "relation": "INSPIRED_BY",
+        "description": "MicroBlocks was inspired by LogoChip"
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "White Cat",
+        "relation": "INSPIRED_BY",
+        "description": "MicroBlocks was inspired by White Cat"
+      }
+    ],
+    "source_url": "https://microblocks.fun/blog/2022-12-05-origins",
+    "source_title": "The Origins of MicroBlocks - MicroBlocks"
+  },
+  {
+    "summary": "MicroBlocks is a free, Scratch-like blocks programming language designed for learning physical computing with educational microcontroller boards. It distinguishes itself through a combination of live programming and autonomous operation, allowing users to instantly see results and deploy code on various boards without compilation delays.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A free, Scratch-like blocks programming language for learning physical computing."
+      },
+      {
+        "name": "micro:bit",
+        "type": "HARDWARE",
+        "description": "An educational microcontroller board compatible with MicroBlocks."
+      },
+      {
+        "name": "Adafruit Circuit Playground Express",
+        "type": "HARDWARE",
+        "description": "An educational microcontroller board compatible with MicroBlocks."
+      },
+      {
+        "name": "Live Programming",
+        "type": "SOFTWARE",
+        "description": "A feature of MicroBlocks that allows code to run immediately without compilation."
+      },
+      {
+        "name": "Autonomous Operation",
+        "type": "SOFTWARE",
+        "description": "A feature of MicroBlocks that allows code to run independently after being downloaded to the board."
+      },
+      {
+        "name": "Parallelism",
+        "type": "CONCEPT",
+        "description": "The ability to run separate scripts for each task simultaneously in MicroBlocks."
+      },
+      {
+        "name": "Portability",
+        "type": "CONCEPT",
+        "description": "MicroBlocks scripts are portable across many different boards."
+      },
+      {
+        "name": "Virtual Machine",
+        "type": "SOFTWARE",
+        "description": "Executes the user's code on the microcontroller by interpreting bytecodes."
+      },
+      {
+        "name": "Raspberry Pi",
+        "type": "HARDWARE",
+        "description": "A single-board computer that can run the MicroBlocks virtual machine."
+      },
+      {
+        "name": "NeoPixels",
+        "type": "HARDWARE",
+        "description": "An output device supported by MicroBlocks libraries."
+      },
+      {
+        "name": "Servos",
+        "type": "HARDWARE",
+        "description": "An output device supported by MicroBlocks libraries."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "micro:bit",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks is compatible with the micro:bit board."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Adafruit Circuit Playground Express",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks is compatible with the Adafruit Circuit Playground Express board."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Live Programming",
+        "relation": "FEATURE",
+        "description": "MicroBlocks features Live Programming."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Autonomous Operation",
+        "relation": "FEATURE",
+        "description": "MicroBlocks features Autonomous Operation."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Virtual Machine",
+        "relation": "USES",
+        "description": "MicroBlocks code is executed by a Virtual Machine."
+      },
+      {
+        "source": "Virtual Machine",
+        "target": "Raspberry Pi",
+        "relation": "COMPATIBLE_WITH",
+        "description": "The MicroBlocks Virtual Machine is compatible with the Raspberry Pi."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Parallelism",
+        "relation": "FEATURE",
+        "description": "MicroBlocks enables Parallelism."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Portability",
+        "relation": "FEATURE",
+        "description": "MicroBlocks has Portability as a feature."
+      }
+    ],
+    "source_url": "https://microblocks.fun/what-is-microblocks",
+    "source_title": "What is Microblocks - MicroBlocks"
+  },
+  {
+    "summary": "This article introduces MicroBlocks, a visual programming language designed to make physical computing accessible and engaging. It highlights the project's mission to empower learners and educators globally, alongside its commitment to open-source collaboration and community building, particularly within the Chinese-speaking user base.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language for physical computing."
+      },
+      {
+        "name": "John Maloney",
+        "type": "PERSON",
+        "description": "Co-creator of Scratch and a major developer of MicroBlocks' virtual machine and programming environment."
+      },
+      {
+        "name": "Bernat Romagosa",
+        "type": "PERSON",
+        "description": "Software engineer, author of Snap4Arduino, and a key developer for Beetle Blocks and MicroBlocks."
+      },
+      {
+        "name": "Kathy Giori",
+        "type": "PERSON",
+        "description": "Leads ecosystem engagement at Zededa and manages global partnerships and outreach for MicroBlocks."
+      },
+      {
+        "name": "Turgut GÃ¼neysu",
+        "type": "PERSON",
+        "description": "Retired computer expert interested in helping children learn computing and problem-solving skills."
+      },
+      {
+        "name": "Wenjie Wu",
+        "type": "PERSON",
+        "description": "Creator of CodeLab, localizes MicroBlocks into Chinese, and contributes libraries such as MQTT and Sphero-RVR."
+      },
+      {
+        "name": "JosÃ© GarcÃ­a",
+        "type": "PERSON",
+        "description": "Coordinator at Citilab's education area, contributed to S4A (Scratch for Arduino) and the Citilab ED1 microcontroller board."
+      },
+      {
+        "name": "Peter Mathijssen",
+        "type": "PERSON",
+        "description": "Community coordinator for MicroBlocks, focused on building a vibrant community and promoting MicroBlocks."
+      },
+      {
+        "name": "Jens MÃ¶nig",
+        "type": "PERSON",
+        "description": "Researcher at SAP, architect of Snap! programming language, and contributed to Scratch at MIT Media Lab."
+      },
+      {
+        "name": "Tom Lauwers",
+        "type": "PERSON",
+        "description": "Founder and CEO of BirdBrain Technologies, designer of Finch robot and Hummingbird robotics kit."
+      },
+      {
+        "name": "Jadga HÃ¼gle",
+        "type": "PERSON",
+        "description": "Works on the Snap! team at SAP and creates learning resources for students and teachers. Interested in creating IoT projects with MicroBlocks."
+      },
+      {
+        "name": "Amon Millner",
+        "type": "PERSON",
+        "description": "Associate Professor at Olin College, leads the EASE Lab, and is a pioneer of block-based programming languages like Scratch and Unruly Splats."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language."
+      },
+      {
+        "name": "Snap4Arduino",
+        "type": "SOFTWARE",
+        "description": "A Scratch-based programming environment for Arduino."
+      },
+      {
+        "name": "Beetle Blocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language."
+      },
+      {
+        "name": "CodeLab",
+        "type": "ORGANIZATION",
+        "description": "A non-profit organization focused on promoting the joy of coding."
+      },
+      {
+        "name": "MQTT",
+        "type": "SOFTWARE",
+        "description": "A messaging protocol library for MicroBlocks."
+      },
+      {
+        "name": "Sphero-RVR",
+        "type": "HARDWARE",
+        "description": "A robotic platform with a MicroBlocks library."
+      },
+      {
+        "name": "Wukong",
+        "type": "HARDWARE",
+        "description": "Hardware with a MicroBlocks library"
+      },
+      {
+        "name": "Finch robot",
+        "type": "HARDWARE",
+        "description": "An educational robot designed by Tom Lauwers"
+      },
+      {
+        "name": "Hummingbird robotics kit",
+        "type": "HARDWARE",
+        "description": "A robotics kit designed by Tom Lauwers"
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "John Maloney",
+        "relation": "DEVELOPED_BY",
+        "description": "John Maloney is a major developer of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Bernat Romagosa",
+        "relation": "DEVELOPED_BY",
+        "description": "Bernat Romagosa contributes to the virtual machine and IDE of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Wenjie Wu",
+        "relation": "SUPPORTS",
+        "description": "Wenjie Wu localizes MicroBlocks into Chinese and hosts it in China."
+      },
+      {
+        "source": "Snap4Arduino",
+        "target": "Bernat Romagosa",
+        "relation": "DEVELOPED_BY",
+        "description": "Bernat Romagosa is the author of Snap4Arduino."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "MQTT",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks supports MQTT through a library."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Sphero-RVR",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks has a library for Sphero-RVR."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Wukong",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks has a library for Wukong."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Scratch",
+        "relation": "EXTENDS",
+        "description": "MicroBlocks is similar to Scratch in its visual programming approach."
+      },
+      {
+        "source": "Finch robot",
+        "target": "Tom Lauwers",
+        "relation": "DEVELOPED_BY",
+        "description": "Tom Lauwers designed the Finch robot."
+      },
+      {
+        "source": "Hummingbird robotics kit",
+        "target": "Tom Lauwers",
+        "relation": "DEVELOPED_BY",
+        "description": "Tom Lauwers designed the Hummingbird robotics kit."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "CodeLab",
+        "relation": "SUPPORTED_BY",
+        "description": "CodeLab supports MicroBlocks."
+      }
+    ],
+    "source_url": "https://microblocksfun.cn/about",
+    "source_title": "About - ç©çè®¡ç®é¢åç Scratch - MicroBlocks ä¸­æä¸»é¡µ"
+  },
+  {
+    "summary": "The article discusses the growing popularity of MicroBlocks in China, focusing on its intuitive design and the active community supporting it. It highlights key contributors, projects, and educational initiatives that have facilitated its adoption, particularly in STEAM education and hardware programming for students.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language designed for microcontroller-based projects, emphasizing ease of use and interactive development."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and online community targeted primarily at children."
+      },
+      {
+        "name": "CodeLab",
+        "type": "ORGANIZATION",
+        "description": "A non-profit organization focused on building programmable spaces and connecting software/hardware."
+      },
+      {
+        "name": "ç§ç",
+        "type": "PERSON",
+        "description": "A key contributor to MicroBlocks, responsible for localization, community building, and wireless programming features."
+      },
+      {
+        "name": "John Maloney",
+        "type": "PERSON",
+        "description": "The creator of MicroBlocks, with prior involvement in the development of Scratch."
+      },
+      {
+        "name": "éµæ¦",
+        "type": "PERSON",
+        "description": "A prominent MicroBlocks advocate and community leader in China, known for her enthusiastic sharing and promotion."
+      },
+      {
+        "name": "CodeLab Adapter",
+        "type": "SOFTWARE",
+        "description": "A tool developed by CodeLab to connect various software and hardware components."
+      },
+      {
+        "name": "NimBLE",
+        "type": "SOFTWARE",
+        "description": "A Bluetooth Low Energy (BLE) stack used in the development of wireless programming functionality for MicroBlocks."
+      },
+      {
+        "name": "OctoStudio",
+        "type": "SOFTWARE",
+        "description": "A software application that was modified to interoperate with MicroBlocks."
+      },
+      {
+        "name": "MQTT",
+        "type": "CONCEPT",
+        "description": "A lightweight messaging protocol used for machine-to-machine (M2M) communication, implemented as a library for MicroBlocks."
+      },
+      {
+        "name": "MicroBlocks å¨æ«åäº«ä¼",
+        "type": "EVENT",
+        "description": "Weekend sharing sessions dedicated to MicroBlocks-related content."
+      },
+      {
+        "name": "STEAM æè²å¤§ä¼",
+        "type": "EVENT",
+        "description": "STEAM Education Conference in Beijing where MicroBlocks wireless programming was showcased."
+      },
+      {
+        "name": "micro:bit",
+        "type": "HARDWARE",
+        "description": "A pocket-sized computer designed to make learning and teaching easy."
+      },
+      {
+        "name": "M5 Stack",
+        "type": "HARDWARE",
+        "description": "A modular, stackable development kit based around ESP32 microcontrollers."
+      },
+      {
+        "name": "XGO",
+        "type": "HARDWARE",
+        "description": "A robot dog whose control interface was ported to MicroBlocks."
+      },
+      {
+        "name": "ESP32",
+        "type": "HARDWARE",
+        "description": "A low-cost, low-power system-on-a-chip (SoC) series with Wi-Fi and Bluetooth capabilities."
+      },
+      {
+        "name": "MakeCode",
+        "type": "SOFTWARE",
+        "description": "A block-based coding platform by Microsoft."
+      },
+      {
+        "name": "Snap!",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language."
+      },
+      {
+        "name": "Arduino",
+        "type": "HARDWARE",
+        "description": "An open-source hardware and software company, project and user community that designs and manufactures single-board microcontrollers and microcontroller kits for building digital devices."
+      },
+      {
+        "name": "CTPico",
+        "type": "HARDWARE",
+        "description": "An open-source hardware teaching kit designed for MicroBlocks and Raspberry Pi Pico."
+      },
+      {
+        "name": "Raspberry Pi Pico",
+        "type": "HARDWARE",
+        "description": "A low-cost, high-performance microcontroller board with a flexible digital interface."
+      },
+      {
+        "name": "Seeed",
+        "type": "ORGANIZATION",
+        "description": "An open source hardware provider facilitating innovative technologies."
+      },
+      {
+        "name": "BLE (Bluetooth Low Energy)",
+        "type": "CONCEPT",
+        "description": "A wireless technology for low-power, short-range communication."
+      },
+      {
+        "name": "TFT (Thin-Film-Transistor)",
+        "type": "HARDWARE",
+        "description": "A type of LCD flat panel display."
+      },
+      {
+        "name": "OLED (Organic Light-Emitting Diode)",
+        "type": "HARDWARE",
+        "description": "A light-emitting diode in which the emissive electroluminescent layer is a film of organic compound."
+      },
+      {
+        "name": "2024 Maker Faire Shenzhen",
+        "type": "EVENT",
+        "description": "Maker Faire event in Shenzhen where MicroBlocks was showcased."
+      },
+      {
+        "name": "2024 M5Meetup",
+        "type": "EVENT",
+        "description": "M5Stack community meetup where MicroBlocks integration was presented."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "Scratch",
+        "relation": "EXTENDS",
+        "description": "MicroBlocks is described as 'Scratch for physical computing', implying it builds upon Scratch's visual programming concepts."
+      },
+      {
+        "source": "ç§ç",
+        "target": "MicroBlocks",
+        "relation": "DEVELOPED_BY",
+        "description": "ç§ç is a key developer who contributed to MicroBlocks' localization and wireless programming features."
+      },
+      {
+        "source": "John Maloney",
+        "target": "MicroBlocks",
+        "relation": "DEVELOPED_BY",
+        "description": "John Maloney is the creator of MicroBlocks."
+      },
+      {
+        "source": "NimBLE",
+        "target": "MicroBlocks",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks uses NimBLE for its wireless programming functionality."
+      },
+      {
+        "source": "M5 Stack",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks supports programming M5 Stack boards."
+      },
+      {
+        "source": "éµæ¦",
+        "target": "MicroBlocks",
+        "relation": "SUPPORTS",
+        "description": "éµæ¦ actively promotes and shares content related to MicroBlocks."
+      },
+      {
+        "source": "OctoStudio",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "OctoStudio was adapted to work with MicroBlocks."
+      },
+      {
+        "source": "CodeLab Adapter",
+        "target": "CodeLab",
+        "relation": "DEVELOPED_BY",
+        "description": "CodeLab Adapter was created by CodeLab to connect various components."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "STEAM æè²å¤§ä¼",
+        "relation": "FEATURED_AT",
+        "description": "MicroBlocks was presented at the STEAM Education Conference in Beijing."
+      },
+      {
+        "source": "XGO",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "XGO robot dog control interface ported to MicroBlocks."
+      },
+      {
+        "source": "Arduino",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Experienced teachers tested and compared Arduino code speed to MicroBlocks."
+      },
+      {
+        "source": "Raspberry Pi Pico",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks works well with Raspberry Pi Pico boards for teaching."
+      },
+      {
+        "source": "CTPico",
+        "target": "Raspberry Pi Pico",
+        "relation": "COMPATIBLE_WITH",
+        "description": "CTPico is a kit designed to work with the Raspberry Pi Pico."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "BLE (Bluetooth Low Energy)",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks supports BLE for wireless communication."
+      },
+      {
+        "source": "2024 Maker Faire Shenzhen",
+        "target": "MicroBlocks",
+        "relation": "FEATURED_AT",
+        "description": "MicroBlocks was demonstrated at the Maker Faire Shenzhen."
+      },
+      {
+        "source": "2024 M5Meetup",
+        "target": "MicroBlocks",
+        "relation": "FEATURED_AT",
+        "description": "MicroBlocks was part of a presentation at the M5Meetup."
+      }
+    ],
+    "source_url": "https://microblocksfun.cn/blog/2024-11-18-MicroBlocks-in-China",
+    "source_title": "MicroBlocks å¨ä¸­å½ - ç©çè®¡ç®é¢åç Scratch - MicroBlocks ä¸­æä¸»é¡µ"
+  },
+  {
+    "summary": "This MicroBlocks Wiki page introduces MicroBlocks using the BOARDIE hardware platform. It likely provides a tutorial or guide for beginners to get started with MicroBlocks and BOARDIE.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A visual programming language designed for microcontrollers."
+      },
+      {
+        "name": "BOARDIE",
+        "type": "HARDWARE",
+        "description": "A hardware platform (likely a microcontroller board) that is used with MicroBlocks."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "BOARDIE",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks is used with the BOARDIE hardware platform."
+      }
+    ],
+    "source_url": "https://wiki.microblocks.fun/en/Tutorials/Intro_with_Boardie",
+    "source_title": "Intro to MicroBlocks - Using BOARDIE | MicroBlocks Wiki"
+  },
+  {
+    "summary": "The article is a board guide on the MicroBlocks Wiki. It provides information about hardware boards supported by the MicroBlocks programming environment.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A block-based programming environment"
+      },
+      {
+        "name": "Hardware Boards",
+        "type": "HARDWARE",
+        "description": "Physical electronic boards compatible with MicroBlocks"
+      }
+    ],
+    "relations": [
+      {
+        "source": "Hardware Boards",
+        "target": "MicroBlocks",
+        "relation": "COMPATIBLE_WITH",
+        "description": "Hardware boards that can be programmed using the MicroBlocks environment"
+      }
+    ],
+    "source_url": "https://wiki.microblocks.fun/en/boards/supported",
+    "source_title": "Board Guide | MicroBlocks Wiki"
+  },
+  {
+    "summary": "This article introduces MicroBlocks, a block-based programming language for microcontrollers suitable for beginners, highlighting its capabilities and advantages over MicroPython. It describes how to use MicroBlocks with the XIAO ESP32S3 development board, including firmware installation and example projects, while emphasizing its interactive development cycle and extensive library support.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language for microcontrollers."
+      },
+      {
+        "name": "XIAO ESP32S3",
+        "type": "HARDWARE",
+        "description": "A development board with Wi-Fi and BLE connectivity, featuring GPIO pins and external antenna."
+      },
+      {
+        "name": "MicroPython",
+        "type": "SOFTWARE",
+        "description": "A lean and efficient implementation of the Python 3 programming language for microcontrollers."
+      },
+      {
+        "name": "GPIO",
+        "type": "CONCEPT",
+        "description": "General Purpose Input/Output pins on a microcontroller."
+      },
+      {
+        "name": "I2C",
+        "type": "CONCEPT",
+        "description": "A serial communication protocol."
+      },
+      {
+        "name": "SPI",
+        "type": "CONCEPT",
+        "description": "Another serial communication protocol."
+      },
+      {
+        "name": "Serial",
+        "type": "CONCEPT",
+        "description": "Serial communication interface."
+      },
+      {
+        "name": "OV2640",
+        "type": "HARDWARE",
+        "description": "A camera module with 1600x1200 resolution."
+      },
+      {
+        "name": "OV3660",
+        "type": "HARDWARE",
+        "description": "A camera module with 2048x1536 resolution."
+      },
+      {
+        "name": "Grove",
+        "type": "HARDWARE",
+        "description": "A modular electronic platform for prototyping."
+      },
+      {
+        "name": "Zeller",
+        "type": "PERSON",
+        "description": "Maker who created an emotion player using XIAO ESP32S3, XIAO expansion board, Grove speaker, and Grove button."
+      },
+      {
+        "name": "John",
+        "type": "PERSON",
+        "description": "Contributor of the article."
+      },
+      {
+        "name": "Hackster",
+        "type": "ORGANIZATION",
+        "description": "Platform where the step-by-step tutorial for the emotion player is available."
+      },
+      {
+        "name": "BLE",
+        "type": "CONCEPT",
+        "description": "Bluetooth Low Energy connectivity."
+      },
+      {
+        "name": "WiFi",
+        "type": "CONCEPT",
+        "description": "Wireless internet connectivity."
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "XIAO ESP32S3",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks can be installed and used on the XIAO ESP32S3 development board."
+      },
+      {
+        "source": "XIAO ESP32S3",
+        "target": "WiFi",
+        "relation": "SUPPORTS",
+        "description": "The XIAO ESP32S3 development board supports Wi-Fi connectivity."
+      },
+      {
+        "source": "XIAO ESP32S3",
+        "target": "BLE",
+        "relation": "SUPPORTS",
+        "description": "The XIAO ESP32S3 development board supports BLE connectivity."
+      },
+      {
+        "source": "Zeller",
+        "target": "XIAO ESP32S3",
+        "relation": "USES",
+        "description": "Zeller used XIAO ESP32S3 for creating an emotion player."
+      },
+      {
+        "source": "Zeller",
+        "target": "MicroBlocks",
+        "relation": "USES",
+        "description": "Zeller used MicroBlocks for creating an emotion player."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "GPIO",
+        "relation": "CONTROLS",
+        "description": "MicroBlocks can control GPIO pins on a microcontroller."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "I2C",
+        "relation": "INTERFACES_WITH",
+        "description": "MicroBlocks can interface with peripherals using I2C."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "SPI",
+        "relation": "INTERFACES_WITH",
+        "description": "MicroBlocks can interface with peripherals using SPI."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Serial",
+        "relation": "INTERFACES_WITH",
+        "description": "MicroBlocks can interface with peripherals using Serial communication."
+      }
+    ],
+    "source_url": "https://wiki.seeedstudio.com/cn/xiao_esp32s3_microblocks/",
+    "source_title": "MicroBlocks | Seeed Studio Wiki"
+  },
+  {
+    "summary": "This article discusses porting MicroBlocks, a Scratch-like block programming language, to the BeagleConnect Freedom board. It details the process, which involves leveraging the Arduino Core API module for Zephyr and outlines steps for flashing images and building MicroBlocks firmware, highlighting the ongoing efforts to merge support upstream for easier porting in the future.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A free, Scratch-like blocks programming language for learning physical computing."
+      },
+      {
+        "name": "BeagleConnect Freedom",
+        "type": "HARDWARE",
+        "description": "A development board with Zephyr support."
+      },
+      {
+        "name": "Arduino Core API module for Zephyr",
+        "type": "SOFTWARE",
+        "description": "Module implementing Arduino APIs on top of Zephyr."
+      },
+      {
+        "name": "Zephyr",
+        "type": "SOFTWARE",
+        "description": "A real-time operating system (RTOS)."
+      },
+      {
+        "name": "Arduino APIs",
+        "type": "SOFTWARE",
+        "description": "Arduino application programming interfaces."
+      },
+      {
+        "name": "LDR sensor",
+        "type": "HARDWARE",
+        "description": "A light dependent resistor sensor."
+      },
+      {
+        "name": "MicroBlocks standalone IDE",
+        "type": "SOFTWARE",
+        "description": "Standalone Integrated Development Environment for MicroBlocks."
+      },
+      {
+        "name": "Ayush Singh",
+        "type": "PERSON",
+        "description": "The author of the article and contributor to the MicroBlocks port."
+      },
+      {
+        "name": "OpenBeagle",
+        "type": "ORGANIZATION",
+        "description": "Organization hosting the Smallvm Zephyr Fork."
+      },
+      {
+        "name": "Smallvm Zephyr Fork",
+        "type": "SOFTWARE",
+        "description": "Fork of smallvm for Zephyr."
+      },
+      {
+        "name": "board porting instructions",
+        "type": "CONCEPT",
+        "description": "Instructions for porting to new boards"
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "BeagleConnect Freedom",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks has been ported to run on BeagleConnect Freedom."
+      },
+      {
+        "source": "Arduino Core API module for Zephyr",
+        "target": "Zephyr",
+        "relation": "EXTENDS",
+        "description": "The Arduino Core API module implements Arduino APIs on top of Zephyr."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Arduino APIs",
+        "relation": "SUPPORTS",
+        "description": "MicroBlocks uses Arduino APIs."
+      },
+      {
+        "source": "Ayush Singh",
+        "target": "MicroBlocks",
+        "relation": "DEVELOPED_BY",
+        "description": "Ayush Singh is porting MicroBlocks to BeagleConnect Freedom."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "Zephyr",
+        "relation": "COMPATIBLE_WITH",
+        "description": "MicroBlocks is being made compatible with Zephyr-supported boards."
+      },
+      {
+        "source": "BeagleConnect Freedom",
+        "target": "Zephyr",
+        "relation": "SUPPORTS",
+        "description": "BeagleConnect Freedom has Zephyr support."
+      }
+    ],
+    "source_url": "https://www.beagleboard.org/blog/2024-06-25-microblocks-on-beagleconnect-freedom",
+    "source_title": "MicroBlocks on BeagleConnect Freedom - BeagleBoard"
+  },
+  {
+    "summary": "The article introduces MicroBlocks, a graphical programming language similar to Scratch, designed for physical computing and hardware programming. It highlights the advantages of MicroBlocks, such as its 'click-to-download' functionality, parallel task support, cross-platform compatibility, and user-defined library creation, focusing on its application with the KittenBot Grape board.",
+    "entities": [
+      {
+        "name": "MicroBlocks",
+        "type": "SOFTWARE",
+        "description": "A free graphical programming language for physical computing, similar to Scratch."
+      },
+      {
+        "name": "Scratch",
+        "type": "SOFTWARE",
+        "description": "A block-based visual programming language and online community targeted primarily at children."
+      },
+      {
+        "name": "KittenBot",
+        "type": "ORGANIZATION",
+        "description": "A company specializing in STEM education products."
+      },
+      {
+        "name": "葡萄板 (Grape board)",
+        "type": "HARDWARE",
+        "description": "A microcontroller board used for learning programming and electronics."
+      },
+      {
+        "name": "NeoPixel",
+        "type": "HARDWARE",
+        "description": "RGB LED lights"
+      },
+      {
+        "name": "积木编辑器 (Block Editor)",
+        "type": "SOFTWARE",
+        "description": "Feature in MicroBlocks that allows users to create and edit custom blocks."
+      },
+      {
+        "name": "固件 (Firmware)",
+        "type": "SOFTWARE",
+        "description": "Software embedded in hardware devices."
+      },
+      {
+        "name": "CC喵",
+        "type": "PERSON",
+        "description": "An individual or persona associated with KittenBot who explored MicroBlocks"
+      },
+      {
+        "name": "VM虚拟机 (VM Virtual Machine)",
+        "type": "SOFTWARE",
+        "description": "Technology underlying MicroBlocks, providing robust functionality"
+      },
+      {
+        "name": "蓝牙(BLE)",
+        "type": "SOFTWARE",
+        "description": "Wireless connection for the board"
+      },
+      {
+        "name": "STEM教育",
+        "type": "CONCEPT",
+        "description": "Education in the fields of science, technology, engineering, and mathematics"
+      },
+      {
+        "name": "创客教育",
+        "type": "CONCEPT",
+        "description": "A movement in education focused on hands-on, creative learning experiences."
+      },
+      {
+        "name": "信息科技",
+        "type": "CONCEPT",
+        "description": "The use of computers and telecommunications to store, retrieve, transmit, and manipulate data."
+      },
+      {
+        "name": "编程教育",
+        "type": "CONCEPT",
+        "description": "Teaching and learning the skills to write computer programs."
+      },
+      {
+        "name": "中小学教育",
+        "type": "CONCEPT",
+        "description": "Primary and secondary education."
+      },
+      {
+        "name": "Microblocks编程",
+        "type": "CONCEPT",
+        "description": "Programming using MicroBlocks"
+      },
+      {
+        "name": "葡萄板编程",
+        "type": "CONCEPT",
+        "description": "Programming for 葡萄板"
+      }
+    ],
+    "relations": [
+      {
+        "source": "MicroBlocks",
+        "target": "Scratch",
+        "relation": "SIMILAR_TO",
+        "description": "MicroBlocks is described as being similar to Scratch."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "葡萄板 (Grape board)",
+        "relation": "COMPATIBLE_WITH",
+        "description": "葡萄板 is used as an example to showcase MicroBlocks' capabilities."
+      },
+      {
+        "source": "KittenBot",
+        "target": "葡萄板 (Grape board)",
+        "relation": "DEVELOPED_BY",
+        "description": "葡萄板 is associated with KittenBot."
+      },
+      {
+        "source": "葡萄板 (Grape board)",
+        "target": "MicroBlocks",
+        "relation": "SUPPORTS",
+        "description": "葡萄板 can be programmed using MicroBlocks."
+      },
+      {
+        "source": "积木编辑器 (Block Editor)",
+        "target": "MicroBlocks",
+        "relation": "FEATURE_OF",
+        "description": "The Block Editor is a feature of MicroBlocks."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "STEM教育",
+        "relation": "RELATED_TO",
+        "description": "MicroBlocks is used in the context of STEM education."
+      },
+      {
+        "source": "MicroBlocks",
+        "target": "VM虚拟机 (VM Virtual Machine)",
+        "relation": "BASED_ON",
+        "description": "MicroBlocks uses VM虚拟机 for its functionality"
+      }
+    ],
+    "source_url": "https://www.bilibili.com/opus/1009203897367003137",
+    "source_title": "拥抱MicroBlocks：超简单的KittenBot葡萄板编程！ - 哔哩哔哩"
+  }
+]

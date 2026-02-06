@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>Intro to MicroBlocks - Using BOARDIE | MicroBlocks Wiki</title><meta name="description" content="Tutorial Concept Demo as in &quot;micro:bit | Getting Started&quot;, but using Boardie."><meta property="og:title" content="Intro to MicroBlocks - Using BOARDIE"><meta property="og:type" content="website"><meta property="og:description" content="Tutorial Concept Demo as in &quot;micro:bit | Getting Started&quot;, but using Boardie."><meta property="og:image"><meta property="og:url" content="https://wiki.microblocks.fun/en/Tutorials/Intro_with_Boardie"><meta property="og:site_name" content="MicroBlocks Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"MicroBlocks Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"MicroBlocks","contentLicense":"ccbysa","footerOverride":"","logoUrl":"/images/wiki-logo.png"}
+var siteLangs = [{"code":"en","name":"English"}]
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.0e32c5b5f7b7df293dc5.css"><script type="text/javascript" src="/_assets/js/runtime.js?1738531300"></script><script type="text/javascript" src="/_assets/js/app.js?1738531300"></script><style type="text/css">body{background:linear-gradient(#fafafa,#d8ffff);background-attachment:fixed}.theme--light.v-application{background:0 0!important}.prismjs.line-numbers.language-none{background:#585858;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.line-numbers .line-numbers-rows{display:none}code[class*=language-],pre[class*=language-]{text-shadow:0 0 3px #999}.v-content .contents .prismjs>code{color:#333}.v-content .contents .prismjs{padding:1rem 1rem 1rem 1.5rem}a img:hover{filter:brightness(1.5)}</style></head><body><div id="root"><page locale="en" path="Tutorials/Intro_with_Boardie" title="Intro to MicroBlocks - Using BOARDIE" description="Tutorial Concept Demo as in &quot;micro:bit | Getting Started&quot;, but using Boardie." :tags="[]" created-at="2025-09-04T09:02:28.340Z" updated-at="2026-01-09T09:21:02.399Z" author-name="Turgut" :author-id="6" editor="ckeditor" :is-published="true" toc="W3sidGl0bGUiOiJJbnRybyB0byBNaWNyb0Jsb2NrcyB8IFVzaW5nIEJPQVJESUUiLCJhbmNob3IiOiIjaW50cm8tdG8tbWljcm9ibG9ja3MtdXNpbmctYm9hcmRpZSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IkdldHRpbmcgU3RhcnRlZCIsImFuY2hvciI6IiNnZXR0aW5nLXN0YXJ0ZWQiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJDYWxsaW5nIEJvYXJkaWUiLCJhbmNob3IiOiIjY2FsbGluZy1ib2FyZGllIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiTWFrZSBpdCBTbWlsZSIsImFuY2hvciI6IiNtYWtlLWl0LXNtaWxlIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiTWFrZSBpdCB5b3VyIHdheSIsImFuY2hvciI6IiNtYWtlLWl0LXlvdXItd2F5IiwiY2hpbGRyZW4iOltdfV19XQ==" :page-id="181" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifV0=" nav-mode="NONE" effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjpmYWxzZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlfSwiaGlzdG9yeSI6eyJyZWFkIjpmYWxzZX0sInNvdXJjZSI6eyJyZWFkIjpmYWxzZX0sInBhZ2VzIjp7InJlYWQiOnRydWUsIndyaXRlIjpmYWxzZSwibWFuYWdlIjpmYWxzZSwiZGVsZXRlIjpmYWxzZSwic2NyaXB0IjpmYWxzZSwic3R5bGUiOmZhbHNlfSwic3lzdGVtIjp7Im1hbmFnZSI6ZmFsc2V9fQ==" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="en/Tutorials/Intro_with_Boardie.html"><template slot="contents"><div><h4 class="toc-header" id="click-here-to-open-a-web-page-with-both-this-tutorial-and-the-microblocks-ide"><a href="#click-here-to-open-a-web-page-with-both-this-tutorial-and-the-microblocks-ide" class="toc-anchor">¶</a> <a class="is-external-link" href="https://microblocks.fun/turgut/tutorial.html">CLICK HERE to open a web page with both this tutorial and the MicroBlocks IDE.</a></h4>
+<p>&nbsp;</p>
+<h1 class="toc-header" id="intro-to-microblocks-using-boardie"><a href="#intro-to-microblocks-using-boardie" class="toc-anchor">¶</a> <strong>Intro to MicroBlocks | Using BOARDIE</strong></h1>
+<h2 class="toc-header" id="getting-started"><a href="#getting-started" class="toc-anchor">¶</a> Getting Started</h2>
+<p>Say Hello to Boardie !</p>
+<figure style="width:14.62%;" class="image image_resized"><img src="/ide_user_guide/boardiescrn.png"></figure>
+<p>&nbsp;</p>
+<p>Boardie is the virtual microcontroller that resides in the MicroBlocks IDE.</p>
+<p>Whenever you don't have access to a real microcontroller like micro:bit, you can summon Boardie instead.&nbsp;</p>
+<p>While it has limited capabilities, it will help you get started with nothing else but your Browser.</p>
+<h2 class="toc-header" id="calling-boardie"><a href="#calling-boardie" class="toc-anchor">¶</a> Calling Boardie</h2>
+<p>Let's see how we can make Boardie appear in the MicroBlocks IDE.</p>
+<figure style="width:46.72%;" class="image image_resized"><img src="https://wiki.microblocks.fun/ide_user_guide/menu_iconbar_connect.png"></figure>
+<p>Notice the "Connect" button in the Menu of the IDE. If you click it, you will see three options for different ways to connect to microcontrollers.</p>
+<p>Go ahead and click on Connect with your mouse.</p>
+<figure class="image"><img src="https://wiki.microblocks.fun/ide_user_guide/menu_connect.png"></figure>
+<p>The very last one at the bottom is the one we want. Now click on Boardie in the selection displayed.</p>
+<p>And you should end up with a screen that looks like what's below, with Boardie on the IDE.</p>
+<figure style="width:37.78%;" class="image image_resized"><img src="/tutorials/idewithboardie.jpg"></figure>
+<p>&nbsp;</p>
+<h2 class="toc-header" id="make-it-smile"><a href="#make-it-smile" class="toc-anchor">¶</a> Make it Smile</h2>
+<p>Now let's see if we can make boardie SMILE !</p>
+<p>Click on "LED Display" on the left side of the IDE and then the very top block that has a smiley image on it:&nbsp;</p>
+<figure class="image"><img src="/tutorials/smiley.png"></figure>
+<p>And you should see the smiley image appear on the Boardie screen.</p>
+<p>&nbsp;</p>
+<h2 class="toc-header" id="make-it-your-way"><a href="#make-it-your-way" class="toc-anchor">¶</a> Make it your way</h2>
+<p>You can also drag the smiley block onto the IDE and change it's looks to something you want.</p>
+<p>Here, I made it FROWN !</p>
+<figure class="image"><img src="/tutorials/sad.png"></figure>
+<p>&nbsp;</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div><script>
+// Hack I'm not proud of that makes the logo link to microblocks.fun
+var interval = setInterval(function() {
+  // Look for the logo element, so that we're sure the image has been actually loaded
+  if (document.querySelector('.v-image__image.v-image__image--cover')) {
+    clearInterval(interval);
+    document.querySelector('.v-avatar').onclick = function () { location.replace('https://microblocks.fun'); };
+  }
+}, 50);
+</script></body></html>

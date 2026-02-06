@@ -1,0 +1,656 @@
+URL: https://community.appinventor.mit.edu/t/microblocks-ble-extension/129412
+Title: MicroBlocks BLE Extension - Extensions - MIT App Inventor Community
+
+MicroBlocks BLE Extension - Extensions - MIT App Inventor Community
+
+Loading
+
+    MIT App Inventor Community
+  
+
+MicroBlocks BLE Extension
+
+Extensions
+
+Peter
+
+                    October 19, 2024,  4:01am
+                  
+
+1
+
+MicroBlocks
+
+MicroBlocks
+
+ is a blocks programming language for physical computing.
+
+image
+
+1028×666 73.2 KB
+
+Image of the pilot version of MicroBlocks version 2
+
+It runs on microcontrollers such as the 
+
+micro:bit
+
+, 
+
+Calliope mini
+
+, 
+
+AdaFruit Circuit Playground Express
+
+, and many 
+
+others
+
+.
+
+Code Interactively
+
+MicroBlocks is a live environment. Click on a block and it runs immediately, right on the board. Try out commands. See and graph sensor values in real time. No more waiting for code to compile and download.
+
+Multitask Naturally
+
+Want to display an animation while controlling a motor? No problem! MicroBlocks lets you write separate scripts for each task and run them at the same time. Your code is simpler to write and easier to understand.
+
+Run Everywhere
+
+MicroBlocks runs on many different boards, but your scripts are portable. Buttons, sensors, and display blocks behave the same on all boards with the relevant hardware. MicroBlocks even simulates the micro:bit 5x5 LED display on TFT displays.
+
+Unplug and go!
+
+MicroBlocks downloads your code as you write it. When you like what your program does, just unplug the board and you're good to go. Make a pocket game, a fitness app, or light-up clothing that goes wherever you do.
+
+MicroBlocks BLE Extension
+
+The extension makes connecting to microcontrollers very easy. It does all the difficult work for you using the blocks it contains.
+
+Methods:
+
+ConnectBlock
+
+2300×820 67.6 KB
+
+Connect
+
+Connects to the MicroBlocks device with the given 
+
+name
+
+. Import the “
+
+Bluetooth LE
+
+” extension and use the “Bluetooth LE” block from that extension as the first parameter of this block. The second parameter is the name of the board you want to connect to such as “MicroBlocks XYZ” where XYZ is the board’s three-letter BLE ID.
+
+Parameter
+
+Type
+
+bleExtension
+
+component
+
+name
+
+text
+
+Disconnect
+
+DisconnectBlock
+
+2399×300 39.3 KB
+
+Disconnects from the currently connected BluetoothLE device, if any.
+
+IsDeviceConnected
+
+IsDeviceConnectedBlock
+
+3025×260 51.1 KB
+
+Returns true if a device is connected.
+
+Return Type: boolean
+
+SendMessage
+
+SendMessageBlock
+
+2691×560 66.2 KB
+
+Send the given message to MicroBlocks.
+
+Parameter
+
+Type
+
+message
+
+text
+
+Events:
+
+ConnectionChanged
+
+ConnectionChangedBlock
+
+3141×860 168 KB
+
+This event is run when a device is connected or disconnected.
+
+Parameter
+
+Type
+
+isConnected
+
+boolean
+
+MicroBlocksMessageReceived
+
+MicroBlocksMessageReceivedBlock
+
+3800×860 186 KB
+
+This event is run when a MicroBlocks message is received.
+
+Parameter
+
+Type
+
+message
+
+text
+
+This documentation was generated using 
+
+Akshat Developer's Documentation Generator
+
+.
+
+Examples
+
+Connect to a board
+
+The name of a MicroBlocks BLE enabled device is MicroBlocks followed by a space and the 3 letter BLE id.
+
+If the board is a Raspberry Pi Pico W, then the name is Pico followed by a space and the 3 letter BLE id.
+
+If your board has a display, it will show the BLE id when powering up. If the board doesn't have a display, you can get the BLE id by using the BLE id block that you can find in the Input category of MicroBlocks. The board has to be connected to the IDE to show the BLE id.
+
+Receive a single value from the microcontroller
+
+MicroBlocks Code
+
+App Inventor code
+
+Receive multiple values from the microcontroller
+
+MicroBlocks Code
+
+App Inventor Code
+
+Receive multiple values from the microcontroller using keywords.
+
+MicroBlocks Code
+
+Using a space behind the keyword to separate keywords and values.
+
+App Inventor Code
+
+Splitting messages on the first space character found.
+
+Send a message to the microcontroller from App Inventor
+
+App Inventor Code
+
+MicroBlocks Code
+
+This block looks for a specific message
+
+This block handles any message
+
+Send a message with a value to the microcontroller from App Inventor
+
+App Inventor Code
+
+MicroBlocks Code
+
+Example Project Beating Heart
+
+image
+
+371×616 30.7 KB
+
+image
+
+716×665 66.7 KB
+
+beating_heart.aia
+
+ (225.8 KB)
+
+beatingheart.txt
+
+ (4.3 KB)
+
+Rename the beatingheart.txt file to beatingheart.ubp. The community doesn't allow files with the ubp extension.
+
+I used the 
+
+Tools Extension
+
+ from 
+
+@Taifun
+
+ to keep the screen on while connected to the microcontroller.
+
+Links:
+
+Stable version of MicroBlocks v2
+
+https://microblocks.fun/downloads/latest/
+
+https://microblocks.fun/run/microblocks.html
+
+Pilot version of MicroBlocks Version 2
+
+https://microblocks.fun/downloads/pilot/
+
+https://microblocks.fun/run-pilot/microblocks.html
+
+Read about the new version 2 and why you could use that instead of version 1.
+
+microblocks.fun
+
+Coming Soon: MicroBlocks 2.0!
+
+MicroBlocks is a blocks programming language for physical computing inspired by Scratch.
+
+Extension version 1
+
+fun.microblocks.microblocks.aix
+
+ (12.6 KB)
+
+We had already a number of meetings with members from the App Inventor development team and App Inventor Foundation, to see if this would benefit students learning physical computing.
+
+11 Likes
+
+MicroBlocks and App Inventor
+
+Problems connecting MIT app builder to microbit
+
+LED editor using MicroBlocks extension
+
+Connecting BBC microbit V2 to Mit App Inventor
+
+BLE and ESP32 just a new test example (send and receive in UART Service)
+
+Need help how to get ESP32 BLE connection
+
+Query efficiency fetching images from URLs
+
+Conectar meu app e um ESP32-c3 via BLE
+
+BluetoothLE extension very confusing (ESP32-C3 communication)
+
+CO2 meter using a databot and MicroBlocks
+
+Connexion bluetooth avec le robot Maqueen
+
+Peter
+
+                    November 13, 2024,  4:28am
+                  
+
+6
+
+The MicroBlocks extension is now featured on the App Inventor Foundation website.
+
+App Inventor Foundation
+
+News — App Inventor Foundation
+
+So please give the extension a try, and see how much easier it is to work with BLE and micro controllers using MicroBlocks.
+
+1 Like
+
+FAQ Section: BlueTooth/BLE
+
+ABG
+
+                    November 13, 2024,  4:40am
+                  
+
+7
+
+(added to FAQ)
+
+FAQ Section: BlueTooth/BLE
+
+ 
+
+Frequently Asked Questions
+
+    BLE Releases 
+
+BluetoothLE extension 20240822 Java 11  UUID bugfix - @ewpatton
+
+BluetoothLE extension 20240322-beta bugfix - ewpatton
+
+BluetoothLE extension 20230728 released - ewpatton
+
+BluetoothLE extension 20201223 released - ewpatton
+
+BluetoothLE extension 20200828 released - ewpatton
+
+BluetoothLE extension 20190701 released - EWPatton
+
+ 
+BLE Problems 
+
+How to clean out residual BLE extension parts - ewpatton
+
+How to send text longer than 20 bytes - ChrisWard
+
+WriteStrings is fixed to 23 Bytes a…
+
+1 Like
+
+yamafu
+
+                    November 16, 2024, 11:13am
+                  
+
+8
+
+Great article! I made an app based on this that controls two sliders with one MicroBlocks device. 
+
+Here is the article.
+
+ For your reference.
+
+3 Likes
+
+Peter
+
+                    November 16, 2024,  3:12pm
+                  
+
+9
+
+Thank you for using the extension. I posted your article on the MicroBlocks Discord server.
+
+2 Likes
+
+Alex_Nolan
+
+                    January 12, 2025,  9:46pm
+                  
+
+10
+
+Very Useful and Great extension!
+
+Thanks a lot, but it has some remarkable issues:
+
+First, it does not work well with "Android companion" newer than version:2.68, it won't connect or throws a Java exception.
+
+Second, everything looks good in the first connection, but if I disconnect and reconnect again, no messages will be sent. If I disconnect and reconnect again, the message may be sent correctly!
+
+I would appreciate it if you could fix them.
+
+TIMAI2
+
+                    January 12, 2025,  9:54pm
+                  
+
+11
+
+ Alex_Nolan:
+
+First, it does not work well with "Android companion"
+
+If your issue is when running companion try the bugfix companion:
+
+String IndexOutOfBounds Exception while using extensions in companion app
+
+ 
+
+Bugs and Other Issues
+
+    Ok. Here's a newer version that tweaks the extension loading code a bit and adds some additional debug logs. If it still doesn't work on Android 5, please attach a copy of the logcat so I can take a look. This version is 2.73ad2. 
+[Link removed] 
+As of 2024-12-20, ai2-test includes 
+
+companion version 2.73t6
+
+ that contains the proposed fix. 
+[qrcode]
+  
+
+Select "NotNow" if asked.
+
+2 Likes
+
+Peter
+
+                    January 13, 2025,  4:27am
+                  
+
+12
+
+Hi 
+
+@Alex_Nolan
+
+,
+
+Great that you tried the MicroBlocks extension. I hope the new Companion that Tim showed you will solve the problem. I really don't think it is related to the extension. I use the extension almost on a daily basis and it always works for me. It makes working with BLE and App Inventor so much easier.
+
+With which microcontroller are you using the extension? Maybe you can share your project with us.
+
+1 Like
+
+Alex_Nolan
+
+                    January 15, 2025,  1:12pm
+                  
+
+13
+
+Hi 
+
+@TIMAI2
+
+,
+
+Thank you very much. Version 2.73t6 has fixed the exception, and I hope it will be published on the Google Play Store soon.
+
+Alex_Nolan
+
+                    January 15, 2025,  1:20pm
+                  
+
+14
+
+Hi 
+
+@Peter
+
+Thanks for your response. Yes, the new companion fixes the exception thrown when running the app on my phone and improves the connectivity issue. But the non-working connections still exist.
+
+The installed app using the APK file does not send or receive any messages at all, while it's connected!
+
+Here is my project
+
+MicroBlocks.aia
+
+ (439.8 KB)
+
+By the way, I am testing it using Doit ESP32 devkit V1.
+
+1 Like
+
+Peter
+
+                    January 15, 2025,  2:07pm
+                  
+
+15
+
+Great, what is EASY IOT?
+
+Alex_Nolan
+
+                    January 15, 2025,  2:10pm
+                  
+
+16
+
+That is my project logo, I am trying to teach my students about IoT and Robotics, of course in an easy manner 
+
+1 Like
+
+Peter
+
+                    January 15, 2025,  2:16pm
+                  
+
+17
+
+Do you know the MicroBlocks website and the learn website and wiki  
+
+MicroBlocks LEARN
+
+ and 
+
+Home | MicroBlocks Wiki
+
+I would love to see what you are doing in your lessons especially since you are using MicroBlocks. How did you discover MicroBlocks? Was it this topic?
+
+Peter
+
+                    January 15, 2025,  2:46pm
+                  
+
+18
+
+ Alex_Nolan:
+
+The installed app using the APK file does not send or receive any messages at all, while it's connected!
+
+It is not working when you install? Are you able to connect using BLE?
+
+Peter
+
+                    January 15, 2025,  2:47pm
+                  
+
+19
+
+Can you also show the MicroBlocks code?
+
+ Alex_Nolan:
+
+Doit ESP32 devkit V1.
+
+Do you have a link?
+
+Alex_Nolan
+
+                    January 15, 2025,  7:21pm
+                  
+
+20
+
+Well, I am a fan of MicroBlocks for many reasons, first of all, it supports ESP32 very well, second it runs very smoothly and has great features. I know the website and wiki. actually, one of my colleagues introduced MicroBlocks to me about a year ago.
+
+Alex_Nolan
+
+                    January 15, 2025,  7:29pm
+                  
+
+21
+
+When I install the APK, BLE connects very well but no data communication happens at all. after a lot of connect and disconnects, there would be one time that everything works fine.
+
+Screenshot 2025-01-15 225750
+
+863×586 28.8 KB
+
+grobotronics.com
+
+ESP32 Development Board - DEVKIT V1
+
+The Esp32 DevKit v1 is one of the development board created to evaluate the ESP-WROOM-32 module It is based on the ESP32 microcontroller that boasts Wifi Bluetooth Ethernet and Low Power support all in a single chip ESP32 is already...
+
+Maybe it's an issue in MicroBlocks firmware, I am Using V250.
+
+Another interesting issue is that the BLE keeps disconnecting just after connecting, as long as the USB cable is connected to the ESP32 and MicroBlocks IDE is running.
+
+Peter
+
+                    January 16, 2025,  5:07am
+                  
+
+22
+
+Hi 
+
+@Alex_Nolan
+
+,
+
+That's strange. I use BLE with Pico, CoCube, microbit v2, calliope mini 3, ESP32, ESP32 S3, etc, etc and it always works. I can not see what is inside the costum blocks you made. Could you share the ubp file.
+
+What phone and android version are you using?
+
+Could you join the MicroBlocks Discord 
+
+MicroBlocks
+
+, the MicroBlocks developers could help also with your question.
+
+Alex_Nolan
+
+                    January 21, 2025,  7:44pm
+                  
+
+23
+
+Hi 
+
+@Peter
+
+Sorry for my late response, Hopefully, the AI2companion version 2.74 has been published and I updated my phones. I tested the app on two phones, a Xiaomi that runs Android 13 and a Samsung that runs Android 8.
+
+I also wrote a simple code to test your library.
+
+The APK works on both phones. However, it experiences some glitches in sending and receiving data after consecutive disconnecting and connecting. As I mentioned before, it connects normally but no bytes are sending or receiving at all. I think it's acceptable for an application built with App Inventor. (maybe there is an issue with the BLE extension)
+
+But using AI2 companion, there is no data communication in Android 13, while it's ok on Android 8. So I think there is something wrong with the AI2 companion!
+
+Peter
+
+                    January 22, 2025,  5:45am
+                  
+
+24
+
+ Alex_Nolan:
+
+consecutive disconnecting and connecting
+
+How does that look like in practice? Is that with just one disconnect and connect?
+
+The only thing that ever happened to me, but now I have to dig really deep into my memory, is that there was a device, don't know what it was anymore, that wouldn't want to play nice with my Samsung tablet. It just wouldn't connect, while it worked on my Pixel phone.
+
+next page →

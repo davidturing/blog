@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="readthedocs-addons-api-version" content="1"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.Microblocks &amp; XGO: No Threshold! Journey of Robot Programming &mdash; keyestudio WiKi  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <script src="../_static/js/versions.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.Projects" href="5.Projects/Projects.html" />
+    <link rel="prev" title="3.FoxBit Development Board User Manual" href="3.FoxBit.html" /> 
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="keyestudio-fb0004" /><meta name="readthedocs-version-slug" content="latest" /><meta name="readthedocs-resolver-filename" content="/docs/4.Microblocks%20Development%20Environment.html" /><meta name="readthedocs-http-status" content="200" /></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            keyestudio WiKi
+          </a>
+              <div class="switch-menus">
+                <div class="version-switch"></div>
+                <div class="language-switch"></div>
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">keyestudio FB0004 docs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1.XGO%20Introduction.html">1.XGO-lite Robot Dog Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.XGO%20Assembly.html">2.XGO-Foxbit Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.FoxBit.html">3.FoxBit Development Board User Manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4.Microblocks &amp; XGO: No Threshold! Journey of Robot Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-microblocks">1. What is Microblocks?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#online-version-guide">2. Online Version Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#offline-version-installation">3. Offline Version Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-tour-of-development-environment">4. Quick Tour of Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-xgo-library-to-microblocks">5. Add XGO Library to Microblocks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xgo-basic-example-the-dog-greets-you">6. XGO Basic Example: The dog greets you</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xgo-blocks-speediness-lookup-table">7. XGO Blocks Speediness Lookup Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#faq">8. FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="5.Projects/Projects.html">5.Projects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">keyestudio WiKi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">4.Microblocks &amp; XGO: No Threshold! Journey of Robot Programming</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/docs/4.Microblocks Development Environment.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="microblocks-xgo-no-threshold-journey-of-robot-programming">
+<h1>4.Microblocks &amp; XGO: No Threshold! Journey of Robot Programming<a class="headerlink" href="#microblocks-xgo-no-threshold-journey-of-robot-programming" title="Link to this heading"></a></h1>
+<p><img alt="Img" src="../_images/img-20250718174455.png" /></p>
+<section id="what-is-microblocks">
+<h2>1. What is Microblocks?<a class="headerlink" href="#what-is-microblocks" title="Link to this heading"></a></h2>
+<p>Microblocks is an open-source and free graphical programming environment. Its syntax is similar to Scratch, but it can run directly in real time on various microcontrollers (Micro:bit, ESP32/ESP8266, Raspberry PI Pico, etc.).</p>
+<p>The official Microblocks comes with the FoxBit development board and the XGO robot dog library, which supports actions, sensors, and AI expansion by simply dragging code blocks.</p>
+<ul class="simple">
+<li><p>Official: <a class="reference external" href="https://microblocks.fun">https://microblocks.fun</a></p></li>
+<li><p>Wiki: <a class="reference external" href="https://wiki.microblocks.fun/en/home">https://wiki.microblocks.fun/en/home</a></p></li>
+</ul>
+</section>
+<section id="online-version-guide">
+<h2>2. Online Version Guide<a class="headerlink" href="#online-version-guide" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ver.</p></th>
+<th class="head"><p>Url</p></th>
+<th class="head"><p>Applicable Scenarios</p></th>
+<th class="head"><p>Remarks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Online version</p></td>
+<td><p><a class="reference external" href="https://microblocks.fun/run/microblocks.html">https://microblocks.fun/run/microblocks.html</a></p></td>
+<td><p>There is a network environment and no installation is required</p></td>
+<td><p>If the “Incompatible” prompt appears, please click the gear →「Erase Information and upgrade FoxBit firmware」.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="offline-version-installation">
+<h2>3. Offline Version Installation<a class="headerlink" href="#offline-version-installation" title="Link to this heading"></a></h2>
+<p>Please refer to the previous chapter, “4.2 MicroBlocks IDE”.</p>
+</section>
+<section id="quick-tour-of-development-environment">
+<h2>4. Quick Tour of Development Environment<a class="headerlink" href="#quick-tour-of-development-environment" title="Link to this heading"></a></h2>
+<p><img alt="Img" src="../_images/img-20250718174337.png" /></p>
+<ol class="arabic simple">
+<li><p>Workspace (center) : Drag and drop building blocks, write logic code.</p></li>
+<li><p>Building Block Library (left) : All blocks are classified by color.</p></li>
+<li><p>Module Library (lower left) : Add various types of libraries.</p></li>
+<li><p>Sidebar (right) : Connect to the main board and simulator.</p></li>
+<li><p>Toolbar (upper left): Switch languages, upgrade firmware, open examples.</p></li>
+</ol>
+</section>
+<section id="add-xgo-library-to-microblocks">
+<h2>5. Add XGO Library to Microblocks<a class="headerlink" href="#add-xgo-library-to-microblocks" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Connect the XGO with the FoxBit development board to the computer, and long press the power button of the XGO to turn it on.</p></li>
+<li><p>Click 「Connect」→ the corresponing serial port → OK. A small green dot in the status bar indicates that it is connected. The model of the board is FoxBit, and its extension library is automatically displayed on the left side.</p></li>
+<li><p>In Library → Robot, tick <strong>XGO-lite</strong>. If there is no XGO blocks, pleasw resart the software or reload the extensions.</p></li>
+</ol>
+</section>
+<section id="xgo-basic-example-the-dog-greets-you">
+<h2>6. XGO Basic Example: The dog greets you<a class="headerlink" href="#xgo-basic-example-the-dog-greets-you" title="Link to this heading"></a></h2>
+<p><img alt="Img" src="../_images/scriptImage2385183.png" /></p>
+<p>Click  ▶Run, and drag the building blocks while observing its movements.</p>
+</section>
+<section id="xgo-blocks-speediness-lookup-table">
+<h2>7. XGO Blocks Speediness Lookup Table<a class="headerlink" href="#xgo-blocks-speediness-lookup-table" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code blocks</p></th>
+<th class="head"><p><img alt="Img" src="../_images/scriptImage30927.png" /></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Establish serial communication and put the servo in idle mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>It must be placed at the beginning of the program</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage286052.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Return to the default standing position</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Reset among multiple movements</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage290619.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>List of preset actions</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>One-click to complete set of actions</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Sit down, shake hands, pay New Year’s greetings…</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage295659.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>-100~100</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Front/back stride</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Walk in a straight line</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage300062.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>-100~100</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Left/right stride</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Move sideways to dodge</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage304338.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>-100~100</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Truning speed/angle</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Make a U-turn on the spot</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage308832.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Stop walking immediately</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Emergency braking</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage312605.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Parameters</strong></p></td>
+<td><p>Slow/Normal/Fast</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Gear position of walk speed</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Performance rhythm</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage315883.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Parameters</strong></p></td>
+<td><p>Crawl/Walk/Trot/Bound</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Gait switching</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Power-saving or high-speed</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage319421.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Parameters</strong></p></td>
+<td><p>±25 mm</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Body translation</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Fine-tuning of the center of gravity</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage322795.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Parameters</strong></p></td>
+<td><p>±20°</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function Description</strong></p></td>
+<td><p>Body rotation</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Nod/tail</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage326742.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Return the remaining battery power</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Low battery alarm</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage331196.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>0-100%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>The claw opens and closes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Grab or place objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage335375.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>-115°~70°</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Single-joint positioning</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Accurately pick up objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Code blocks</strong></p></td>
+<td><p><img alt="Img" src="../_images/scriptImage339300.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Parameters</strong></p></td>
+<td><p>Upper/Lower -30°~30°</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function Description</strong></p></td>
+<td><p>Independent leg joint</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Application scenarios</strong></p></td>
+<td><p>Custom-tailored actions</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="faq">
+<h2>8. FAQ<a class="headerlink" href="#faq" title="Link to this heading"></a></h2>
+<p>Q1: Cannot connect to the serial port?</p>
+<p>A: ① Check whether the data cable supports data transmission; ② Whether 「USB-Serial」 appears in the device manager; ③ Try another ESP32 port.</p>
+<p>Q2: XGO makes no responce but no error is reported?</p>
+<p>A: You forgot  <code class="docutils literal notranslate"><span class="pre">XGO</span> <span class="pre">init</span></code> or it is in low battery protection. Check the battery capacity to determine whether it needs to be charged.</p>
+<p>Q3: Sluggish movement or abnormal gait?</p>
+<p>A: Add <code class="docutils literal notranslate"><span class="pre">XGO</span> <span class="pre">reset</span> <span class="pre">pose</span></code> before downloading, or go to 「Settings」→「Erase and Upgrade Firmware」 to refresh the underlying library.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="3.FoxBit.html" class="btn btn-neutral float-left" title="3.FoxBit Development Board User Manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="5.Projects/Projects.html" class="btn btn-neutral float-right" title="5.Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Shenzhen keyestudio Technology Co., Ltd.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

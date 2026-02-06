@@ -218,10 +218,10 @@ def process_chapter(chapter_num, base_dir, pdf_path, high_res_dir, client, targe
 
     # MANUAL OVERRIDES
     MANUAL_OVERRIDES = {
-        "图 2-6": {"page": 54, "action": "full_page_rotate_cw"},
-        "图2-6": {"page": 54, "action": "full_page_rotate_cw"},
-        "图 2-1": {"page": 40, "action": "manual_crop", "box": [100, 0, 950, 1000]},
-        "图2-1": {"page": 40, "action": "manual_crop", "box": [100, 0, 950, 1000]},
+        # "图 2-1": {"page": 40, "action": "manual_crop", "box": [0, 380, 1000, 750]}, # Replaced with rotation
+        "图 2-1": {"page": 40, "action": "manual_crop_rotate_ccw", "box": [0, 150, 1000, 950]}, # Correct CCW Crop (Cut Left/Original, which is Bottom/Rotated)
+        "图2-1": {"page": 40, "action": "manual_crop_rotate_ccw", "box": [0, 150, 1000, 950]},
+
         
         # Chapter 5
         "图 5-1": {"page": 121, "action": "full_page_rotate_cw"},
@@ -317,11 +317,38 @@ def process_chapter(chapter_num, base_dir, pdf_path, high_res_dir, client, targe
                     save_path = images_dir / f"{safe_name}.png"
                     cropped_img.save(save_path)
                     print(f"Saved OVERRIDE {fig} to {save_path}")
-                    # Update md
-                    link_str = f"\n![{fig}](images/{safe_name}.png)\n"
-                    content = content.replace(fig, link_str)
                 except Exception as e:
-                    print(f"Failed to apply override for {fig}: {e}")
+                    print(f"Error applying rotate override for {fig}: {e}")
+                
+                # Update markdown with link
+                content = content.replace(fig, f"![{fig}](images/{fig.replace(' ', '')}.png)")
+                continue
+
+            elif action == 'manual_crop_rotate_ccw':
+                try:
+                    box = override['box'] # [ymin, xmin, ymax, xmax]
+                    ymin, xmin, ymax, xmax = box
+                    img = Image.open(image_path)
+                    w, h = img.size
+                    left = xmin * w / 1000
+                    top = ymin * h / 1000
+                    right = xmax * w / 1000
+                    bottom = ymax * h / 1000
+                    
+                    cropped_img = img.crop((left, top, right, bottom))
+                    # Rotate 90 degrees Counter-Clockwise
+                    rotated_img = cropped_img.transpose(Image.ROTATE_90)
+                    
+                    safe_name = fig.replace(" ", "")
+                    save_path = images_dir / f"{safe_name}.png"
+                    rotated_img.save(save_path)
+                    print(f"Saved OVERRIDE {fig} to {save_path}")
+                except Exception as e:
+                    print(f"Error applying manual_crop_rotate_ccw for {fig}: {e}")
+                
+                content = content.replace(fig, f"![{fig}](images/{fig.replace(' ', '')}.png)")
+                continue
+
             
             elif action == 'manual_crop':
                 try:
@@ -345,13 +372,6 @@ def process_chapter(chapter_num, base_dir, pdf_path, high_res_dir, client, targe
                     content = content.replace(fig, link_str)
                 except Exception as e:
                     print(f"Failed to apply override for {fig}: {e}")
-                    # The original code had `results[fig] = save_path` here.
-                    # Assuming `results` is meant to be a dictionary to store paths.
-                    # If `results` is not defined elsewhere, it should be initialized.
-                    # For now, I'll assume it's a local variable that should be defined.
-                    # However, the provided snippet has `results = {}[fig] = save_path` which is a syntax error.
-                    # I will define `results` as an empty dict at the start of the function if it's meant to collect all results.
-                    # But given the context, it seems `results` was intended to be a local variable for this specific override block.
                     # Since the user's instruction is only to define MANUAL_OVERRIDES, and the provided snippet has a syntax error
                     # with `results = {}[fig] = save_path`, I will omit that line and assume `results` is handled elsewhere or not needed here.
                     # If `results` is indeed needed, the user should provide a correct definition.
