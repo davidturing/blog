@@ -1,7 +1,7 @@
 <!-- Sync Impact Report
-- Version change: 1.1.1 -> 1.1.2
-- List of modified principles: Added Principle VI (Documentation Standards)
-- Added sections: VI. Documentation Standards
+- Version change: 1.2.0 -> 1.3.0
+- List of modified principles: Updated Principle VII (Illustration Standards - Blueprint to Scientific)
+- Added sections: None
 - Templates requiring updates: ✅ None
 -->
 
@@ -45,6 +45,12 @@
 - **语义样式**：核心术语首次出现必须 **加粗**，提示/警告信息必须 _斜体_。
 - **列表缩进**：嵌套列表严格使用 4 空格缩进。
 
+### 七、插图标准 (VII. Illustration Standards)
+使用 `baoyu-article-illustrator` 生成配图时必须遵循以下统一规范：
+- **风格统一**：严禁使用多样的艺术风格，必须统一使用 **Scientific (科学/学术插图)** 风格。
+- **分辨率**：必须设定为 **1K** (Square)。
+- **文字语言**：图片内的文字标签必须优先使用 **中文**。
+
 ## 非功能性约束 (Constraints)
 
 - **文件名规范**：使用英文或拼音命名文件（如 `data_quality.md`），避免在 URL 中出现中文编码问题（章节目录名除外）。
@@ -57,4 +63,4 @@
 - **变更流程**：对本章程的任何修改需经核心维护者批准，并更新版本号。
 - **合规审查**：新加入的章节必须在合并前通过“章程符合性检查”（尤其是图表完整性）。
 
-**Version**: 1.1.2 | **Ratified**: 2026-02-06 | **Last Amended**: 2026-02-06
+**Version**: 1.3.0 | **Ratified**: 2026-02-06 | **Last Amended**: 2026-02-14
