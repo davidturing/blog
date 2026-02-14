@@ -1,0 +1,20 @@
+Here are the bounding box detections:
+```json
+[
+  {"box_2d": [325, 237, 583, 578], "label": "MAIN DIAGRAM"},
+  {"box_2d": [422, 414, 442, 435], "label": "图 2-1"}
+]
+```
+Here's a detailed description of the image:
+
+1.  **Main Diagram**: The image contains a complex flow chart or diagram illustrating a data governance framework. It shows how data flows through different stages and departments of a company, highlighting key concepts like data architecture, standards, information value chains, and data quality. It also shows the flow of information between different levels of the organization.
+
+2.  **Figure 2-1**: The text "图 2-1" is located near the bottom middle of the image, under the diagram, serving as a caption.
+
+3.  **Text Orientation**: The main text is oriented upright.
+
+4.  **Coordinates of the Main Diagram**:
+    *   X: 325
+    *   Y: 237
+    *   Width: 258
+    *   Height: 341
