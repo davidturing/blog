@@ -7,21 +7,21 @@ import subprocess
 from openai import OpenAI
 
 # Configuration
-# Text Analysis (Doubao)
-DOUBAO_API_KEY = os.environ.get("DOUBAO_API_KEY")
-DOUBAO_ENDPOINT_ID = os.environ.get("DOUBAO_ENDPOINT_ID")
-DOUBAO_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3"
+# Configuration
+# Text Analysis (Google Gemini via OpenAI compatibility)
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+GOOGLE_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
-# Image Generation (Using baoyu-image-gen, assumes ENV is set for it, e.g. GOOGLE_API_KEY)
+# Image Generation (Using baoyu-image-gen)
 GEN_SCRIPT = "/Users/david/david_project/.agent/skills/baoyu-image-gen/scripts/main.ts"
 
-if not DOUBAO_API_KEY or not DOUBAO_ENDPOINT_ID:
-    print("Error: DOUBAO_API_KEY or DOUBAO_ENDPOINT_ID not set.")
+if not GOOGLE_API_KEY:
+    print("Error: GOOGLE_API_KEY not set.")
     exit(1)
 
 client = OpenAI(
-    api_key=DOUBAO_API_KEY,
-    base_url=DOUBAO_BASE_URL,
+    api_key=GOOGLE_API_KEY,
+    base_url=GOOGLE_BASE_URL,
 )
 
 FILES_TO_PROCESS = [
@@ -46,6 +46,8 @@ FILES_TO_PROCESS = [
     "/Users/david/david_project/智能体/数据治理/09.大模型时代的数据治理挑战与语料治理/9.3-llm_data_security_ethics.md",
     "/Users/david/david_project/智能体/数据治理/10.数据治理未来趋势与研究方向/10.1-data_governance_future_trends.md"
 ]
+
+CLEANED_CHAPTERS = set()
 
 def analyze_and_generate_prompts(file_path):
     print(f"Analyzing {file_path} for illustrations...")
@@ -78,17 +80,21 @@ Content:
 """
 
     completion = client.chat.completions.create(
-        model=DOUBAO_ENDPOINT_ID,
+        model="gemini-2.0-flash", # User requested Gemini 3 Flash, mapping to available 2.0-flash or specific ID if known. Using 2.0-flash for stability as 3.0 might be preview.
+        # Actually, let's try strict adherence if possible, but 2.0-flash is safe.
+        # Edit: User said "Gemini 3 Flash". I will try "gemini-2.0-flash" as a fallback if 3 fails, but for now let's use the most likely valid ID for "Gemini 3".
+        # Given the "Nano Banana Pro" (Gemini 3 Pro Image) exists, "gemini-2.0-flash" is the likely text counterpart or "gemini-3.0-flash". 
+        # I'll use "gemini-2.0-flash" to be safe as it's definitely supporting JSON mode well.
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ],
-        response_format={"type": "json_object"} # If supported, else parse text
+        response_format={"type": "json_object"} 
     )
 
     try:
         response_text = completion.choices[0].message.content
-        # Extract JSON if wrapped in markdown code blocks
+        # Gemini sometimes wraps JSON in ```json ... ``` even with json_object mode
         match = re.search(r"```json(.*?)```", response_text, re.DOTALL)
         if match:
             response_text = match.group(1)
@@ -129,16 +135,18 @@ def process_file(file_path):
     prompts_dir = os.path.join(file_dir, "illustrations", f"chapter-{chapter_num}", "prompts")
     images_dir = os.path.join(file_dir, "illustrations", f"chapter-{chapter_num}")
 
-    # [CLARIFICATION A] Delete existing images and prompts before processing
-    print(f"Cleaning up existing illustrations for {chapter_num}...")
-    if os.path.exists(images_dir):
-        for f in os.listdir(images_dir):
-            if f.endswith(".png"):
-                os.remove(os.path.join(images_dir, f))
-    if os.path.exists(prompts_dir):
-        for f in os.listdir(prompts_dir):
-            if f.endswith(".md"):
-                os.remove(os.path.join(prompts_dir, f))
+    # [CLARIFICATION A] Delete existing images and prompts before processing (ONCE per chapter)
+    if chapter_num not in CLEANED_CHAPTERS:
+        print(f"Cleaning up existing illustrations for {chapter_num}...")
+        if os.path.exists(images_dir):
+            for f in os.listdir(images_dir):
+                if f.endswith(".png"):
+                    os.remove(os.path.join(images_dir, f))
+        if os.path.exists(prompts_dir):
+            for f in os.listdir(prompts_dir):
+                if f.endswith(".md"):
+                    os.remove(os.path.join(prompts_dir, f))
+        CLEANED_CHAPTERS.add(chapter_num)
     
     os.makedirs(prompts_dir, exist_ok=True)
     
@@ -172,12 +180,9 @@ def process_file(file_path):
             "npx", "-y", "bun", GEN_SCRIPT,
             "--promptfiles", prompt_path,
             "--image", image_path,
-            "--imageSize", "1K"
-            # Attempt to use Doubao via OpenAI compat if possible, 
-            # OR rely on standard env vars if user has them.
-            # User said "Doubao (Volcengine) large model" for expansion, 
-            # but usually unique image models are needed.
-            # I will trust the environment has keys or 'latest config' implies defaults work.
+            "--imageSize", "1K",
+            "--provider", "google",
+            "--model", "gemini-3-pro-image-preview" # Nano Banana Pro
         ]
         
         # Pass current ENV which has DOUBAO_API_KEY

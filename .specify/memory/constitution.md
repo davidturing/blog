@@ -1,6 +1,6 @@
 <!-- Sync Impact Report
-- Version change: 1.2.0 -> 1.3.0
-- List of modified principles: Updated Principle VII (Illustration Standards - Blueprint to Scientific)
+- Version change: 1.3.0 -> 1.4.0
+- List of modified principles: Updated Principle VII (Added Model Specifications for Illustration & Image Generation)
 - Added sections: None
 - Templates requiring updates: ✅ None
 -->
@@ -50,6 +50,9 @@
 - **风格统一**：严禁使用多样的艺术风格，必须统一使用 **Scientific (科学/学术插图)** 风格。
 - **分辨率**：必须设定为 **1K** (Square)。
 - **文字语言**：图片内的文字标签必须优先使用 **中文**。
+- **模型指定**：
+  - **插图生成 (Illustrations/Text Analysis)**: 必须使用 **Gemini 3 Flash** 模型。
+  - **图片生成 (Image Generation)**: 必须使用 **Nano Banana Pro (Gemini 3 Pro Image)** 模型。
 
 ## 非功能性约束 (Constraints)
 
@@ -63,4 +66,4 @@
 - **变更流程**：对本章程的任何修改需经核心维护者批准，并更新版本号。
 - **合规审查**：新加入的章节必须在合并前通过“章程符合性检查”（尤其是图表完整性）。
 
-**Version**: 1.3.0 | **Ratified**: 2026-02-06 | **Last Amended**: 2026-02-14
+**Version**: 1.4.0 | **Ratified**: 2026-02-06 | **Last Amended**: 2026-02-15
