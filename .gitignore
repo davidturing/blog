@@ -24,4 +24,10 @@ stdout.txt
 analysis_failure_report.md
 
 # OS specific
+# OS specific
 .DS_Store
+
+# Sensitive Memory and Knowledge Contexts
+memory/
+DavidAgent/.share_context/
+DavidAgent/skills/self-learning-agent/pageindex/knowledge/
