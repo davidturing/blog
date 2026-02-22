@@ -1,0 +1,25 @@
+{
+  "name": "github-sensor",
+  "version": "1.0.0",
+  "description": "GitHub感知器技能 - DavidAgent仿生双脑架构的硬核技术雷达",
+  "main": "github_spider.py",
+  "scripts": {
+    "test": "python example_usage.py",
+    "install": "pip install -r requirements.txt"
+  },
+  "keywords": [
+    "github",
+    "sensor",
+    "trending",
+    "openclaw",
+    "davidagent",
+    "async"
+  ],
+  "author": "G老师 & OpenClaw",
+  "license": "MIT",
+  "dependencies": {
+    "httpx": "^0.27.0",
+    "aiofiles": "^23.2.1",
+    "python-dotenv": "^1.0.1"
+  }
+}
