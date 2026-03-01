@@ -1,0 +1,188 @@
+import os
+import glob
+import json
+import asyncio
+from datetime import datetime
+import google.generativeai as genai
+from brain.left_brain.schemas import GraphData, FactCheckResult
+
+class LeftBrainGemini:
+    def __init__(self, pageindex_dir="skills/self-learning-agent/pageindex/knowledge"):
+        self.project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.pageindex_dir = os.path.join(self.project_root, pageindex_dir)
+        os.makedirs(self.pageindex_dir, exist_ok=True)
+        
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable is required")
+            
+        genai.configure(api_key=api_key)
+        self.model_name = "gemini-2.5-pro"
+        self.model = genai.GenerativeModel(self.model_name)
+
+    async def extract_knowledge(self, raw_text: str, source_id: str) -> dict:
+        """
+        阶段一：吃草料挤蛋白质 (ETL)
+        第一遍 (Pass 1)：探索模式，允许大模型使用工具翻阅本地 PageIndex
+        第二遍 (Pass 2)：结晶模式，强制输出符合 Pydantic 约束的 GraphData
+        """
+        print(f"🧠 [左脑-Gemini] 开始深度解析文本并构建知识图谱...")
+        
+        # 信号隔离：清理该 signal_id 的历史图谱文件，防止 AFC 搜索被旧数据污染
+        cleaned = self._cleanup_stale_pageindex(source_id)
+        if cleaned > 0:
+            print(f"🧹 [左脑-清理] 已清除 {source_id} 的 {cleaned} 个历史图谱残留文件")
+        
+        # TODO: 实现 PageIndex 工具调用
+        # from brain.left_brain.pageindex_tool import search_pageindex
+        
+        # Pass 1: 探索与翻查 (简化版本，暂不实现工具调用)
+        print(f"🔍 [左脑-Gemini] 第1阶段：启动主动探索模式...")
+        pass_1_prompt = f"""
+你是一个极度理性的数据治理专家。你的任务是通读以下原始信号文本，并判断其中是否包含你不确定的专有名词、系统组件或架构概念。
+请先进行思考和理解，然后给我一个关于你对原文的简要理解。
+
+原始信号文本:
+{raw_text}
+"""
+        
+        response1 = await asyncio.to_thread(
+            self.model.generate_content,
+            pass_1_prompt
+        )
+        print(f"💡 [左脑-Gemini] 第1阶段探索完成。准备提取结构化图谱。")
+
+        # Pass 2: 知识结晶 (Structured JSON Schema)
+        print(f"💎 [左脑-Gemini] 第2阶段：结晶结构化图谱 (Pydantic Schema)...")
+        pass_2_prompt = f"""
+非常好。现在请基于我们刚刚的对话上下文，正式提取原始信号的知识图谱。
+要求：
+1. 严格使用提供的 GraphData Schema 返回 JSON 数据。
+2. 实体 (Entities) 的 definition 必须基于原文来编写，绝不捏造。
+3. 如果有不确定的地方，请在 definition 中保留原文解释。
+
+原始信号文本:
+{raw_text}
+
+请返回严格的 JSON 格式，不要包含任何其他文本。
+"""
+        
+        response2 = await asyncio.to_thread(
+            self.model.generate_content,
+            pass_2_prompt,
+            generation_config=genai.GenerationConfig(
+                response_mime_type="application/json",
+                temperature=0.0
+            )
+        )
+        
+        try:
+            graph_dict = json.loads(response2.text)
+        except json.JSONDecodeError:
+            # 如果 JSON 解析失败，尝试从响应中提取 JSON
+            import re
+            json_match = re.search(r'\{.*\}', response2.text, re.DOTALL)
+            if json_match:
+                graph_dict = json.loads(json_match.group())
+            else:
+                raise ValueError(f"无法解析 JSON 响应: {response2.text}")
+        
+        await self._save_to_pageindex(graph_dict, source_id)
+        
+        # 实时归档全局 RDF 知识图谱 (Systemic Knowledge Graph)
+        try:
+            from brain.memory.global_graph import SystemicKnowledgeGraph
+            from brain.left_brain.schemas import GraphData as GraphDataSchema
+            # 重建 Pydantic 模型以获取对象属性
+            gd_obj = GraphDataSchema(**graph_dict)
+            sys_graph = SystemicKnowledgeGraph()
+            await sys_graph.ingest_graph_data(gd_obj, source_id)
+        except Exception as e:
+            print(f"⚠️ [左脑-Gemini] 全局 RDF 图谱摄入失败 (非致命): {e}")
+            
+        return graph_dict
+
+    def _cleanup_stale_pageindex(self, source_id: str) -> int:
+        """清理指定 signal_id 的历史图谱文件，确保每次只保留最新一份"""
+        safe_id = "".join(c if c.isalnum() else "_" for c in source_id)
+        pattern = os.path.join(self.pageindex_dir, f"{safe_id}_*.md")
+        stale_files = glob.glob(pattern)
+        for f in stale_files:
+            os.remove(f)
+        return len(stale_files)
+
+    async def _save_to_pageindex(self, graph_dict: dict, source_id: str):
+        """将 JSON 渲染为带有 [[实体]] 双链语法的 Markdown，存入本地知识库"""
+        topic_name = source_id if source_id else "Untitled_Knowledge"
+        summary = graph_dict.get("summary", "无摘要")
+        entities = graph_dict.get("entities", [])
+        triples = graph_dict.get("triples", [])
+
+        md_content = f"# 知识图谱: {topic_name}\n\n"
+        md_content += f"> 摘要：{summary}\n\n"
+        
+        md_content += "## 核心实体 (Entities)\n"
+        for entity in entities:
+            name = entity.get("name", "")
+            e_type = entity.get("type", "")
+            definition = entity.get("definition", "")
+            md_content += f"- **[[{name}]]** ({e_type}): {definition}\n"
+        
+        md_content += "\n## 逻辑关系 (Triples)\n"
+        for triple in triples:
+            subject = triple.get("subject", "")
+            predicate = triple.get("predicate", "")
+            obj = triple.get("object_", "") # object_ in schema
+            context = triple.get("context", "")
+            context_str = f" *(补充: {context})*" if context else ""
+            md_content += f"- [[{subject}]] == {predicate} ==> [[{obj}]]{context_str}\n"
+        
+        # 写入前再次清理，确保最终只留一份
+        self._cleanup_stale_pageindex(source_id)
+        
+        safe_topic_name = "".join(c if c.isalnum() else "_" for c in topic_name)
+        timestamp = int(datetime.now().timestamp() * 1000)
+        file_name = f"{safe_topic_name}_{timestamp}.md"
+        file_path = os.path.join(self.pageindex_dir, file_name)
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        
+        print(f"💾 [左脑-持久化] 知识图谱已写入: {file_path}")
+        return file_path
+
+    async def review_draft(self, draft_content: str, ground_truth: dict) -> dict:
+        """
+        阶段二：红蓝对抗与事实核查 (Immune System)
+        对比右脑草稿和真理字典，严格拦截幻觉。
+        """
+        print(f"⚖️ [左脑-Gemini] 正在对草稿进行事实核查(红蓝对抗)...")
+        prompt = f"""你是一个严苛的事实核查法官。请对比【绝对真理字典】({json.dumps(ground_truth, ensure_ascii=False)}) 和【博客草稿】({draft_content})。如果有捏造实体或扭曲关系，必须判定不通过。
+
+请返回严格的 JSON 格式，包含以下字段：
+- passed: boolean (是否通过)
+- feedback: string (如果不通过，具体的反馈意见)
+
+不要包含任何其他文本。"""
+
+        response = await asyncio.to_thread(
+            self.model.generate_content,
+            prompt,
+            generation_config=genai.GenerationConfig(
+                response_mime_type="application/json",
+                temperature=0.0
+            )
+        )
+        
+        try:
+            result_dict = json.loads(response.text)
+        except json.JSONDecodeError:
+            # 如果 JSON 解析失败，返回默认结果
+            result_dict = {"passed": False, "feedback": "无法解析审核结果"}
+            
+        if result_dict.get("passed"):
+            print("✅ [左脑-Gemini] 事实核查通过！")
+        else:
+            print(f"🚫 [左脑-Gemini] 核查不通过: {result_dict.get('feedback')}")
+            
+        return result_dict

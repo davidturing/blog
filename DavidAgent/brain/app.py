@@ -90,6 +90,10 @@ async def main():
         
         if final_status == 'PUBLISHED':
             print("✅ ag引擎成功完成完整生命周期！")
+            # 触发经验蒸馏阶段
+            from brain.left_brain.experience_distiller import ExperienceDistiller
+            distiller = ExperienceDistiller(engine.blackboard)
+            await distiller.distill_experience()
         else:
             print("⚠️  处理过程中遇到问题，请检查日志。")
             

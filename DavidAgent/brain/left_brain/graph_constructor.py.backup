@@ -1,0 +1,264 @@
+"""
+左脑图谱构建器 - 利用Gemini 2.5 Pro的结构化输出能力
+精准控流：通过严格的JSON Schema约束，确保输出100%可解析
+"""
+import os
+import json
+import asyncio
+from pathlib import Path
+from typing import Dict, List, Any
+from dataclasses import dataclass, asdict
+from google.generativeai import GenerativeModel
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+import google.generativeai as genai
+
+@dataclass
+class Entity:
+    """核心技术实体"""
+    name: str
+    type: str  # Framework, Person, Concept, Tool, etc.
+    definition: str
+
+@dataclass  
+class Triple:
+    """逻辑关系三元组"""
+    subject: str
+    predicate: str  # 属于, 开发了, 依赖于, 基于, etc.
+    object: str
+    context: str = ""  # 关系成立的上下文依据
+
+@dataclass
+class GraphData:
+    """完整的知识图谱数据结构"""
+    entities: List[Entity]
+    triples: List[Triple] 
+    summary: str
+
+class LeftBrainGraphConstructor:
+    """左脑图谱构建器 - Gemini驱动的精准知识提取"""
+    
+    def __init__(self):
+        # 初始化Gemini客户端
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable is required")
+        
+        genai.configure(api_key=api_key, transport='rest')
+        
+        # 配置Gemini模型，强制结构化JSON输出
+        self.model = GenerativeModel(
+            model_name="models/gemini-flash-latest",
+            generation_config={
+                "response_mime_type": "application/json",
+                "temperature": 0.1,  # 降低随机性，提高准确性
+            },
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            }
+        )
+        
+        # PageIndex知识图谱存储目录
+        self.project_root = Path(__file__).parent.parent.parent
+        self.knowledge_dir = self.project_root / "skills" / "self-learning-agent" / "pageindex" / "knowledge"
+        
+    def get_graph_schema(self) -> Dict[str, Any]:
+        """定义极其严谨的输出JSON Schema"""
+        return {
+            "type": "object",
+            "properties": {
+                "entities": {
+                    "type": "array",
+                    "description": "从文本中提取的核心技术实体、人物或工具。",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "description": "实体名称，如 'OpenClaw'"},
+                            "type": {"type": "string", "description": "实体类型，如 'Framework', 'Person', 'Concept'"},
+                            "definition": {"type": "string", "description": "实体的简短一句话定义"}
+                        },
+                        "required": ["name", "type", "definition"]
+                    }
+                },
+                "triples": {
+                    "type": "array", 
+                    "description": "实体之间的逻辑关系三元组。",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "subject": {"type": "string", "description": "主语实体"},
+                            "predicate": {"type": "string", "description": "关系谓词，如 '属于', '开发了', '依赖于'"},
+                            "object": {"type": "string", "description": "宾语实体"},
+                            "context": {"type": "string", "description": "关系成立的上下文依据"}
+                        },
+                        "required": ["subject", "predicate", "object"]
+                    }
+                },
+                "summary": {
+                    "type": "string",
+                    "description": "这段文本的极简语义摘要，用于后续存入ChromaDB。"
+                }
+            },
+            "required": ["entities", "triples", "summary"]
+        }
+    
+    async def extract_knowledge(self, raw_text: str) -> GraphData:
+        """
+        核心提炼逻辑 - 调用Gemini提取结构化知识
+        
+        Args:
+            raw_text: 原始推文或文章文本
+            
+        Returns:
+            GraphData: 结构化的知识图谱数据
+        """
+        print("🧠 [左脑-Gemini] 开始深度解析文本并构建知识图谱...")
+        
+        # 构建精准控制的Prompt
+        prompt = f"""
+你是一个顶级"科技达人"数字分身的左脑逻辑提取器。
+你的任务是阅读以下抓取到的X网站推文或技术文章，剔除所有情绪化表达和废话，仅提取硬核的知识点。
+
+要求：
+1. 提取核心技术实体（名词）。
+2. 建立实体之间的关联（主谓宾三元组）。
+3. 输出必须符合要求的JSON格式。
+
+待处理文本：
+"""
+        prompt += f'"""{raw_text}"""'
+
+        try:
+            # 使用 models/gemini-flash-latest
+            # 解决 legacy SDK 在 Python 3.14 + REST 模式下的 await 异常
+            # 强制使用同步方法并通过 to_thread 包装
+            def _sync_call():
+                return self.model.generate_content(
+                    prompt,
+                    generation_config={"response_mime_type": "application/json"},
+                    safety_settings={
+                        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                    }
+                )
+            
+            response = await asyncio.to_thread(_sync_call)
+            
+            # 解析JSON响应
+            json_text = response.text
+            # 兼容处理：有时候返回的JSON被 ```json ... ``` 包裹
+            if "```json" in json_text:
+                json_text = json_text.split("```json")[1].split("```")[0].strip()
+            elif "```" in json_text:
+                json_text = json_text.split("```")[1].split("```")[0].strip()
+            
+            try:
+                graph_dict = json.loads(json_text)
+            except json.JSONDecodeError as je:
+                print(f"❌ [左脑-Gemini] JSON解析失败: {je}\n原始文本: {json_text}")
+                raise je
+            
+            # 兼容处理：确保我们拿到的是字典且包含预期字段
+            if isinstance(graph_dict, list):
+                # 如果返回的是列表，尝试寻找包含 entities 的那一项，或者假设它是 entities 列表
+                print("⚠️ [左脑-Gemini] 收到列表格式JSON，尝试兼容处理...")
+                if len(graph_dict) > 0 and isinstance(graph_dict[0], dict) and "entities" in graph_dict[0]:
+                    graph_dict = graph_dict[0]
+                else:
+                    # 假定这就是 entities 列表 (极端情况)
+                    entities_raw = graph_dict
+                    graph_dict = {"entities": entities_raw, "triples": [], "summary": "自动生成的摘要"}
+
+            def _safe_entity(e):
+                if isinstance(e, str):
+                    return Entity(name=e, type="Concept", definition=f"从文本中提到的：{e}")
+                if isinstance(e, dict):
+                    return Entity(
+                        name=e.get("name", "Unknown"),
+                        type=e.get("type", "Concept"),
+                        definition=e.get("definition", "未定义")
+                    )
+                return Entity(name=str(e), type="Unknown", definition="未知")
+
+            def _safe_triple(t):
+                if isinstance(t, dict):
+                    return Triple(
+                        subject=t.get("subject", "Unknown"),
+                        predicate=t.get("predicate", "关联于"),
+                        object=t.get("object", "Unknown"),
+                        context=t.get("context", "")
+                    )
+                return None # 无法解析三元组则跳过
+
+            entities = [_safe_entity(e) for e in graph_dict.get("entities", [])]
+            triples = [_safe_triple(t) for t in graph_dict.get("triples", []) if _safe_triple(t)]
+            summary = graph_dict.get("summary", "提取完成。")
+            
+            graph_data = GraphData(entities=entities, triples=triples, summary=summary)
+            
+            print(f"✅ [左脑-Gemini] 提取成功！发现 {len(entities)} 个实体, {len(triples)} 个关系。")
+            return graph_data
+            
+        except Exception as e:
+            print(f"❌ [左脑-Gemini] 图谱提取失败: {e}")
+            if 'json_text' in locals():
+                print(f"DEBUG - Raw JSON: {json_text[:500]}...")
+            raise e
+    
+    async def save_to_pageindex(self, graph_data: GraphData, topic_name: str) -> str:
+        """
+        将JSON转换为PageIndex规范的Markdown并持久化
+        
+        Args:
+            graph_data: 结构化的知识图谱数据
+            topic_name: 主题名称
+            
+        Returns:
+            str: 保存的文件路径
+        """
+        # 生成双链风格的Markdown文本
+        md_content = f"# 知识图谱: {topic_name}\n\n"
+        md_content += f"> 摘要：{graph_data.summary}\n\n"
+        
+        md_content += "## 核心实体 (Entities)\n"
+        for entity in graph_data.entities:
+            md_content += f"- **[[{entity.name}]]** ({entity.type}): {entity.definition}\n"
+        
+        md_content += "\n## 逻辑关系 (Triples)\n"
+        for triple in graph_data.triples:
+            context_str = f" *(依据: {triple.context})*" if triple.context else ""
+            md_content += f"- [[{triple.subject}]] == {triple.predicate} ==> [[{triple.object}]]{context_str}\n"
+        
+        # 确保目录存在
+        self.knowledge_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 生成安全的文件名
+        safe_topic_name = "".join(c if c.isalnum() else "_" for c in topic_name)
+        file_name = f"{safe_topic_name}_{int(asyncio.get_event_loop().time() * 1000)}.md"
+        file_path = self.knowledge_dir / file_name
+        
+        # 写入文件
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        
+        print(f"💾 [海马体-持久化] 知识图谱已写入: {file_path}")
+        return str(file_path)
+    
+    async def process_raw_text(self, raw_text: str, topic_name: str) -> str:
+        """
+        完整的处理流程：提取 + 保存
+        
+        Args:
+            raw_text: 原始文本
+            topic_name: 主题名称
+            
+        Returns:
+            str: 保存的文件路径
+        """
+        graph_data = await self.extract_knowledge(raw_text)
+        file_path = await self.save_to_pageindex(graph_data, topic_name)
+        return file_path

@@ -74,7 +74,7 @@ def load_task_details(task_id: str):
         cursor = db.conn.cursor()
         cursor.execute("""
             SELECT raw_source, left_brain_graph, right_brain_draft, 
-                   review_feedback, logic_score, tone_score, format_score, human_comment
+                   review_feedback, logic_score, tone_score, format_score, human_comment, pipeline_trace
             FROM trace_logs 
             WHERE task_id=?
         """, (task_id,))
@@ -89,7 +89,8 @@ def load_task_details(task_id: str):
                 'logic_score': row[4] or 5,
                 'tone_score': row[5] or 5,
                 'format_score': row[6] or 5,
-                'human_comment': row[7] or ""
+                'human_comment': row[7] or "",
+                'pipeline_trace': row[8] or "[]"
             }
         return None
     except Exception as e:
@@ -142,11 +143,12 @@ def display_task_details(task_details: dict):
     st.divider()
     
     # 使用多Tab页面展示思考链与执行链
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "1. 原始刺激 (草料)", 
         "2. 左脑图谱 (逻辑)", 
         "3. 右脑草稿 (创作)", 
-        "4. 审查与反馈 (复盘)"
+        "4. 审查与反馈 (复盘)",
+        "🔬 工作流复盘"
     ])
     
     with tab1:
@@ -180,6 +182,34 @@ def display_task_details(task_details: dict):
             st.divider()
             st.subheader("👨‍💻 历史人类评价")
             st.write(task_details['human_comment'])
+    
+    with tab5:
+        st.info("全链路追踪时间线，用于复盘每个阶段的输入输出和关键指标。")
+        try:
+            trace_data = json.loads(task_details.get('pipeline_trace', '[]'))
+            if not trace_data:
+                st.warning("暂无追踪数据（早期任务未录入追踪）")
+            else:
+                stage_icons = {
+                    'PERCEPTION': '📡',
+                    'LEFT_BRAIN_EXTRACT': '🧠',
+                    'RIGHT_BRAIN_DRAFT': '🎨',
+                    'FACT_CHECK': '⚖️',
+                    'PUBLISH': '🚀'
+                }
+                for i, entry in enumerate(trace_data):
+                    icon = stage_icons.get(entry.get('stage', ''), '📌')
+                    ts = entry.get('timestamp', '')[11:19]
+                    stage = entry.get('stage', 'UNKNOWN')
+                    msg = entry.get('message', '')
+                    
+                    st.markdown(f"**{icon} `{ts}` [{stage}]** {msg}")
+                    
+                    if entry.get('data'):
+                        with st.expander(f"展开详细数据 #{i+1}", expanded=False):
+                            st.json(entry['data'])
+        except Exception as e:
+            st.error(f"解析追踪数据失败: {e}")
 
 
 def handle_human_feedback(task_id: str):
@@ -1108,7 +1138,14 @@ def display_left_brain_monitor():
             with col_f3:
                 ui_edge_font = st.slider("连线关系字号", min_value=10, max_value=30, value=20, step=2)
 
-            if st.button("生成交互式可视化网络", type="primary", key="btn_render_sys_graph"):
+            col_b1, col_b2 = st.columns([1, 1])
+            with col_b1:
+                render_btn = st.button("生成交互式可视化网络", type="primary", key="btn_render_sys_graph")
+            with col_b2:
+                ttl_data = sys_graph.g.serialize(format="turtle")
+                st.download_button("💾 下载底层 OWL/RDF 图谱 (.ttl)", data=ttl_data, file_name="systemic_graph.ttl", mime="text/turtle")
+
+            if render_btn:
                 with st.spinner("正在通过 PyVis 渲染全局网络，请稍候..."):
                     import streamlit.components.v1 as components
                     from pyvis.network import Network
@@ -1120,9 +1157,18 @@ def display_left_brain_monitor():
                     net.toggle_physics(True)
                     
                     from rdflib import URIRef
+                    from rdflib.namespace import RDF, OWL, RDFS
                     nodes_added = set()
                     
                     for subj, pred, obj in sys_graph.g:
+                        # 核心图谱可视化过滤：屏蔽底层 OWL/RDF 结构约束与文字注释
+                        if pred == RDF.type and obj in [OWL.Class, OWL.ObjectProperty, OWL.Ontology, OWL.SymmetricProperty]:
+                            continue
+                        if pred in [RDFS.label, RDFS.comment]:
+                            continue
+                        if 'DavidAgentOntology' in str(subj):
+                            continue
+
                         s_name = subj.split('#')[-1]
                         o_name = obj.split('#')[-1] if isinstance(obj, URIRef) else str(obj)[:25] + "..."
                         p_name = pred.split('#')[-1]
@@ -1213,6 +1259,695 @@ def display_left_brain_monitor():
                         
                     components.html(html_source, height=620)
 
+def display_right_brain_monitor():
+    st.header("🎨 右脑监控中心 (Right Brain Monitor)")
+    st.markdown("可视化呈现大模型生成式 AI 的“创作沙盘”。这里能监控右脑人格约束、多跳图谱上下文注入，以及生成的迭代复盘历史。")
+    
+    tab_persona, tab_history, tab_stats = st.tabs(["🎭 创造者人格库 (Persona & Logic)", "✍️ 创作思维复盘 (Generative Loop)", "📊 幻觉对抗漏斗 (Immunity Stats)"])
+    
+    with tab_persona:
+        st.subheader("1. 当前活跃的人格法则 (Anti-Hallucination Guidelines)")
+        import os
+        from pathlib import Path
+        project_root = Path(__file__).parent.parent
+        guideline_path = os.path.join(project_root, "dynamic_guidelines.md")
+        
+        if os.path.exists(guideline_path):
+            with open(guideline_path, "r", encoding='utf-8') as f:
+                rules = f.read()
+            st.info(rules)
+        else:
+            st.warning("暂无明确规定的人格法则。")
+            
+        st.subheader("2. Qwen (Right Brain) 系统级 Prompt 拼接模版")
+        code_template = '''
+[系统人设 System Prompt]:
+你是一个顶尖的极客黑客撰稿人...
+====历史记忆库 (Hippocampus Semantic RAG)====
+{historical_context}
+====避坑指南 (Dynamic Guidelines)====
+{dynamic_guidelines}
+
+[用户指令 User Prompt]:
+这是左脑吸收的结构化图谱数据：
+{knowledge_markdown}
+====跨领域本体溯源 (SPARQL Map/Cross-Domain Associations)====
+{ontological_associations}
+请根据核心事实与本体拓扑，写一篇博客。
+'''
+        st.code(code_template, language="markdown")
+
+    with tab_history:
+        st.subheader("最近 5 次的右脑创作流转回放")
+        import sqlite3
+        import pandas as pd
+        import json
+        import os
+        from pathlib import Path
+        
+        project_root = Path(__file__).parent.parent
+        db_path = os.path.join(project_root, "david_agent_memory.db")
+        if os.path.exists(db_path):
+            conn = sqlite3.connect(db_path)
+            try:
+                df_trace = pd.read_sql("SELECT task_id, timestamp, raw_source, left_brain_graph, right_brain_draft, review_feedback, full_snapshot FROM trace_logs WHERE right_brain_draft IS NOT NULL ORDER BY timestamp DESC LIMIT 5", conn)
+                
+                if df_trace.empty:
+                    st.info("右脑暂未进行任何写作生成。")
+                else:
+                    for idx, row in df_trace.iterrows():
+                        with st.expander(f"🔮 右脑创作日志 | 时间: {row['timestamp']} | Task ID: {row['task_id'][:8]}...", expanded=(idx==0)):
+                            col_l, col_r = st.columns(2)
+                            
+                            with col_l:
+                                st.markdown("**📥 左脑供给的源信息**")
+                                st.text_area("结构化图谱提炼 (Knowledge Markdown)", row['left_brain_graph'], height=200, disabled=True, key=f"kb_{idx}")
+                                
+                                st.markdown("**🗄️ 右脑海马体记忆 (Section 4.3 RAG)**")
+                                snapshot_str = row.get('full_snapshot', '{}')
+                                try:
+                                    snapshot_data = json.loads(snapshot_str) if isinstance(snapshot_str, str) else {}
+                                    hist_ctx = snapshot_data.get('right_brain_historical_context', '')
+                                    is_pruned = snapshot_data.get('right_brain_is_pruned', False)
+                                    
+                                    if is_pruned:
+                                        st.warning("✂️ [护城河拦截] 提取的历史记忆片段因过大触发 Token 防溢出熔断 (4.3.3)。剪枝后如下：")
+                                        
+                                    if hist_ctx:
+                                        st.info(hist_ctx)
+                                    else:
+                                        st.caption("本次创作未唤醒历史关联记忆，或无足够上下文。")
+                                except:
+                                    st.caption("历史版本暂无海马体快照数据。")
+                                
+                                st.markdown("**⚖️ 免疫系统审查 (Fact-Check)**")
+                                fb = row['review_feedback']
+                                if fb:
+                                    try:
+                                        fb_json = json.loads(fb)
+                                        if fb_json.get("passed"):
+                                            st.success("免疫检测通过：无幻觉点！")
+                                        else:
+                                            st.error(f"免疫检测拦截：发现逻辑冲突/幻觉！理由: {fb_json.get('reason')}")
+                                    except:
+                                        st.warning(fb)
+                                else:
+                                    st.info("暂无免疫审查记录。")
+                                
+                            with col_r:
+                                st.markdown("**✍️ 创作发布结果 (Right Brain)**")
+                                draft = row['right_brain_draft']
+                                if fb:
+                                    try:
+                                        fb_json = json.loads(fb)
+                                        if not fb_json.get("passed", True):
+                                            st.warning("⚠️ 此版本是经过左脑免疫审查打回重写后的【修正版】")
+                                    except:
+                                        pass
+                                st.text_area("本文落笔稿件", draft, height=350, disabled=True, key=f"df_{idx}")
+                                
+                                # 底层通信抓包展示
+                                try:
+                                    snapshot_str = row.get('full_snapshot', '{}')
+                                    snapshot_data = json.loads(snapshot_str) if isinstance(snapshot_str, str) else {}
+                                    raw_system = snapshot_data.get('qwen_raw_system_prompt')
+                                    raw_user = snapshot_data.get('qwen_raw_user_prompt')
+                                    t_usage = snapshot_data.get('qwen_token_usage')
+                                    
+                                    if raw_system and raw_user:
+                                        with st.expander("🛠️ Q老师底层 API 通信抓包 (Developer Tracing)", expanded=False):
+                                            if t_usage:
+                                                st.caption(f"**💸 Token 账单**: Prompt={t_usage.get('prompt_tokens', 0)} | Completion={t_usage.get('completion_tokens', 0)} | **Total={t_usage.get('total_tokens', 0)}**")
+                                            
+                                            st.markdown("**[Role: System] 完整载荷：**")
+                                            st.code(raw_system, language="markdown")
+                                            
+                                            st.divider()
+                                            
+                                            st.markdown("**[Role: User] 完整输入：**")
+                                            st.code(raw_user, language="markdown")
+                                except:
+                                    pass
+            except Exception as e:
+                st.error(f"读取右脑创作记录失败: {e}")
+        else:
+            st.warning("数据库未初始化")
+            
+    with tab_stats:
+        st.subheader("左/右脑红蓝对抗 漏斗数据")
+        if os.path.exists(db_path):
+            try:
+                df_stats = pd.read_sql("SELECT review_feedback FROM trace_logs WHERE review_feedback IS NOT NULL", conn)
+                total_reviews = len(df_stats)
+                passed = 0
+                for fb in df_stats['review_feedback']:
+                    try:
+                        j = json.loads(fb)
+                        if j.get("passed"):
+                            passed += 1
+                    except:
+                        pass
+                
+                if total_reviews > 0:
+                    pass_rate = (passed / total_reviews) * 100
+                    col1, col2, col3 = st.columns(3)
+                    col1.metric("总执行审查批次", total_reviews)
+                    col2.metric("直接通过 (免重写)", passed)
+                    col3.metric("拦截纠错率", f"{100 - pass_rate:.1f}%")
+                    
+                    st.progress(pass_rate/100, text=f"Right-Brain 一次成稿良品率 ({pass_rate:.1f}%)")
+                else:
+                    st.info("尚无统计数据。")
+            except Exception as e:
+                st.error(f"读取统计数据失败: {e}")
+
+def display_sensor_hub():
+    st.header("🔧 神经源管理 (Sensor Hub)")
+    st.markdown("在此手工注入动态多源信号到神经黑板。")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.subheader("📰 RSS 订阅抓取")
+        rss_url = st.text_input("RSS Feed URL", value="https://news.ycombinator.com/rss")
+        if st.button("🚀 注入 RSS 信号"):
+            import asyncio
+            from brain.sensors.rss_sensor import RSSSensor
+            from brain.memory.episodic_memory import Blackboard
+            bb = Blackboard(None)
+            sensor = RSSSensor(blackboard=bb)
+            with st.spinner("正在抓取 RSS..."):
+                asyncio.run(sensor.ingest_to_blackboard(rss_url))
+            st.success("RSS 信号已成功推送到黑板！")
+            
+    with col2:
+        st.subheader("🐙 GitHub 仓库摄入")
+        gh_repo = st.text_input("Repository (owner/repo)", value="hwchase17/langchain")
+        if st.button("🚀 注入 GitHub 信号"):
+            if "/" in gh_repo:
+                owner, repo = gh_repo.split("/")
+                import asyncio
+                from brain.sensors.github_sensor import GitHubSensor
+                from brain.memory.episodic_memory import Blackboard
+                bb = Blackboard(None)
+                sensor = GitHubSensor(blackboard=bb)
+                with st.spinner(f"正在抓取 {owner}/{repo}..."):
+                    asyncio.run(sensor.ingest_to_blackboard(owner, repo))
+                st.success("GitHub 知识已成功推送到黑板！")
+            else:
+                st.error("格式错误，必须为 owner/repo")
+                
+    with col3:
+        st.subheader("🐦 X (Twitter) 抓取")
+        x_handle = st.text_input("X User Handle", value="elonmusk")
+        if st.button("🚀 注入 X 推文"):
+            import asyncio
+            from brain.sensors.x_spider import XSpider
+            from brain.memory.episodic_memory import Blackboard
+            bb = Blackboard(None)
+            sensor = XSpider(blackboard=bb)
+            with st.spinner(f"正在探测 @{x_handle}..."):
+                asyncio.run(sensor.ingest_to_blackboard(x_handle, 5))
+            st.success("X 推文已成功推送到黑板！")
+
+def display_persona_settings():
+    st.header("🧠 人格与法则设定 (Persona & Rules)")
+    st.markdown("通过多重人格面具库 (Persona Hub)，一键切换右脑 (Qwen) 的专业视角与创作风格。修改后的规则会热加载为最高约束指令。")
+    
+    import os
+    from pathlib import Path
+    try:
+        from brain.personas_registry import PERSONA_TEMPLATES
+    except ImportError:
+        PERSONA_TEMPLATES = {}
+        
+    project_root = Path(__file__).parent.parent
+    guideline_path = os.path.join(project_root, "dynamic_guidelines.md")
+    
+    # 1. 面具模板选择器
+    st.subheader("🎭 面具热插拔 (Persona Hot-Swap)")
+    selected_persona = st.selectbox("选择要加载的预设人格模型：", options=["(当前自定义规则)"] + list(PERSONA_TEMPLATES.keys()))
+    
+    if st.button("📥 载入选中面具 (Load Persona)"):
+        if selected_persona != "(当前自定义规则)":
+            template_content = PERSONA_TEMPLATES[selected_persona]
+            with open(guideline_path, "w", encoding='utf-8') as f:
+                f.write(template_content)
+            st.success(f"已成功加载并激活：{selected_persona}！")
+            st.rerun()  # 刷新页面将新文本加载进下方的文本框
+            
+    if not os.path.exists(guideline_path):
+        with open(guideline_path, "w", encoding='utf-8') as f:
+            f.write("保持客观、专业即可。")
+            
+    with open(guideline_path, "r", encoding='utf-8') as f:
+        current_guidelines = f.read()
+        
+    st.subheader("✍️ 面具微调 (Fine-Tuning)")
+    new_guidelines = st.text_area("当前激活的最高约束指令 (Markdown 支持)", value=current_guidelines, height=350)
+    
+    if st.button("💾 保存自定义配置 (Live Reload)"):
+        with open(guideline_path, "w", encoding='utf-8') as f:
+            f.write(new_guidelines)
+        st.success("人格法则已更新！RightBrain 下一次创作将立即生效。")
+
+def display_db_admin():
+    st.header("💾 数据治理 (DB Admin)")
+    st.markdown("底层 SQLite 记忆黑板探针与清理。")
+    
+    import sqlite3
+    import pandas as pd
+    import os
+    from pathlib import Path
+    
+    project_root = Path(__file__).parent.parent
+    db_path = os.path.join(project_root, "david_agent_memory.db")
+    if not os.path.exists(db_path):
+        st.warning("数据库尚未初始化。")
+        return
+        
+    conn = sqlite3.connect(db_path)
+    
+    st.subheader("🗄️ Raw Signals (最近10条)")
+    try:
+        df_raw = pd.read_sql("SELECT signal_id, signal_type, handle, timestamp FROM raw_signals ORDER BY timestamp DESC LIMIT 10", conn)
+        st.dataframe(df_raw, use_container_width=True)
+    except Exception as e:
+        st.error(f"读取异常: {e}")
+        
+    st.subheader("🗄️ Trace Logs (最近10条)")
+    try:
+        df_trace = pd.read_sql("SELECT task_id, workflow_status, timestamp FROM trace_logs ORDER BY timestamp DESC LIMIT 10", conn)
+        st.dataframe(df_trace, use_container_width=True)
+    except Exception as e:
+        st.error(f"读取异常: {e}")
+        
+    st.divider()
+    st.subheader("⚠️ 危险重置区 (Danger Zone)")
+    enable_wipe = st.toggle("解锁数据擦除操作")
+    if enable_wipe:
+        if st.button("🗑️ 彻底清空所有 SQLite 记忆"):
+            try:
+                cursor = conn.cursor()
+                cursor.execute("DELETE FROM trace_logs")
+                cursor.execute("DELETE FROM memory_snapshots")
+                cursor.execute("DELETE FROM raw_signals")
+                conn.commit()
+                st.success("✅ 数据擦除成功，黑板已清零！请刷新页面。")
+            except Exception as e:
+                st.error(f"擦除失败: {e}")
+
+def display_hippocampus_memory():
+    """海马体三层记忆架构可视化 — 含睡眠周期状态与记忆整理引擎"""
+    st.header("🧬 海马体记忆架构 (Hippocampus Memory Matrix)")
+    st.markdown(
+        "透视 DavidAgent 的**三维立体记忆存储矩阵**：语义记忆（潜意识联想）、逻辑记忆（世界观地图）、情景记忆（自传体日记）。"
+    )
+
+    project_root = Path(__file__).parent.parent
+    db = st.session_state.db
+
+    # 初始化整理引擎
+    from brain.memory.memory_consolidation import MemoryConsolidator
+    consolidator = MemoryConsolidator()
+
+    # ━━━━━━━━━━━━  Section 0: 睡眠周期状态指示器  ━━━━━━━━━━━━
+    sleep_status = MemoryConsolidator.get_sleep_cycle_status()
+    current_phase = consolidator.get_current_phase()
+
+    # 如果正在整理中，优先显示整理阶段
+    is_consolidating = current_phase['phase'] not in ('IDLE', 'AWAKE', None, '')
+    if is_consolidating:
+        active_label = MemoryConsolidator.PHASE_LABELS.get(current_phase['phase'], current_phase['phase'])
+        phase_idx = MemoryConsolidator.PHASES.index(current_phase['phase']) if current_phase['phase'] in MemoryConsolidator.PHASES else 0
+        progress_val = (phase_idx + 1) / len(MemoryConsolidator.PHASES)
+        st.info(f"⚡ **正在执行记忆整理** — {active_label}")
+        st.progress(progress_val, text=f"阶段 {phase_idx + 1}/{len(MemoryConsolidator.PHASES)}: {current_phase.get('progress', '')}")
+    else:
+        sleep_col1, sleep_col2 = st.columns([1, 3])
+        with sleep_col1:
+            st.markdown(f"### {sleep_status['emoji']}")
+        with sleep_col2:
+            st.markdown(f"**当前周期: {sleep_status['label']}**")
+            st.caption(sleep_status['desc'])
+
+        # 睡眠周期进度条
+        from datetime import datetime as dt_class
+        hour = dt_class.now().hour
+        if 0 <= hour < 6:
+            cycle_progress = hour / 6.0
+            cycle_text = "🌙 睡眠整理窗口 (0:00-6:00)"
+        else:
+            cycle_progress = (hour - 6) / 18.0
+            cycle_text = "☀️ 清醒工作时段 (6:00-0:00)"
+        st.progress(cycle_progress, text=cycle_text)
+
+    # 手动触发 + 上次整理信息
+    trigger_col, info_col = st.columns([1, 2])
+    with trigger_col:
+        if st.button("🧹 手动触发记忆整理", type="primary", use_container_width=True, key="btn_consolidate"):
+            with st.spinner("🧬 海马体记忆整理中…… 入睡 → 记忆重播 → 价值评估 → 跨脑区归档 → 晨醒"):
+                report = consolidator.run_consolidation()
+            st.success(f"✅ 记忆整理完成！耗时 {report['duration_seconds']:.1f}s")
+            st.balloons()
+            import time as _time
+            _time.sleep(1)
+            st.rerun()
+
+    with info_col:
+        history = consolidator.get_consolidation_history(limit=1)
+        if history:
+            last = history[0]
+            st.caption(
+                f"📅 上次整理: {last['started_at'] or 'N/A'}  |  "
+                f"ChromaDB: {last['chroma_total']}条(过期{last['chroma_expired']})  |  "
+                f"PageIndex: {last['pageindex_entities']}实体/{last['pageindex_relations']}关系  |  "
+                f"SQLite: {last['sqlite_flawed']}缺陷/{last['sqlite_total']}总  |  "
+                f"规则更新: {'✅' if last['new_guidelines_generated'] else '—'}"
+            )
+        else:
+            st.caption("尚未执行过记忆整理。")
+
+    st.divider()
+
+    # ── 顶部三列指标卡 ──
+    col_chroma, col_page, col_sqlite = st.columns(3)
+
+    # ChromaDB stats
+    lean_path = project_root / "chroma_data" / "david_agent_memory.json"
+    chroma_count = 0
+    chroma_records = []
+    try:
+        if lean_path.exists():
+            with open(lean_path, 'r', encoding='utf-8') as f:
+                chroma_records = json.load(f)
+                chroma_count = len(chroma_records)
+        else:
+            try:
+                from brain.memory.chroma_integration import get_chroma_instance
+                ci = get_chroma_instance()
+                if not ci.is_lean and ci.collection is not None:
+                    chroma_count = ci.collection.count()
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # PageIndex stats
+    knowledge_dir = project_root / "skills" / "self-learning-agent" / "pageindex" / "knowledge"
+    md_files = sorted(knowledge_dir.glob("*.md")) if knowledge_dir.exists() else []
+    pageindex_count = len(md_files)
+
+    # SQLite stats
+    try:
+        trace_count = pd.read_sql("SELECT COUNT(*) as c FROM trace_logs", db.conn).iloc[0]['c']
+    except Exception:
+        trace_count = 0
+    try:
+        signal_count = pd.read_sql("SELECT COUNT(*) as c FROM raw_signals", db.conn).iloc[0]['c']
+    except Exception:
+        signal_count = 0
+
+    with col_chroma:
+        st.metric("🌊 语义记忆 (ChromaDB)", f"{chroma_count} 条向量", help="模糊的潜意识联想网络，为右脑提供 RAG 灵感")
+    with col_page:
+        st.metric("🕸️ 逻辑记忆 (PageIndex)", f"{pageindex_count} 个知识节点", help="绝对清晰的双链 Markdown 世界观地图")
+    with col_sqlite:
+        st.metric("📜 情景记忆 (SQLite WAL)", f"{trace_count + signal_count} 条轨迹", help="忠实记录每一次思考与犯错的史官")
+
+    st.divider()
+
+    # ── 四个 Tab ──
+    tabs = st.tabs([
+        "🌊 层一：语义记忆 — ChromaDB 向量空间",
+        "🕸️ 层二：逻辑记忆 — PageIndex 双链图谱",
+        "📜 层三：情景记忆 — SQLite WAL 生命轨迹",
+        "🕰️ 整理历史 — 记忆归档时间线"
+    ])
+
+    # ━━━━━━━━━━━━━━━━━  Tab 1: ChromaDB  ━━━━━━━━━━━━━━━━━
+    with tabs[0]:
+        st.subheader("潜意识与联想网络")
+        st.caption("ChromaDB 将每条知识摘要映射为高维向量，通过余弦相似度实现跨周期的潜意识关联。配合**艾宾浩斯遗忘曲线**时间衰减，自动过滤过时记忆。")
+
+        info_col1, info_col2, info_col3 = st.columns(3)
+        with info_col1:
+            st.metric("向量记忆总量", chroma_count)
+        with info_col2:
+            st.metric("时间衰减因子", "0.1 /天")
+        with info_col3:
+            st.metric("最大记忆窗口", "180 天")
+
+        if chroma_records:
+            st.markdown("#### 📋 最近存入的语义记忆片段")
+            display_data = []
+            for rec in chroma_records[-20:]:
+                meta = rec.get('metadata', {})
+                doc_text = rec.get('document', '')[:120] + ('...' if len(rec.get('document', '')) > 120 else '')
+                display_data.append({
+                    "记忆 ID": rec.get('id', 'N/A'),
+                    "内容预览": doc_text,
+                    "时间戳": meta.get('timestamp', 'N/A'),
+                    "来源": meta.get('source', meta.get('type', 'unknown'))
+                })
+            display_data.reverse()
+            st.dataframe(display_data, use_container_width=True)
+        elif chroma_count > 0:
+            st.info(f"当前共 {chroma_count} 条向量记忆 (原生 ChromaDB 模式，详细列表需通过检索获取)。")
+        else:
+            st.info("向量记忆库暂为空，等待左脑提取摘要并向海马体写入。")
+
+        st.markdown("#### 🔮 RAG 潜意识召回模拟器")
+        st.caption("输入一段技术查询，模拟右脑创作前的海马体记忆唤醒过程。")
+        rag_query = st.text_input("输入查询文本 (例如: 大模型推理成本优化):", key="hippo_rag_query")
+        if st.button("🧠 唤醒潜意识", key="btn_hippo_rag") and rag_query:
+            with st.spinner("海马体正在向量空间中搜索相似记忆..."):
+                try:
+                    from brain.memory.chroma_integration import get_chroma_instance
+                    ci = get_chroma_instance()
+                    import asyncio
+                    result = asyncio.run(ci.retrieve_relevant_memory(rag_query, n_results=5))
+                    if result:
+                        st.success("✅ 潜意识成功唤醒以下关联记忆：")
+                        st.markdown(result)
+                    else:
+                        st.warning("当前查询未唤醒任何历史记忆（可能记忆库为空或相关性不足）。")
+                except Exception as e:
+                    st.error(f"检索异常: {e}")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 2: PageIndex  ━━━━━━━━━━━━━━━━━
+    with tabs[1]:
+        st.subheader("世界观地图 — 双链 Markdown 知识图谱")
+        st.caption("每个 Markdown 文件即一个神经结，`[[实体]]` 为节点，`== 关系 ==>` 为有向边。人类可用 Obsidian 直接挂载此目录，与 AI 实现认知同频。")
+
+        if not md_files:
+            st.warning("PageIndex 知识目录为空，等待左脑提取结构化图谱。")
+        else:
+            import re
+            # 全局实体和关系提取
+            all_entities = set()
+            all_relations = []
+            file_entity_map = {}  # file -> set of entities
+
+            for mdf in md_files:
+                try:
+                    content = mdf.read_text(encoding='utf-8')
+                    entities_in_file = set(re.findall(r'\[\[(.+?)\]\]', content))
+                    all_entities.update(entities_in_file)
+                    file_entity_map[mdf.name] = entities_in_file
+
+                    relations = re.findall(r'\[\[(.+?)\]\]\s*==\s*(.+?)\s*==>\s*\[\[(.+?)\]\]', content)
+                    for subj, pred, obj in relations:
+                        all_relations.append({
+                            "主体 (Subject)": subj.strip(),
+                            "关系 (Predicate)": pred.strip(),
+                            "客体 (Object)": obj.strip(),
+                            "来源文件": mdf.name
+                        })
+                except Exception:
+                    pass
+
+            pi_col1, pi_col2, pi_col3 = st.columns(3)
+            with pi_col1:
+                st.metric("知识节点文件", f"{pageindex_count} 个")
+            with pi_col2:
+                st.metric("去重实体总数", f"{len(all_entities)} 个")
+            with pi_col3:
+                st.metric("逻辑关系三元组", f"{len(all_relations)} 条")
+
+            sub_tabs = st.tabs(["🏷️ 实体字典", "🔗 关系拓扑", "📄 节点浏览器"])
+
+            with sub_tabs[0]:
+                if all_entities:
+                    sorted_entities = sorted(all_entities)
+                    entity_data = []
+                    for ent in sorted_entities:
+                        # 计算出现次数
+                        appear_count = sum(1 for fset in file_entity_map.values() if ent in fset)
+                        entity_data.append({"实体名": ent, "出现文件数": appear_count})
+                    st.dataframe(entity_data, use_container_width=True)
+                else:
+                    st.info("暂未解析到 [[实体]] 标签。")
+
+            with sub_tabs[1]:
+                if all_relations:
+                    st.dataframe(all_relations, use_container_width=True)
+                else:
+                    st.info("暂未解析到 == 关系 ==> 三元组。")
+
+            with sub_tabs[2]:
+                selected_file = st.selectbox(
+                    "选择知识节点文件",
+                    options=[f.name for f in md_files],
+                    index=0,
+                    key="hippo_pageindex_file"
+                )
+                if selected_file:
+                    file_path = knowledge_dir / selected_file
+                    try:
+                        raw_content = file_path.read_text(encoding='utf-8')
+                        st.code(raw_content, language="markdown")
+
+                        local_entities = file_entity_map.get(selected_file, set())
+                        if local_entities:
+                            st.markdown(f"**本节点包含的实体** ({len(local_entities)}个)：")
+                            st.write(", ".join(f"`{e}`" for e in sorted(local_entities)))
+                    except Exception as e:
+                        st.error(f"读取文件失败: {e}")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 3: SQLite WAL  ━━━━━━━━━━━━━━━━━
+    with tabs[2]:
+        st.subheader("史官的编年史 — SQLite WAL 生命轨迹")
+        st.caption("每一次工作流的完整生命周期快照，从原始信号到左脑提取、右脑创作、免疫审查，到最终发布或错误。WAL 模式保障高并发下零死锁。")
+
+        wal_col1, wal_col2, wal_col3 = st.columns(3)
+        with wal_col1:
+            st.metric("生命周期轨迹 (trace_logs)", trace_count)
+        with wal_col2:
+            st.metric("原始信号 (raw_signals)", signal_count)
+        with wal_col3:
+            st.metric("WAL 日志模式", "✅ ACTIVE", help="PRAGMA journal_mode=WAL; 读写不互阻塞")
+
+        # 状态分布
+        try:
+            df_status = pd.read_sql(
+                "SELECT workflow_status, COUNT(*) as count FROM trace_logs GROUP BY workflow_status ORDER BY count DESC",
+                db.conn
+            )
+            if not df_status.empty:
+                st.markdown("#### 📊 工作流状态分布")
+                st.bar_chart(df_status, x='workflow_status', y='count', color='#ff4b4b')
+        except Exception:
+            pass
+
+        # 最近轨迹时间线
+        st.markdown("#### 🕐 最近的生命周期时间线")
+        try:
+            df_timeline = pd.read_sql(
+                "SELECT task_id, timestamp, workflow_status FROM trace_logs ORDER BY timestamp DESC LIMIT 25",
+                db.conn
+            )
+            if not df_timeline.empty:
+                # 添加状态 emoji
+                status_emoji = {
+                    'START': '🟡', 'EXTRACTED': '🔵', 'FACT_CHECKED': '🟣',
+                    'GENERATED': '🟠', 'PUBLISHED': '🟢', 'ERROR': '🔴'
+                }
+                df_timeline['状态'] = df_timeline['workflow_status'].apply(
+                    lambda s: f"{status_emoji.get(s, '⚪')} {s}"
+                )
+                df_timeline['任务 ID'] = df_timeline['task_id'].apply(lambda x: x[:12] + '...' if len(str(x)) > 12 else x)
+                df_timeline['时间'] = df_timeline['timestamp']
+                st.dataframe(
+                    df_timeline[['时间', '任务 ID', '状态']],
+                    use_container_width=True,
+                    hide_index=True
+                )
+            else:
+                st.info("暂无生命周期记录。")
+        except Exception as e:
+            st.error(f"查询时间线失败: {e}")
+
+        # 原始信号最近摄入
+        st.markdown("#### 📡 最近摄入的原始信号")
+        try:
+            df_signals = pd.read_sql(
+                "SELECT signal_id, signal_type, handle, timestamp, SUBSTR(raw_text, 1, 80) as preview FROM raw_signals ORDER BY timestamp DESC LIMIT 15",
+                db.conn
+            )
+            if not df_signals.empty:
+                st.dataframe(df_signals, use_container_width=True, hide_index=True)
+            else:
+                st.info("暂无原始信号。")
+        except Exception as e:
+            st.error(f"查询原始信号失败: {e}")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 4: 整理历史  ━━━━━━━━━━━━━━━━━
+    with tabs[3]:
+        st.subheader("🕰️ 记忆归档历史时间线")
+        st.caption("记录每一次海马体睡眠期记忆整理的完整统计：扫描了多少向量、评估了多少实体关系、发现多少缺陷记忆、是否生成了新的避坑指南。")
+
+        all_history = consolidator.get_consolidation_history(limit=20)
+
+        if not all_history:
+            st.info("尚未执行过记忆整理。点击上方 \"🧹 手动触发记忆整理\" 按钮启动第一次整理。")
+        else:
+            # 汇总指标
+            h_col1, h_col2, h_col3, h_col4 = st.columns(4)
+            with h_col1:
+                st.metric("总整理次数", len(all_history))
+            with h_col2:
+                guidelines_count = sum(1 for h in all_history if h['new_guidelines_generated'])
+                st.metric("规则更新次数", guidelines_count)
+            with h_col3:
+                total_expired = sum(h.get('chroma_expired', 0) for h in all_history)
+                st.metric("累计发现过期记忆", total_expired)
+            with h_col4:
+                total_flawed = sum(h.get('sqlite_flawed', 0) for h in all_history)
+                st.metric("累计发现缺陷轨迹", total_flawed)
+
+            # 时间线表格
+            st.markdown("#### 📋 整理记录明细")
+            timeline_data = []
+            for h in all_history:
+                duration = ''
+                if h['started_at'] and h['completed_at']:
+                    try:
+                        from datetime import datetime as dt_c
+                        t1 = dt_c.fromisoformat(str(h['started_at']))
+                        t2 = dt_c.fromisoformat(str(h['completed_at']))
+                        duration = f"{(t2 - t1).total_seconds():.1f}s"
+                    except Exception:
+                        duration = '—'
+
+                timeline_data.append({
+                    "时间": h['started_at'] or '—',
+                    "耗时": duration,
+                    "ChromaDB": f"{h['chroma_retained']}/{h['chroma_total']} (过期{h['chroma_expired']})",
+                    "PageIndex": f"{h['pageindex_entities']}实体 / {h['pageindex_relations']}关系",
+                    "SQLite": f"{h['sqlite_flawed']}缺陷 / {h['sqlite_total']}总",
+                    "规则更新": "✅" if h['new_guidelines_generated'] else "—",
+                })
+            st.dataframe(timeline_data, use_container_width=True, hide_index=True)
+
+            # 展开最近一次的详细报告
+            latest = all_history[0]
+            if latest.get('consolidation_report'):
+                with st.expander("🔬 查看最近一次整理的详细阶段报告", expanded=False):
+                    try:
+                        report = json.loads(latest['consolidation_report'])
+                        for phase in report.get('phases', []):
+                            emoji_map = {'SLEEPING': '🌙', 'REPLAYING': '🔄', 'EVALUATING': '⚖️', 'ARCHIVING': '📦', 'AWAKE': '🌅'}
+                            em = emoji_map.get(phase['phase'], '⚪')
+                            detail = phase.get('detail', '')
+                            st.write(f"{em} **{phase['phase']}** @ {phase['ts']}{'  — ' + detail if detail else ''}")
+                    except Exception:
+                        st.code(latest['consolidation_report'])
+
+    consolidator.close()
+
+
+
 def main():
     """主函数"""
     st.set_page_config(page_title="DavidAgent 元认知大盘", layout="wide")
@@ -1225,7 +1960,21 @@ def main():
     st.sidebar.title("🎮 控制中心")
     app_mode = st.sidebar.radio(
         "选择功能模块", 
-        ["工作流复盘", "🧠 左脑监控 (Left Brain)", "感知中心 (Perceptor)", "X 账号管理", "元认知管理", "系统状态", "系统设置", "上下文管理"]
+        [
+            "工作流复盘", 
+            "🧠 左脑监控 (Left Brain)", 
+            "🎨 右脑监控 (Right Brain)",
+            "感知中心 (Perceptor)", 
+            "X 账号管理", 
+            "元认知管理", 
+            "系统状态", 
+            "系统设置", 
+            "上下文管理",
+            "🔧 神经源管理 (Sensor Hub)",
+            "🧠 人格设定 (Persona)",
+            "💾 数据治理 (DB Admin)",
+            "🧬 海马体记忆 (Hippocampus)"
+        ]
     )
     
     if app_mode == "工作流复盘":
@@ -1255,6 +2004,8 @@ def main():
                 st.error("无法加载任务详情")
     elif app_mode == "🧠 左脑监控 (Left Brain)":
         display_left_brain_monitor()
+    elif app_mode == "🎨 右脑监控 (Right Brain)":
+        display_right_brain_monitor()
     elif app_mode == "感知中心 (Perceptor)":
         display_perceptor_center()
     elif app_mode == "X 账号管理":
@@ -1267,6 +2018,14 @@ def main():
         display_system_config()
     elif app_mode == "上下文管理":
         display_context_management()
+    elif app_mode == "🔧 神经源管理 (Sensor Hub)":
+        display_sensor_hub()
+    elif app_mode == "🧠 人格设定 (Persona)":
+        display_persona_settings()
+    elif app_mode == "💾 数据治理 (DB Admin)":
+        display_db_admin()
+    elif app_mode == "🧬 海马体记忆 (Hippocampus)":
+        display_hippocampus_memory()
 
 
 if __name__ == "__main__":

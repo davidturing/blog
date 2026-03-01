@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""
+左脑监听器 - 事实核查员 (Fact Checker)
+负责监听右脑生成的草稿并进行严格的事实核查
+"""
+
+import asyncio
+import json
+from typing import Dict, Any, Optional
+from pydantic import BaseModel, Field
+
+# 添加项目根目录到Python路径
+import sys
+from pathlib import Path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from brain.memory.blackboard import BrainBlackboard
+from google.generativeai import GenerativeModel
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+
+
+class ReviewResult(BaseModel):
+    """审查结果数据结构"""
+    passed: bool = Field(
+        ...,
+        description="草稿是否完全符合事实？没有任何幻觉或曲解则为true，否则为false。"
+    )
+    feedback: str = Field(
+        ...,
+        description="如果passed为false，请给出具体的修改指导意见；如果为true，可简短表扬。"
+    )
+    hallucinations: list[str] = Field(
+        default_factory=list,
+        description="列出草稿中所有捏造的、与图谱矛盾的具体知识点。"
+    )
+
+
+class LeftBrainListener:
+    """左脑监听器 - 事实核查员"""
+    
+    def __init__(self, blackboard: BrainBlackboard, gemini_model: GenerativeModel):
+        self.blackboard = blackboard
+        self.gemini_model = gemini_model
+        self._setup_listeners()
+        
+    def _setup_listeners(self):
+        """设置事件监听器"""
+        # 监听右脑草稿完成事件
+        self.blackboard.subscribe('state_changed:draft_content', self._on_draft_content)
+        
+    async def _on_draft_content(self, draft: str, old_value: str):
+        """处理博客草稿完成事件 - 启动事实核查"""
+        if not draft:
+            return
+            
+        print("🧐 [左脑-Gemini] 收到右脑草稿，启动严苛的事实核查 (Review) 流程...")
+        await self.blackboard.update('workflow_status', 'REVIEWING', 'GEMINI_LEFT')
+        
+        # 获取"绝对真理"：之前提取的图谱数据
+        ground_truth = await self.blackboard.read('extracted_graph')
+        
+        if not ground_truth:
+            print("⚠️ [左脑-Gemini] 找不到底层事实数据，无法核查！")
+            return
+            
+        try:
+            # 执行逻辑交叉比对
+            review_result = await self._verify_draft(draft, ground_truth)
+            
+            if review_result.passed:
+                print("✅ [左脑-Gemini] 核查通过！无幻觉，逻辑严密。准备发布！")
+                # 触发最终的发布节点
+                await self.blackboard.update('workflow_status', 'READY_TO_PUBLISH', 'SYSTEM')
+            else:
+                print("🚨 [左脑-Gemini] 警报！发现逻辑错误或幻觉，正在打回重写...")
+                print(f"💡 [修改意见]: {review_result.feedback}")
+                
+                # 将修改意见拍回黑板，触发右脑重写
+                await self.blackboard.update('review_feedback', review_result.feedback, 'GEMINI_LEFT')
+                
+        except Exception as e:
+            print(f"❌ [左脑-Gemini] 核查过程发生异常: {e}")
+            await self.blackboard.update('workflow_status', 'ERROR', 'GEMINI_LEFT')
+    
+    def _get_review_schema(self) -> Dict[str, Any]:
+        """定义审查结果的数据结构 (JSON Schema)"""
+        return {
+            "type": "OBJECT",
+            "properties": {
+                "passed": {
+                    "type": "BOOLEAN",
+                    "description": "草稿是否完全符合事实？没有任何幻觉或曲解则为true，否则为false。"
+                },
+                "feedback": {
+                    "type": "STRING", 
+                    "description": "如果passed为false，请给出具体的修改指导意见；如果为true，可简短表扬。"
+                },
+                "hallucinations": {
+                    "type": "ARRAY",
+                    "description": "列出草稿中所有捏造的、与图谱矛盾的具体知识点。",
+                    "items": {"type": "STRING"}
+                }
+            },
+            "required": ["passed", "feedback", "hallucinations"]
+        }
+    
+    async def _verify_draft(self, draft: str, ground_truth: Dict[str, Any]) -> ReviewResult:
+        """核心审查逻辑：对比草稿与真理"""
+        # 创建专门的审查模型实例，使用绝对零度温度
+        reviewer_model = self.gemini_model  # Gemini 2.5 Pro already configured
+        
+        # 构建审查Prompt
+        prompt = f"""
+你是一个铁面无私的事实核查员。
+
+【绝对真理（知识图谱）】：
+{json.dumps(ground_truth, ensure_ascii=False, indent=2)}
+
+【待核查的博客草稿】：
+{draft}
+
+任务：
+1. 严格交叉比对，检查"博客草稿"中是否出现了"绝对真理"中不存在的实体、功能或逻辑关系。
+2. 检查草稿是否曲解了实体之间的关系。
+3. 即使草稿文采再好，只要有任何事实性错误或过度发散的幻觉，必须打回（passed: false）。
+"""
+        
+        try:
+            # 使用Gemini 2.5 Pro的结构化输出能力
+            response = await reviewer_model.generate_content_async(
+                prompt,
+                generation_config={
+                    "response_mime_type": "application/json",
+                    "response_schema": self._get_review_schema(),
+                    "temperature": 0.0  # 绝对零度，确保完全理性
+                },
+                safety_settings={
+                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                }
+            )
+            
+            # 解析审查结果
+            review_text = response.text
+            review_data = json.loads(review_text)
+            
+            # 创建ReviewResult对象
+            result = ReviewResult(
+                passed=review_data.get('passed', False),
+                feedback=review_data.get('feedback', ''),
+                hallucinations=review_data.get('hallucinations', [])
+            )
+            
+            # 打印发现的幻觉细节
+            if not result.passed and result.hallucinations:
+                print("🔍 [左脑审查明细] 抓到以下幻觉:")
+                for hallucination in result.hallucinations:
+                    print(f" - {hallucination}")
+            
+            return result
+            
+        except Exception as e:
+            print(f"❌ 审查过程中发生错误: {e}")
+            # 如果审查失败，保守起见标记为不通过
+            return ReviewResult(
+                passed=False,
+                feedback="审查过程发生技术错误，请重试",
+                hallucinations=["技术错误导致无法完成审查"]
+            )

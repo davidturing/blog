@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1760123456789012345",
+    "author": "AI_Researcher",
+    "content": "Just released Qwen3-Coder-Plus! This new model achieves SOTA on HumanEval with 85.2% pass@1. It's specifically optimized for code generation and understanding. The key innovation is in the attention mechanism that better handles long-range dependencies in code. #AI #CodeGeneration #Qwen",
+    "timestamp": "2026-02-20T08:00:00Z",
+    "likes": 1250,
+    "retweets": 340
+  },
+  {
+    "id": "1760123456789012346", 
+    "author": "TechFounder",
+    "content": "We just open-sourced ChromaDB 2.0! Major improvements in vector search performance - 3x faster than v1.5. Also added native support for time-decay weighting to handle data freshness automatically. Perfect for AI agents that need to stay current! #VectorDB #AI #OpenSource",
+    "timestamp": "2026-02-20T08:15:00Z",
+    "likes": 890,
+    "retweets": 210
+  },
+  {
+    "id": "1760123456789012347",
+    "author": "ML_Engineer",
+    "content": "The future of autonomous agents is in dual-brain architectures. We're seeing amazing results combining reasoning-focused models (like Gemini) with creative models (like Qwen). The key is having a shared blackboard for communication instead of direct API calls. Reduces resource exhaustion dramatically! #AIAgents #DualBrain",
+    "timestamp": "2026-02-20T08:30:00Z", 
+    "likes": 1560,
+    "retweets": 420
+  },
+  {
+    "id": "1760123456789012348",
+    "author": "DevOps_Guru", 
+    "content": "Hot take: SQLite with WAL mode is still the most underrated database for AI agent memory systems. It's lightweight, supports high concurrency with proper configuration, and perfect for storing episodic memory traces. Don't over-engineer your agent's memory layer! #SQLite #AIAgents #Database",
+    "timestamp": "2026-02-20T08:45:00Z",
+    "likes": 720,
+    "retweets": 180
+  },
+  {
+    "id": "1760123456789012349",
+    "author": "AI_Ethicist",
+    "content": "Important reminder: Always implement rate limiting and exponential backoff in your AI agents. Not just for your own stability, but to be a good citizen of the API ecosystem. Nobody wants their agent to get rate-limited and miss important updates! #AIEthics #RateLimiting #GoodCitizen",
+    "timestamp": "2026-02-20T09:00:00Z",
+    "likes": 2100,
+    "retweets": 560
+  }
+]
