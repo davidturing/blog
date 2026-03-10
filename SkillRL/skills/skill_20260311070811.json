@@ -1,0 +1,11 @@
+{
+  "description": "通过自动认知增强中间件沉淀的可靠技能 (Polars+DuckDB 符号切换)",
+  "code": "import polars as pl\ndef sign_change_cumsum(df):\n    return df.with_columns((pl.col('price').sign() != pl.col('price').sign().shift()).cumsum())",
+  "domain": "quant_code",
+  "tags": [
+    "polars",
+    "duckdb",
+    "factor_engineering"
+  ],
+  "success_rate": 1.0
+}

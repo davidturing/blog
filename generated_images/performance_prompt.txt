@@ -1,0 +1,17 @@
+Performance comparison bar chart for semiconductor yield data analysis (10GB / 6.5 billion rows).
+Metrics to compare:
+1. Data Loading: Polars 4.2s (green) vs Pandas 9.8s (red)
+2. Multi-dim Aggregation: Polars 2.1s (green) vs Pandas 5.2s (red)  
+3. Complex Filtering: Polars 0.89s (green) vs Pandas 2.1s (red)
+4. Memory Usage: Polars 70% less (green) vs Pandas baseline (red)
+
+Chart style:
+- Clean, professional technical chart
+- Dark blue background (#093572) with high contrast text
+- Clear axis labels and values
+- Percentage improvement annotations on each bar pair
+- Title: "Polars + DuckDB Performance Advantage"
+- Subtitle: "65亿行芯片良率数据分析性能对比"
+
+Quality: 2K resolution, suitable for technical blog, professional blueprint aesthetic
+Model: gemini-3-pro-image-preview

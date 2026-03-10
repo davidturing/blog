@@ -2,123 +2,475 @@
   {
     "handle": "kloss_xyz",
     "description": "Systems architecture king",
-    "tags": ["Systems Architecture", "High Performance"],
+    "tags": [
+      "Systems Architecture",
+      "High Performance"
+    ],
     "category": "Tech Influencer",
-    "persona": "Tech Guru"
+    "persona": "Tech Guru",
+    "name": "kloss_xyz",
+    "followers": 0
   },
   {
     "handle": "rryssf_",
     "description": "Automations & workflows king",
-    "tags": ["Automation", "Workflow", "Efficiency"],
+    "tags": [
+      "Automation",
+      "Workflow",
+      "Efficiency"
+    ],
     "category": "Tech Influencer",
-    "persona": "Tech Guru"
+    "persona": "Tech Guru",
+    "name": "rryssf_",
+    "followers": 0
   },
   {
     "handle": "0xROAS",
     "description": "AI UGC & content king",
-    "tags": ["AI UGC", "Content Creation"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI UGC",
+      "Content Creation"
+    ],
+    "category": "Tech Influencer",
+    "name": "0xROAS",
+    "followers": 0
   },
   {
     "handle": "AmirMushich",
     "description": "AI ads & marketing king",
-    "tags": ["AI Ads", "Marketing"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Ads",
+      "Marketing"
+    ],
+    "category": "Tech Influencer",
+    "name": "AmirMushich",
+    "followers": 0
   },
   {
     "handle": "TerosEso",
     "description": "AI productivity & builder curator king",
-    "tags": ["AI Productivity", "Curation", "Builder"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Productivity",
+      "Curation",
+      "Builder"
+    ],
+    "category": "Tech Influencer",
+    "name": "TerosEso",
+    "followers": 0
   },
   {
     "handle": "DjaniWhaleSkul",
     "description": "AI builders & agents curator king",
-    "tags": ["AI Agents", "Curation", "Builder"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Agents",
+      "Curation",
+      "Builder"
+    ],
+    "category": "Tech Influencer",
+    "name": "DjaniWhaleSkul",
+    "followers": 0
   },
   {
     "handle": "lets_ash",
     "description": "AI agents for growth & workflows king",
-    "tags": ["AI Agents", "Growth", "Workflow"],
+    "tags": [
+      "AI Agents",
+      "Growth",
+      "Workflow"
+    ],
     "category": "Tech Influencer"
   },
   {
     "handle": "ai_uncovered",
     "description": "premium AI agents exposed king",
-    "tags": ["AI Agents", "Deep Dive"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Agents",
+      "Deep Dive"
+    ],
+    "category": "Tech Influencer",
+    "name": "ai_uncovered",
+    "followers": 0
   },
   {
     "handle": "tomkrcha",
     "description": "pencil AI design tool in IDE king",
-    "tags": ["AI Design", "IDE Tools", "Pencil AI"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Design",
+      "IDE Tools",
+      "Pencil AI"
+    ],
+    "category": "Tech Influencer",
+    "name": "tomkrcha",
+    "followers": 0
   },
   {
     "handle": "paoloanzn",
     "description": "agent builder king",
-    "tags": ["Agent Builder", "AI Development"],
-    "category": "Tech Influencer"
+    "tags": [
+      "Agent Builder",
+      "AI Development"
+    ],
+    "category": "Tech Influencer",
+    "name": "paoloanzn",
+    "followers": 0
   },
   {
     "handle": "yevrrah",
     "description": "AI side hustle observer",
-    "tags": ["AI Side Hustle", "Market Trends"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Side Hustle",
+      "Market Trends"
+    ],
+    "category": "Tech Influencer",
+    "name": "yevrrah",
+    "followers": 0
   },
   {
     "handle": "aryanXmahajan",
     "description": "autonomous agents king",
-    "tags": ["Autonomous Agents", "AI Research"],
-    "category": "Tech Influencer"
+    "tags": [
+      "Autonomous Agents",
+      "AI Research"
+    ],
+    "category": "Tech Influencer",
+    "name": "aryanXmahajan",
+    "followers": 0
   },
   {
     "handle": "VibeMarketer_",
     "description": "DTC AI agents king",
-    "tags": ["DTC", "AI Agents", "Marketing"],
-    "category": "Tech Influencer"
+    "tags": [
+      "DTC",
+      "AI Agents",
+      "Marketing"
+    ],
+    "category": "Tech Influencer",
+    "name": "VibeMarketer_",
+    "followers": 0
   },
   {
     "handle": "hajKuron",
     "description": "AI engineer & builder king",
-    "tags": ["AI Engineering", "Builder"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Engineering",
+      "Builder"
+    ],
+    "category": "Tech Influencer",
+    "name": "hajKuron",
+    "followers": 0
   },
   {
     "handle": "maxxmalist",
     "description": "AI ads blueprint king",
-    "tags": ["AI Ads", "Blueprint", "Strategy"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Ads",
+      "Blueprint",
+      "Strategy"
+    ],
+    "category": "Tech Influencer",
+    "name": "maxxmalist",
+    "followers": 0
   },
   {
     "handle": "theahmedkaiz",
     "description": "AI videos & marketing king",
-    "tags": ["AI Video", "Marketing"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Video",
+      "Marketing"
+    ],
+    "category": "Tech Influencer",
+    "name": "theahmedkaiz",
+    "followers": 0
   },
   {
     "handle": "BusDownBonnor",
     "description": "AI agents + vibecoding king",
-    "tags": ["AI Agents", "Vibe Coding"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Agents",
+      "Vibe Coding"
+    ],
+    "category": "Tech Influencer",
+    "name": "BusDownBonnor",
+    "followers": 0
   },
   {
     "handle": "NotLucknite",
     "description": "AI agent builder & security + tools king",
-    "tags": ["AI Agents", "Security", "AI Tools"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Agents",
+      "Security",
+      "AI Tools"
+    ],
+    "category": "Tech Influencer",
+    "name": "NotLucknite",
+    "followers": 0
   },
   {
     "handle": "vriparbelli",
     "description": "AI video avatars king",
-    "tags": ["AI Video", "Avatars"],
-    "category": "Tech Influencer"
+    "tags": [
+      "AI Video",
+      "Avatars"
+    ],
+    "category": "Tech Influencer",
+    "name": "vriparbelli",
+    "followers": 0
   },
   {
     "handle": "rokbercic",
     "description": "AI marketing growth king",
-    "tags": ["AI Marketing", "Growth"],
+    "tags": [
+      "AI Marketing",
+      "Growth"
+    ],
     "category": "Tech Influencer"
+  },
+  {
+    "handle": "sama",
+    "description": "",
+    "category": "Custom",
+    "persona": "Added via Dashboard",
+    "name": "sama",
+    "followers": 0
+  },
+  {
+    "handle": "karpathy",
+    "description": "LLMs king",
+    "tags": [
+      "Llms King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "karpathy",
+    "followers": 0
+  },
+  {
+    "handle": "TheAIColony",
+    "description": "strategy & storytelling",
+    "tags": [
+      "Strategy",
+      "Storytelling"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "TheAIColony",
+    "followers": 0
+  },
+  {
+    "handle": "gregisenberg",
+    "description": "startup ideas king",
+    "tags": [
+      "Startup Ideas King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "gregisenberg",
+    "followers": 0
+  },
+  {
+    "handle": "TheAIColonyRD",
+    "description": "brand stories & breakthroughs",
+    "tags": [
+      "Brand Stories",
+      "Breakthroughs"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "TheAIColonyRD",
+    "followers": 0
+  },
+  {
+    "handle": "rileybrown",
+    "description": "vibecode king",
+    "tags": [
+      "Vibecode King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "rileybrown",
+    "followers": 0
+  },
+  {
+    "handle": "corbin_braun",
+    "description": "cursor king",
+    "tags": [
+      "Cursor King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "corbin_braun",
+    "followers": 0
+  },
+  {
+    "handle": "AIHighlight",
+    "description": "daily tools & prompts",
+    "tags": [
+      "Daily Tools",
+      "Prompts"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "AIHighlight",
+    "followers": 0
+  },
+  {
+    "handle": "jackfriks",
+    "description": "solo apps king",
+    "tags": [
+      "Solo Apps King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "jackfriks",
+    "followers": 0
+  },
+  {
+    "handle": "AIFrontliner",
+    "description": "business impact & launches",
+    "tags": [
+      "Business Impact",
+      "Launches"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "AIFrontliner",
+    "followers": 0
+  },
+  {
+    "handle": "EXM7777",
+    "description": "AI ops + systems king",
+    "tags": [
+      "Ai Ops",
+      "Systems King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "EXM7777",
+    "followers": 0
+  },
+  {
+    "handle": "FutureStacked",
+    "description": "AI, tech & robotics",
+    "tags": [
+      "Ai",
+      "Tech",
+      "Robotics"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "FutureStacked",
+    "followers": 0
+  },
+  {
+    "handle": "godofprompt",
+    "description": "prompt king",
+    "tags": [
+      "Prompt King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "godofprompt",
+    "followers": 0
+  },
+  {
+    "handle": "AriaWestcott",
+    "description": "productivity tips",
+    "tags": [
+      "Productivity Tips"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "AriaWestcott",
+    "followers": 0
+  },
+  {
+    "handle": "vasuman",
+    "description": "AI agents king",
+    "tags": [
+      "Ai Agents King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "vasuman",
+    "followers": 0
+  },
+  {
+    "handle": "egeberkina",
+    "description": "AI images king",
+    "tags": [
+      "Ai Images King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "egeberkina",
+    "followers": 0
+  },
+  {
+    "handle": "MengTo",
+    "description": "AI landing pages king",
+    "tags": [
+      "Ai Landing Pages King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "MengTo",
+    "followers": 0
+  },
+  {
+    "handle": "Shawnife",
+    "description": "founder insight & consulting",
+    "tags": [
+      "Founder Insight",
+      "Consulting"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "Shawnife",
+    "followers": 0
+  },
+  {
+    "handle": "Hesamation",
+    "description": "AI/ML king",
+    "tags": [
+      "Ai/Ml King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "Hesamation",
+    "followers": 0
+  },
+  {
+    "handle": "emollick",
+    "description": "AI science & research",
+    "tags": [
+      "Ai Science",
+      "Research"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "emollick",
+    "followers": 0
+  },
+  {
+    "handle": "levelsio",
+    "description": "solo startups king",
+    "tags": [
+      "Solo Startups King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "levelsio",
+    "followers": 0
+  },
+  {
+    "handle": "marclou",
+    "description": "solo startups king",
+    "tags": [
+      "Solo Startups King"
+    ],
+    "category": "Tech Influencer",
+    "persona": "Added via Batch Import",
+    "name": "marclou",
+    "followers": 0
   }
 ]

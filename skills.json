@@ -1,0 +1,12 @@
+{
+  "skills": {
+    "lancedb七层检索怎么用": {
+      "answer": "1.向量检索 2.BM25 3.MMR去重 4.过滤 5.时间衰减 6.偏好加权 7.重排序",
+      "create_time": "2026-02-27 23:06:07",
+      "from": "skill_rl"
+    }
+  },
+  "query_count": {
+    "lancedb七层检索怎么用": 4
+  }
+}

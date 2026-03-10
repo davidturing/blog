@@ -1,0 +1,7 @@
+{
+  "check_id": "check_213138",
+  "strategy_name": "DualMovingAverage",
+  "is_consistent": true,
+  "inconsistencies": [],
+  "timestamp": "2026-03-10 06:51:20.595394"
+}

@@ -1471,45 +1471,100 @@ def display_sensor_hub():
             st.success("X 推文已成功推送到黑板！")
 
 def display_persona_settings():
-    st.header("🧠 人格与法则设定 (Persona & Rules)")
-    st.markdown("通过多重人格面具库 (Persona Hub)，一键切换右脑 (Qwen) 的专业视角与创作风格。修改后的规则会热加载为最高约束指令。")
+    st.header("🧠 DavidAgent数字分身")
+    st.markdown("通过管理数字分身，您可以快速切换不同角色的设定与上下文体系。下表展示了当前系统内的所有已注册分身。")
     
     import os
+    import json
+    import pandas as pd
     from pathlib import Path
-    try:
-        from brain.personas_registry import PERSONA_TEMPLATES
-    except ImportError:
-        PERSONA_TEMPLATES = {}
-        
+    
     project_root = Path(__file__).parent.parent
-    guideline_path = os.path.join(project_root, "dynamic_guidelines.md")
+    workspace_root = project_root.parent
+    memory_md_path = workspace_root / "MEMORY.md"
+    twins_json_path = workspace_root / ".credentials" / "digital_personas.json"
     
-    # 1. 面具模板选择器
-    st.subheader("🎭 面具热插拔 (Persona Hot-Swap)")
-    selected_persona = st.selectbox("选择要加载的预设人格模型：", options=["(当前自定义规则)"] + list(PERSONA_TEMPLATES.keys()))
-    
-    if st.button("📥 载入选中面具 (Load Persona)"):
-        if selected_persona != "(当前自定义规则)":
-            template_content = PERSONA_TEMPLATES[selected_persona]
-            with open(guideline_path, "w", encoding='utf-8') as f:
-                f.write(template_content)
-            st.success(f"已成功加载并激活：{selected_persona}！")
-            st.rerun()  # 刷新页面将新文本加载进下方的文本框
-            
-    if not os.path.exists(guideline_path):
-        with open(guideline_path, "w", encoding='utf-8') as f:
-            f.write("保持客观、专业即可。")
-            
-    with open(guideline_path, "r", encoding='utf-8') as f:
-        current_guidelines = f.read()
+    # ---------------- 1. 加载数字分身配置 ----------------
+    def load_twins():
+        if twins_json_path.exists():
+            with open(twins_json_path, "r", encoding='utf-8') as f:
+                data = json.load(f)
+                return data.get("personas", {})
+        return {}
         
-    st.subheader("✍️ 面具微调 (Fine-Tuning)")
-    new_guidelines = st.text_area("当前激活的最高约束指令 (Markdown 支持)", value=current_guidelines, height=350)
+    def save_twins(twins_data):
+        # 确保目录存在
+        twins_json_path.parent.mkdir(parents=True, exist_ok=True)
+        # 包装成原来系统的 {"personas": {...}} 格式
+        output_data = {"personas": twins_data}
+        with open(twins_json_path, "w", encoding='utf-8') as f:
+            json.dump(output_data, f, ensure_ascii=False, indent=2)
+            
+    if "twins" not in st.session_state:
+        st.session_state.twins = load_twins()
+        
+    twins = st.session_state.twins
     
-    if st.button("💾 保存自定义配置 (Live Reload)"):
-        with open(guideline_path, "w", encoding='utf-8') as f:
-            f.write(new_guidelines)
-        st.success("人格法则已更新！RightBrain 下一次创作将立即生效。")
+    # 构建展示映射表 (利用 name 字段作为展示名称)
+    display_to_id = {v.get("name", k): k for k, v in twins.items()}
+    id_to_display = {k: v.get("name", k) for k, v in twins.items()}
+    
+    # ---------------- 2. 列表展示与新增 ----------------
+    st.subheader("👥 当前数字分身列表")
+    
+    # 展示现有分身的表格
+    def get_summary(twin_data):
+        # 提取核心的描述性字段
+        parts = []
+        for key in ["focus", "target_site", "course", "identity"]:
+            if key in twin_data:
+                parts.append(f"{key}: {twin_data[key]}")
+        summary = " | ".join(parts)
+        if not summary:
+            # Fallback to stringifying other keys if none of the standard ones match
+            summary = str({k: v for k, v in twin_data.items() if k != "name"})[:100]
+        return summary
+
+    twin_list = [{"数字分身名称": id_to_display[k], "ID代号": k, "数字分身描述": get_summary(v)} for k, v in twins.items()]
+    df_twins = pd.DataFrame(twin_list)
+    st.dataframe(df_twins, use_container_width=True, hide_index=True)
+    
+    # ---------------- 3. 管理与激活 ----------------
+    st.divider()
+    st.subheader("🚀 激活数字分身")
+    st.info("通过此界面，您可以将上方表格中的任意分身激活写入到系统的上下文记忆中 (MEMORY.md)。由于系统统一通过 OpenClaw 维护分身数据，此仪表盘仅提供查询与激活功能。")
+    
+    selected_display = st.selectbox("选择要激活的分身：", list(display_to_id.keys()))
+    
+    if selected_display:
+        selected_id = display_to_id[selected_display]
+        current_data = twins[selected_id]
+        
+        # 将 JSON 渲染成 Markdown 格式预览
+        md_lines = [f"# {selected_display} Memory\n"]
+        for k, v in current_data.items():
+            if k == "name": continue
+            if isinstance(v, list):
+                md_lines.append(f"- **{k}**: " + ", ".join(v))
+            elif isinstance(v, dict):
+                md_lines.append(f"- **{k}**:")
+                for sub_k, sub_v in v.items():
+                    md_lines.append(f"  - {sub_k}: {sub_v}")
+            else:
+                md_lines.append(f"- **{k}**: {v}")
+                
+        new_memory_markdown = "\n".join(md_lines)
+        
+        st.markdown("**激活预览：**")
+        st.markdown(f"```markdown\n{new_memory_markdown}\n```")
+        
+        if st.button("🚀 激活并覆盖到 MEMORY.md", type="primary", use_container_width=True):
+            try:
+                with open(memory_md_path, "w", encoding='utf-8') as f:
+                    f.write(new_memory_markdown)
+                st.toast(f"已成功将 {selected_display} 设为当前激活分身！系统记忆 (MEMORY.md) 已刷新。")
+            except Exception as e:
+                st.error(f"激活写出文件失败: {e}")
 
 def display_db_admin():
     st.header("💾 数据治理 (DB Admin)")
@@ -1558,10 +1613,10 @@ def display_db_admin():
                 st.error(f"擦除失败: {e}")
 
 def display_hippocampus_memory():
-    """海马体三层记忆架构可视化 — 含睡眠周期状态与记忆整理引擎"""
+    """海马体四重记忆架构可视化 — 含睡眠周期状态与记忆整理引擎"""
     st.header("🧬 海马体记忆架构 (Hippocampus Memory Matrix)")
     st.markdown(
-        "透视 DavidAgent 的**三维立体记忆存储矩阵**：语义记忆（潜意识联想）、逻辑记忆（世界观地图）、情景记忆（自传体日记）。"
+        "透视 DavidAgent 的**四重增强立体记忆存储矩阵**：SkillRL 本能层、ReasoningBank 推理层、Memory Alpha 智能缓存层、以及底层的 LanceDB 精确检索与 ChromaDB 语义记忆。"
     )
 
     project_root = Path(__file__).parent.parent
@@ -1630,35 +1685,46 @@ def display_hippocampus_memory():
 
     st.divider()
 
-    # ── 顶部三列指标卡 ──
-    col_chroma, col_page, col_sqlite = st.columns(3)
+    # ── 顶部五列指标卡 ──
+    col_skill, col_reason, col_alpha, col_lancedb, col_page = st.columns(5)
 
-    # ChromaDB stats
+    # 1. SkillRL Stats
+    skills_dir = project_root / "skills" / "self-learning-agent" / "skills_library"
+    skill_count = len(list(skills_dir.glob("*.py"))) if skills_dir.exists() else 0
+
+    # 2. ReasoningBank Stats
+    guidelines_path = project_root / "dynamic_guidelines.md"
+    guideline_count = 1 if guidelines_path.exists() else 0 # 简化处理，代表指南库是否存在
+
+    # 3. Memory Alpha Stats
+    session_count = 1 # 代表当前活跃 session
+
+    # 4. LanceDB / ChromaDB stats
     lean_path = project_root / "chroma_data" / "david_agent_memory.json"
-    chroma_count = 0
+    vector_count = 0
     chroma_records = []
     try:
         if lean_path.exists():
             with open(lean_path, 'r', encoding='utf-8') as f:
                 chroma_records = json.load(f)
-                chroma_count = len(chroma_records)
+                vector_count = len(chroma_records)
         else:
             try:
                 from brain.memory.chroma_integration import get_chroma_instance
                 ci = get_chroma_instance()
                 if not ci.is_lean and ci.collection is not None:
-                    chroma_count = ci.collection.count()
+                    vector_count = ci.collection.count()
             except Exception:
                 pass
     except Exception:
         pass
 
-    # PageIndex stats
+    # 5. PageIndex stats
     knowledge_dir = project_root / "skills" / "self-learning-agent" / "pageindex" / "knowledge"
     md_files = sorted(knowledge_dir.glob("*.md")) if knowledge_dir.exists() else []
     pageindex_count = len(md_files)
 
-    # SQLite stats
+    # SQLite trace logs (used later)
     try:
         trace_count = pd.read_sql("SELECT COUNT(*) as c FROM trace_logs", db.conn).iloc[0]['c']
     except Exception:
@@ -1668,31 +1734,72 @@ def display_hippocampus_memory():
     except Exception:
         signal_count = 0
 
-    with col_chroma:
-        st.metric("🌊 语义记忆 (ChromaDB)", f"{chroma_count} 条向量", help="模糊的潜意识联想网络，为右脑提供 RAG 灵感")
+    with col_skill:
+        st.metric("⚡ SkillRL", f"{skill_count} 子技能", help="本能肌肉记忆，微秒级响应")
+    with col_reason:
+        st.metric("🛡️ ReasoningBank", f"{guideline_count} 沉淀模块", help="推理避坑指南与经验沉淀")
+    with col_alpha:
+        st.metric("📡 Memory Alpha", f"{session_count} 活跃区", help="运行期高并发智能级缓存")
+    with col_lancedb:
+        st.metric("🌊 向量检索矩阵", f"{vector_count} 条记录", help="LanceDB 7层混合精确检索 + ChromaDB")
     with col_page:
-        st.metric("🕸️ 逻辑记忆 (PageIndex)", f"{pageindex_count} 个知识节点", help="绝对清晰的双链 Markdown 世界观地图")
-    with col_sqlite:
-        st.metric("📜 情景记忆 (SQLite WAL)", f"{trace_count + signal_count} 条轨迹", help="忠实记录每一次思考与犯错的史官")
+        st.metric("🕸️ PageIndex", f"{pageindex_count} 个节点", help="逻辑双链知识图谱")
 
     st.divider()
 
-    # ── 四个 Tab ──
+    # ── 新的 Tab 结构 ──
     tabs = st.tabs([
-        "🌊 层一：语义记忆 — ChromaDB 向量空间",
-        "🕸️ 层二：逻辑记忆 — PageIndex 双链图谱",
-        "📜 层三：情景记忆 — SQLite WAL 生命轨迹",
-        "🕰️ 整理历史 — 记忆归档时间线"
+        "⚡ SkillRL 本能技能",
+        "🛡️ ReasoningBank 避坑指南",
+        "📡 Memory Alpha 工作区",
+        "🌊 向量矩阵 (LanceDB/Chroma)",
+        "🕸️ PageIndex 逻辑图谱",
+        "📜 史官编年史 (WAL 轨迹)",
+        "🕰️ 记忆整理历史"
     ])
 
-    # ━━━━━━━━━━━━━━━━━  Tab 1: ChromaDB  ━━━━━━━━━━━━━━━━━
+    # ━━━━━━━━━━━━━━━━━  Tab 1: SkillRL 本能技能  ━━━━━━━━━━━━━━━━━
     with tabs[0]:
-        st.subheader("潜意识与联想网络")
-        st.caption("ChromaDB 将每条知识摘要映射为高维向量，通过余弦相似度实现跨周期的潜意识关联。配合**艾宾浩斯遗忘曲线**时间衰减，自动过滤过时记忆。")
+        st.subheader("⚡ 本能层：降维反应与肌肉记忆")
+        st.caption("高频任务（被处理 ≥ 3次）会被左脑通过反思自动提炼为本能技能，存储于 `skills_library` 中。执行阶段从“深度网络”降维为“直接函数调用”，实现毫秒级响应。")
+
+        if skill_count > 0:
+            skills = [s.name for s in skills_dir.glob("*.py")]
+            st.success(f"已固化 {skill_count} 个本能技能！")
+            st.write(", ".join([f"`{s}`" for s in skills]))
+        else:
+            st.info("尚无提炼出的本能技能。")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 2: ReasoningBank 避坑指南  ━━━━━━━━━━━━━━━━━
+    with tabs[1]:
+        st.subheader("🛡️ 推理层：动态法则与长效护城河")
+        st.caption("系统犯过的错不会再犯第二次。夜间反思机制提炼出的核心教训和红线，都会被收容到黑石碑 (`dynamic_guidelines.md`)中，并在每次新任务启动时最先被大模型审阅。")
+
+        if guidelines_path.exists():
+            try:
+                content = guidelines_path.read_text(encoding='utf-8')
+                st.markdown("#### 当前活跃防线 (Active Guidelines)")
+                st.code(content, language="markdown")
+            except Exception as e:
+                st.error(f"读取避坑指南失败: {e}")
+        else:
+            st.info("尚未生成任何动态避坑指南。")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 3: Memory Alpha 工作区  ━━━━━━━━━━━━━━━━━
+    with tabs[2]:
+        st.subheader("📡 智能缓存层：高并发与短期协同记忆")
+        st.caption("作为左右脑协同的“内存工作区”，Memory Alpha 提供 Thread 级别的并发记忆隔离。当前正在进行中的 Task 记忆会在这里汇聚，直到该次运行结束（或睡眠时段）才会被沉淀到冷数据库。")
+
+        st.info("此层级数据属于短期运行态 (In-Memory / Redis)，可通过 `memory_alpha` 进行探针读取。页面暂仅提供概念级占位，具体运行状态请参阅上方的指标卡。")
+
+    # ━━━━━━━━━━━━━━━━━  Tab 4: LanceDB & ChromaDB 潜意识检索  ━━━━━━━━━━━━━━━━━
+    with tabs[3]:
+        st.subheader("🌊 潜意识与检索层：高维空间混洗")
+        st.caption("包含 **LanceDB 7层混合精确检索** 与 **ChromaDB 模糊余弦相似度联想**。配合**艾宾浩斯遗忘曲线**时间衰减，自动过滤过时记忆。")
 
         info_col1, info_col2, info_col3 = st.columns(3)
         with info_col1:
-            st.metric("向量记忆总量", chroma_count)
+            st.metric("向量记忆总量", vector_count)
         with info_col2:
             st.metric("时间衰减因子", "0.1 /天")
         with info_col3:
@@ -1712,16 +1819,16 @@ def display_hippocampus_memory():
                 })
             display_data.reverse()
             st.dataframe(display_data, use_container_width=True)
-        elif chroma_count > 0:
-            st.info(f"当前共 {chroma_count} 条向量记忆 (原生 ChromaDB 模式，详细列表需通过检索获取)。")
+        elif vector_count > 0:
+            st.info(f"当前共 {vector_count} 条向量记忆。")
         else:
-            st.info("向量记忆库暂为空，等待左脑提取摘要并向海马体写入。")
+            st.info("向量记忆库暂为空，等待提取并向海马体写入。")
 
-        st.markdown("#### 🔮 RAG 潜意识召回模拟器")
-        st.caption("输入一段技术查询，模拟右脑创作前的海马体记忆唤醒过程。")
+        st.markdown("#### 🔮 四重增强混合检索实验仪")
+        st.caption("输入查询，体验跨引擎（LanceDB/Chroma）的潜意识唤醒过程。")
         rag_query = st.text_input("输入查询文本 (例如: 大模型推理成本优化):", key="hippo_rag_query")
         if st.button("🧠 唤醒潜意识", key="btn_hippo_rag") and rag_query:
-            with st.spinner("海马体正在向量空间中搜索相似记忆..."):
+            with st.spinner("海马体正在底座层搜索相似记忆..."):
                 try:
                     from brain.memory.chroma_integration import get_chroma_instance
                     ci = get_chroma_instance()
@@ -1731,12 +1838,12 @@ def display_hippocampus_memory():
                         st.success("✅ 潜意识成功唤醒以下关联记忆：")
                         st.markdown(result)
                     else:
-                        st.warning("当前查询未唤醒任何历史记忆（可能记忆库为空或相关性不足）。")
+                        st.warning("当前查询未唤醒任何相关记忆。")
                 except Exception as e:
                     st.error(f"检索异常: {e}")
 
-    # ━━━━━━━━━━━━━━━━━  Tab 2: PageIndex  ━━━━━━━━━━━━━━━━━
-    with tabs[1]:
+    # ━━━━━━━━━━━━━━━━━  Tab 5: PageIndex 逻辑图谱  ━━━━━━━━━━━━━━━━━
+    with tabs[4]:
         st.subheader("世界观地图 — 双链 Markdown 知识图谱")
         st.caption("每个 Markdown 文件即一个神经结，`[[实体]]` 为节点，`== 关系 ==>` 为有向边。人类可用 Obsidian 直接挂载此目录，与 AI 实现认知同频。")
 
@@ -1815,8 +1922,8 @@ def display_hippocampus_memory():
                     except Exception as e:
                         st.error(f"读取文件失败: {e}")
 
-    # ━━━━━━━━━━━━━━━━━  Tab 3: SQLite WAL  ━━━━━━━━━━━━━━━━━
-    with tabs[2]:
+    # ━━━━━━━━━━━━━━━━━  Tab 6: SQLite WAL 史官轨迹  ━━━━━━━━━━━━━━━━━
+    with tabs[5]:
         st.subheader("史官的编年史 — SQLite WAL 生命轨迹")
         st.caption("每一次工作流的完整生命周期快照，从原始信号到左脑提取、右脑创作、免疫审查，到最终发布或错误。WAL 模式保障高并发下零死锁。")
 
@@ -1882,8 +1989,8 @@ def display_hippocampus_memory():
         except Exception as e:
             st.error(f"查询原始信号失败: {e}")
 
-    # ━━━━━━━━━━━━━━━━━  Tab 4: 整理历史  ━━━━━━━━━━━━━━━━━
-    with tabs[3]:
+    # ━━━━━━━━━━━━━━━━━  Tab 7: 整理历史  ━━━━━━━━━━━━━━━━━
+    with tabs[6]:
         st.subheader("🕰️ 记忆归档历史时间线")
         st.caption("记录每一次海马体睡眠期记忆整理的完整统计：扫描了多少向量、评估了多少实体关系、发现多少缺陷记忆、是否生成了新的避坑指南。")
 
@@ -1971,7 +2078,7 @@ def main():
             "系统设置", 
             "上下文管理",
             "🔧 神经源管理 (Sensor Hub)",
-            "🧠 人格设定 (Persona)",
+            "🧠 DavidAgent数字分身",
             "💾 数据治理 (DB Admin)",
             "🧬 海马体记忆 (Hippocampus)"
         ]
@@ -2020,7 +2127,7 @@ def main():
         display_context_management()
     elif app_mode == "🔧 神经源管理 (Sensor Hub)":
         display_sensor_hub()
-    elif app_mode == "🧠 人格设定 (Persona)":
+    elif app_mode == "🧠 DavidAgent数字分身":
         display_persona_settings()
     elif app_mode == "💾 数据治理 (DB Admin)":
         display_db_admin()

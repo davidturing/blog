@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import requests
-import google.generativeai as genai
+import google.genai as genai
 from dotenv import load_dotenv
 
 # Load environment variables (force reload)

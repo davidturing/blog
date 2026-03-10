@@ -1,0 +1,8 @@
+# AI 相关搜索关键词
+AI OR "Artificial Intelligence" OR LLM OR "Large Language Model" OR "OpenAI" OR "Google DeepMind" OR "Anthropic" OR "Gemini" OR "GPT" OR "Claude" OR "LLaMA" OR "Mistral" OR "Agentic AI" OR "AI Agent" OR "Multi-Agent" OR "Vibe Coding" OR "Generative AI" OR "Machine Learning" OR "Deep Learning" OR "Neural Network" OR "Transformer" OR "RAG" OR "Retrieval Augmented Generation" OR "Fine-tuning" OR "Prompt Engineering" OR "AI Safety" OR "AI Ethics" OR "AI Alignment" OR "Autonomous Agent" OR "Digital Twin" OR "AI Infrastructure" OR "AI Framework" OR "AI Platform"
+
+# 语言过滤
+lang:en OR lang:zh
+
+# 质量过滤
+min_faves:50

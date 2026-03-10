@@ -1,0 +1,15 @@
+Create a detailed blueprint-style technical illustration in Chinese that comprehensively visualizes the key concepts from Chapter 1: Data Management Introduction. The illustration should include:
+
+1. A central DAMA wheel diagram with all 11 knowledge domains clearly labeled in Chinese
+2. Three concentric rings around the wheel representing: 
+   - Inner ring: Data asset unique properties (非排他性, 非消耗性, 高流动性与易损性)
+   - Middle ring: Business drivers (财务损耗, 合规压力, AI成功基石)
+   - Outer ring: AI era value positioning
+3. Two case study callout boxes with warning symbols:
+   - Knight Capital: showing server rack with zombie code and $460M loss
+   - Target: showing HVAC system connected to POS network with data breach
+4. Bottom section showing the 12 golden rules as numbered list
+5. Right side showing the hexagonal management environment model
+6. Top right corner showing DAMA + NIST AI RMF integration (映射, 测量, 管理)
+
+Style: Technical blueprint with blue lines on white background, clean typography, Chinese text throughout, compact and information-dense layout. Use engineering-style annotations and labels.

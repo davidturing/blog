@@ -1,0 +1,10 @@
+Professional tech blog cover image for article: "🚀 半夜3点的芯片革命：Polars如何让65亿行数据飞起来！"
+Style: Modern, clean, dark blue gradient background (#093572 to #103D78)
+Elements: 
+- Semiconductor wafer with data flow visualization
+- Polars and DuckDB logos integrated elegantly
+- Speed/motion effects showing performance acceleration
+- Chip yield analysis dashboard elements
+Text: Include main title in bold, high-contrast white font at top
+Quality: 2K resolution, 16:9 aspect ratio, professional blueprint aesthetic
+Model: gemini-3-pro-image-preview

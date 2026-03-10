@@ -1,0 +1,10 @@
+{
+  "strategy_name": "DualMovingAverage",
+  "total_return": 0.15,
+  "max_drawdown": 0.08,
+  "annual_sharpe": 1.2,
+  "trade_count": 24,
+  "win_rate": 0.65,
+  "profit_factor": 1.8,
+  "signals": []
+}

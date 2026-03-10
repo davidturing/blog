@@ -1,0 +1,17 @@
+Technical architecture diagram comparing Polars + DuckDB vs Pandas + DuckDB for semiconductor yield analysis.
+Left side (Polars + DuckDB): 
+- Blue color scheme (#093572)
+- Components: Data Sources → Polars (Rust Kernel, 10-thread parallel) → DuckDB (OLAP Engine) → Results
+- Highlight features: Lazy + Streaming mode, Arrow memory model, zero-copy integration
+- Performance indicators: 85-120% faster, 70% less memory
+
+Right side (Pandas + DuckDB):
+- Orange/red color scheme (#FF6B35)  
+- Components: Data Sources → Pandas (Python, single-threaded) → DuckDB → Results
+- Bottlenecks: Memory copying, GIL limitations, sequential processing
+- Performance indicators: Slower, higher memory usage
+
+Center: Clear comparison arrows showing performance difference
+Style: Clean vector-style technical diagram, professional blueprint aesthetic
+Quality: 2K resolution, suitable for technical blog
+Model: gemini-3-pro-image-preview

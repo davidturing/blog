@@ -1,0 +1,866 @@
+[
+  {
+    "url": "https://x.com/kloss_xyz/status/2023914359215583534",
+    "id": "2023914359215583534",
+    "handle": "kloss_xyz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:22.741499",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Systems Architecture",
+        "High Performance"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/kloss_xyz/status/2023617431596658730",
+    "id": "2023617431596658730",
+    "handle": "kloss_xyz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:22.741622",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Systems Architecture",
+        "High Performance"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/kloss_xyz/status/2023517680649810389",
+    "id": "2023517680649810389",
+    "handle": "kloss_xyz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:22.741646",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Systems Architecture",
+        "High Performance"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rryssf_/status/2023885892335923217",
+    "id": "2023885892335923217",
+    "handle": "rryssf_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:28.350406",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Automation",
+        "Workflow",
+        "Efficiency"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rryssf_/status/2023885968978350549",
+    "id": "2023885968978350549",
+    "handle": "rryssf_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:28.350540",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Automation",
+        "Workflow",
+        "Efficiency"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rryssf_/status/2023885981469061389",
+    "id": "2023885981469061389",
+    "handle": "rryssf_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:28.350549",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Automation",
+        "Workflow",
+        "Efficiency"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/0xROAS/status/2023855134707716347",
+    "id": "2023855134707716347",
+    "handle": "0xROAS",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:34.109831",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI UGC",
+        "Content Creation"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/0xROAS/status/2023502702106603883",
+    "id": "2023502702106603883",
+    "handle": "0xROAS",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:34.109943",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI UGC",
+        "Content Creation"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/0xROAS/status/2023511311582458102",
+    "id": "2023511311582458102",
+    "handle": "0xROAS",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:34.109951",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI UGC",
+        "Content Creation"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/AmirMushich/status/2023870546304434672",
+    "id": "2023870546304434672",
+    "handle": "AmirMushich",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:41.165729",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/AmirMushich/status/2023827326673252776",
+    "id": "2023827326673252776",
+    "handle": "AmirMushich",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:41.165754",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/AmirMushich/status/2023827330096112075",
+    "id": "2023827330096112075",
+    "handle": "AmirMushich",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:41.165756",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/TerosEso/status/2023862209584259101",
+    "id": "2023862209584259101",
+    "handle": "TerosEso",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:47.172651",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Productivity",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/TerosEso/status/2023862125412983280",
+    "id": "2023862125412983280",
+    "handle": "TerosEso",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:47.172746",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Productivity",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/TerosEso/status/2023862026070872344",
+    "id": "2023862026070872344",
+    "handle": "TerosEso",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:47.172753",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Productivity",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/DjaniWhaleSkul/status/2023895588870201384",
+    "id": "2023895588870201384",
+    "handle": "DjaniWhaleSkul",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:52.572794",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/DjaniWhaleSkul/status/2023875093911495110",
+    "id": "2023875093911495110",
+    "handle": "DjaniWhaleSkul",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:52.572886",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/DjaniWhaleSkul/status/2023875591951556923",
+    "id": "2023875591951556923",
+    "handle": "DjaniWhaleSkul",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:52.572892",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Curation",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/lets_ash/status/2023190407870566738",
+    "id": "2023190407870566738",
+    "handle": "lets_ash",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:58.206671",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Growth",
+        "Workflow"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/lets_ash/status/2023142983525339641",
+    "id": "2023142983525339641",
+    "handle": "lets_ash",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:58.206803",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Growth",
+        "Workflow"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/lets_ash/status/2021230992871080431",
+    "id": "2021230992871080431",
+    "handle": "lets_ash",
+    "status": "pending",
+    "added_at": "2026-02-18T08:16:58.206809",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Growth",
+        "Workflow"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/ai_uncovered/status/2023766241710944574",
+    "id": "2023766241710944574",
+    "handle": "ai_uncovered",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:05.060808",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Deep Dive"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/ai_uncovered/status/2023756316360237095",
+    "id": "2023756316360237095",
+    "handle": "ai_uncovered",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:05.060908",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Deep Dive"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/ai_uncovered/status/2023756446165504124",
+    "id": "2023756446165504124",
+    "handle": "ai_uncovered",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:05.060915",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Deep Dive"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/tomkrcha/status/2014028990810300498",
+    "id": "2014028990810300498",
+    "handle": "tomkrcha",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:10.688027",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Design",
+        "IDE Tools",
+        "Pencil AI"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/tomkrcha/status/2014602733878403561",
+    "id": "2014602733878403561",
+    "handle": "tomkrcha",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:10.688068",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Design",
+        "IDE Tools",
+        "Pencil AI"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/tomkrcha/status/2014028993104576746",
+    "id": "2014028993104576746",
+    "handle": "tomkrcha",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:10.688072",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Design",
+        "IDE Tools",
+        "Pencil AI"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/paoloanzn/status/2022018255037321322",
+    "id": "2022018255037321322",
+    "handle": "paoloanzn",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:17.502945",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Agent Builder",
+        "AI Development"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/paoloanzn/status/2021639625719341537",
+    "id": "2021639625719341537",
+    "handle": "paoloanzn",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:17.503044",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Agent Builder",
+        "AI Development"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/paoloanzn/status/2021574100016037955",
+    "id": "2021574100016037955",
+    "handle": "paoloanzn",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:17.503051",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Agent Builder",
+        "AI Development"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/yevrrah/status/2015094813767442541",
+    "id": "2015094813767442541",
+    "handle": "yevrrah",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:23.793830",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Side Hustle",
+        "Market Trends"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/yevrrah/status/2013333046292820442",
+    "id": "2013333046292820442",
+    "handle": "yevrrah",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:23.793923",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Side Hustle",
+        "Market Trends"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/yevrrah/status/2008975587533312443",
+    "id": "2008975587533312443",
+    "handle": "yevrrah",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:23.793930",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Side Hustle",
+        "Market Trends"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/aryanXmahajan/status/2023796561214664943",
+    "id": "2023796561214664943",
+    "handle": "aryanXmahajan",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:28.873802",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Autonomous Agents",
+        "AI Research"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/aryanXmahajan/status/2023741974516252903",
+    "id": "2023741974516252903",
+    "handle": "aryanXmahajan",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:28.873896",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Autonomous Agents",
+        "AI Research"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/aryanXmahajan/status/2023652131207860702",
+    "id": "2023652131207860702",
+    "handle": "aryanXmahajan",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:28.873902",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "Autonomous Agents",
+        "AI Research"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/VibeMarketer_/status/2023793113525858436",
+    "id": "2023793113525858436",
+    "handle": "VibeMarketer_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:35.356172",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "DTC",
+        "AI Agents",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/VibeMarketer_/status/2023794237029183894",
+    "id": "2023794237029183894",
+    "handle": "VibeMarketer_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:35.356288",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "DTC",
+        "AI Agents",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/VibeMarketer_/status/2023744063623569720",
+    "id": "2023744063623569720",
+    "handle": "VibeMarketer_",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:35.356296",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "DTC",
+        "AI Agents",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/hajKuron/status/1930655856305049947",
+    "id": "1930655856305049947",
+    "handle": "hajKuron",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:40.756551",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Engineering",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/hajKuron/status/1929573133566046654",
+    "id": "1929573133566046654",
+    "handle": "hajKuron",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:40.756648",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Engineering",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/hajKuron/status/1929553603297210578",
+    "id": "1929553603297210578",
+    "handle": "hajKuron",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:40.756656",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Engineering",
+        "Builder"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/maxxmalist/status/2023551342434816082",
+    "id": "2023551342434816082",
+    "handle": "maxxmalist",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:47.257042",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Blueprint",
+        "Strategy"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/maxxmalist/status/2023805751366750458",
+    "id": "2023805751366750458",
+    "handle": "maxxmalist",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:47.257129",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Blueprint",
+        "Strategy"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/maxxmalist/status/2023803817775821071",
+    "id": "2023803817775821071",
+    "handle": "maxxmalist",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:47.257134",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Ads",
+        "Blueprint",
+        "Strategy"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/theahmedkaiz/status/2016943878100963418",
+    "id": "2016943878100963418",
+    "handle": "theahmedkaiz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:53.621667",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/theahmedkaiz/status/2016618393139630347",
+    "id": "2016618393139630347",
+    "handle": "theahmedkaiz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:53.621761",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/theahmedkaiz/status/2014474309440250113",
+    "id": "2014474309440250113",
+    "handle": "theahmedkaiz",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:53.621767",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Marketing"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/BusDownBonnor/status/2023883191002816721",
+    "id": "2023883191002816721",
+    "handle": "BusDownBonnor",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:59.498465",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Vibe Coding"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/BusDownBonnor/status/2023631449136496880",
+    "id": "2023631449136496880",
+    "handle": "BusDownBonnor",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:59.498548",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Vibe Coding"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/BusDownBonnor/status/2023562145972310435",
+    "id": "2023562145972310435",
+    "handle": "BusDownBonnor",
+    "status": "pending",
+    "added_at": "2026-02-18T08:17:59.498553",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Vibe Coding"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/NotLucknite/status/2023765850017485095",
+    "id": "2023765850017485095",
+    "handle": "NotLucknite",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:05.955415",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Security",
+        "AI Tools"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/NotLucknite/status/2023429529486934366",
+    "id": "2023429529486934366",
+    "handle": "NotLucknite",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:05.955540",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Security",
+        "AI Tools"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/NotLucknite/status/2023322594867315019",
+    "id": "2023322594867315019",
+    "handle": "NotLucknite",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:05.955548",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Agents",
+        "Security",
+        "AI Tools"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/vriparbelli/status/2015810151555482025",
+    "id": "2015810151555482025",
+    "handle": "vriparbelli",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:13.126789",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Avatars"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/vriparbelli/status/2015810260624085429",
+    "id": "2015810260624085429",
+    "handle": "vriparbelli",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:13.126814",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Avatars"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/vriparbelli/status/2013656733869051993",
+    "id": "2013656733869051993",
+    "handle": "vriparbelli",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:13.126815",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Video",
+        "Avatars"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rokbercic/status/2023158350041784421",
+    "id": "2023158350041784421",
+    "handle": "rokbercic",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:19.079710",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Marketing",
+        "Growth"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rokbercic/status/2022250340587094249",
+    "id": "2022250340587094249",
+    "handle": "rokbercic",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:19.079789",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Marketing",
+        "Growth"
+      ]
+    }
+  },
+  {
+    "url": "https://x.com/rokbercic/status/2022032512852361325",
+    "id": "2022032512852361325",
+    "handle": "rokbercic",
+    "status": "pending",
+    "added_at": "2026-02-18T08:18:19.079796",
+    "meta": {
+      "category": "Tech Influencer",
+      "tags": [
+        "AI Marketing",
+        "Growth"
+      ]
+    }
+  }
+]
