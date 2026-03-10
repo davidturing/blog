@@ -91,7 +91,7 @@ def git_sync():
     
     if success:
         # 推送
-        push_success, push_output = run_cmd("git push origin main")
+        push_success, push_output = run_cmd("git push work main")
         if push_success:
             print(f"[{timestamp}] ✅ 同步成功并已推送到私有仓库。")
         else:
