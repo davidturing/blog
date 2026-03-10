@@ -1,0 +1,13 @@
+[package]
+name = "sign_change"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "sign_change"
+crate-type = ["cdylib"]
+
+[dependencies]
+polars = { version = "0.45", default-features = false }
+pyo3 = { version = "0.23", features = ["extension-module"] }
+pyo3-polars = { version = "0.19", features = ["derive"] }

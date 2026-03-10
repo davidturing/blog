@@ -79,3 +79,43 @@ temp_tech_repo/
 *.tar.gz
 *.zip
 *.rar
+
+# === 新增安全黑名单 (严格规则 5) ===
+.env
+*.key
+*key*.json
+credentials*
+.secrets
+*.db
+*.sqlite
+*.lancedb
+*.chroma
+*.wal
+*.shm
+__pycache__/
+.cache/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.dylib
+*.exe
+*.log
+*.zip
+*.tar.gz
+*.rar
+*.7z
+temp/
+*.tmp
+*.bak
+
+# 忽略数据集
+course/datasets/
+
+# 忽略其他拉取的 Git 子库
+davidturing_tech_repo/
+qlib/
+tech/
+tech_repo/
+tech_temp/
+temp_tech_repo/

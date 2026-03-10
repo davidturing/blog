@@ -2,130 +2,165 @@
 # -*- coding: utf-8 -*-
 """
 DavidAgent 安全 Git 自动同步守护进程
-【严格遵守安全协议】
-1. 强制屏蔽密钥、数据库、环境配置。
-2. 后台静默运行，文件变动自动提交并推送到私有仓库。
-3. 纯标准库实现，无三方依赖。
+【完全依照规则实现后台、白名单、黑名单拦截与自动同步】
 """
 
 import os
 import time
 import subprocess
+import fnmatch
 from datetime import datetime
 
-# ================================
-# 配置区
-# ================================
 PROJECT_ROOT = "/Users/zhaoqinhuang/david_project"
-SYNC_INTERVAL = 60  # 每 60 秒检查一次变动
+SYNC_INTERVAL = 60
 
-# 允许自动添加的安全文件扩展名白名单（严格限制）
-SAFE_EXTENSIONS = {
-    ".py", ".json", ".md", ".txt", ".csv", ".html", ".sh"
+# ================================
+# 4. 白名单扩展名和文件名
+# ================================
+WHITELIST_EXTS = {
+    ".py", ".js", ".ts", ".html", ".css", ".scss", ".json", ".yml", ".yaml",
+    ".toml", ".ini", ".sh", ".bash", ".bat", ".cmd", ".go", ".java", ".kt",
+    ".rb", ".php", ".cpp", ".c", ".h", ".swift", ".vue", ".rs", ".lua",
+    ".md", ".txt", ".csv",
+    ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".webp"
+}
+
+WHITELIST_FILES = {
+    ".gitignore", "license", "readme", "dockerfile", "makefile"
 }
 
 # ================================
+# 5. 黑名单扩展名、前缀/后缀、文件夹
+# ================================
+BLACKLIST_PATTERNS = [
+    ".env", "*.key", "*key*.json", "credentials*", ".secrets",
+    "*.db", "*.sqlite", "*.lancedb", "*.chroma", "*.wal", "*.shm",
+    "__pycache__/*", ".cache/*", "*.pyc", "*.pyo", "*.pyd", "*.so", "*.dylib", "*.exe",
+    "*.log", "*.zip", "*.tar.gz", "*.rar", "*.7z",
+    "temp/*", "*.tmp", "*.bak"
+]
 
 def run_cmd(cmd):
-    """执行 Shell 命令并返回输出"""
+    """执行 Shell 命令，返回是否成功与输出"""
     try:
-        result = subprocess.run(
+        res = subprocess.run(
             cmd, cwd=PROJECT_ROOT, shell=True, 
             check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
-        return True, result.stdout
+        return True, res.stdout.strip()
     except subprocess.CalledProcessError as e:
-        return False, e.stderr
+        return False, e.stderr.strip()
 
-def get_changed_files():
-    """获取所有已修改和新增的文件（跳过 gitignore 的内容）"""
-    success, output = run_cmd("git ls-files --modified --others --exclude-standard")
-    if success and output.strip():
-        return [f.strip() for f in output.strip().split('\n') if f.strip()]
-    return []
+def get_modified_files():
+    """检测本地改动，不论 tracked 还是 untracked (忽略 .gitignore 剔除的)"""
+    success, out = run_cmd("git status --porcelain")
+    if success and out:
+        return True
+    return False
 
-def is_safe_file(filepath):
-    """双重安全校验：扩展名白名单 + 敏感词黑名单"""
-    # 1. 扩展名校验
-    ext = os.path.splitext(filepath)[1].lower()
-    # 特别允许 .gitignore 本身
-    if ext not in SAFE_EXTENSIONS and not filepath.endswith('.gitignore'):
-        return False
+def is_file_safe(filepath):
+    """
+    Python 级别双重保险判断：
+    1. 必须不在黑名单
+    2. 必须在白名单扩展名或白名单文件名内
+    """
+    basename = os.path.basename(filepath)
+    ext = os.path.splitext(basename)[1].lower()
     
-    # 2. 危险关键词硬编码拦截（最后一道防线）
-    lower_path = filepath.lower()
-    
-    # 直接毙掉危险文件后缀或路径
-    if lower_path.endswith('.env') or lower_path.endswith('.key') or "credentials" in lower_path:
-        return False
-    
-    # 毙掉本地数据库扩展名
-    if lower_path.endswith('.db') or lower_path.endswith('.sqlite') or lower_path.endswith('.lancedb'):
-        return False
+    # --- 1. 黑名单拦截 (绝对不上传) ---
+    for pattern in BLACKLIST_PATTERNS:
+        if fnmatch.fnmatch(filepath, pattern) or fnmatch.fnmatch(basename, pattern):
+            return False
 
-    return True
+    # --- 2. 白名单放行 (允许上传) ---
+    if ext in WHITELIST_EXTS:
+        return True
+        
+    base_lower = basename.lower()
+    for wf in WHITELIST_FILES:
+        if wf in base_lower:
+            return True
+            
+    return False
+
+def check_and_filter_safety():
+    """
+    双重保险：虽然用户要求执行 git add .，
+    但为防止 .gitignore 配置失误或漏加，
+    在 commit 前再次扫描暂存区，如果发现非白名单或黑名单文件，直接从暂存区剔除。
+    """
+    success, out = run_cmd("git diff --cached --name-only")
+    if not success or not out:
+        return False
+        
+    staged_files = out.split('\n')
+    has_unsafe = False
+    
+    for f in staged_files:
+        if not f: continue
+        if not is_file_safe(f):
+            print(f"[拦截] 发现黑名单或非白名单文件，已自动从暂存区剔除: {f}")
+            run_cmd(f'git reset HEAD "{f}"')
+            has_unsafe = True
+            
+    return has_unsafe
 
 def git_sync():
-    """执行完整的同步流程"""
-    changed_files = get_changed_files()
-    if not changed_files:
-        return
-
+    """每分钟扫描文件变化并执行安全的同步流"""
+    
+    # 3. 同步策略: 有新增/修改/删除 → 立即自动提交
+    if not get_modified_files():
+        return # 无变化则静默等待
+        
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    added_files = []
-    for f in changed_files:
-        if is_safe_file(f):
-            run_cmd(f'git add "{f}"')
-            added_files.append(f)
-            
-    if not added_files:
-        # print(f"[{timestamp}] 变动文件被拦截策略屏蔽，无安全内容可同步。")
+    # 步骤1: 依照指令执行 git add .
+    run_cmd("git add .")
+    
+    # 步骤1.5: [独家安全加固] 确保暂存区没有违规文件
+    check_and_filter_safety()
+    
+    # 二次确认，剔除后如果暂存区空了，就跳过 commit
+    success, cached_out = run_cmd("git diff --cached --name-only")
+    if not success or not cached_out.strip():
+        # print(f"[{timestamp}] 变动文件全部被安全拦截，无合法文件需要提交。")
         return
         
-    print(f"\n[{timestamp}] 检测到 {len(added_files)} 个安全变动文件，开始同步...")
+    print(f"\n[{timestamp}] 检测到合法文件变化，开始同步流程...")
     
-    # 提交
-    commit_msg = f"Auto-sync (Safe): DavidAgent backup {timestamp}"
-    success, output = run_cmd(f'git commit -m "{commit_msg}"')
+    # 步骤2: git commit
+    commit_msg = f"Auto-sync DavidAgent {timestamp}"
+    success, commit_out = run_cmd(f'git commit -m "{commit_msg}"')
     
     if success:
-        # 推送
-        push_success, push_output = run_cmd("git push work main")
+        # 步骤3: git push
+        push_success, push_out = run_cmd("git push work main")
         if push_success:
-            print(f"[{timestamp}] ✅ 同步成功并已推送到私有仓库。")
+            print(f"[{timestamp}] ✅ 同步成功：已安全推送到 work main。")
         else:
-            print(f"[{timestamp}] ⚠️ 推送失败 (可能是网络或远端分支问题): {push_output}")
+            print(f"[{timestamp}] ⚠️ 推送失败 (网络或权限异常): {push_out}")
     else:
-        print(f"[{timestamp}] ⚠️ 提交失败: {output}")
+        print(f"[{timestamp}] ⚠️ 提交异常: {commit_out}")
 
 def main():
-    print("===================================================")
-    print("🛡️ DavidAgent 安全 Git 同步守护进程启动 🛡️")
+    print("=========================================================")
+    print("🛡️ DavidAgent 终极安全 Git 同步守护进程启动 🛡️")
     print(f"📂 监控目录: {PROJECT_ROOT}")
-    print("⚠️  强制要求：请务必确认远程仓库设置为【私有仓库】！")
     print(f"⏳ 轮询间隔: {SYNC_INTERVAL} 秒")
-    print("🔒 仅同步白名单后缀: .py, .json, .md, .txt, .csv, .html, .sh")
-    print("===================================================\n")
+    print("⚠️  已载入双重安全过滤：全白名单制 + 黑名单拦截，万无一失。")
+    print("=========================================================\n")
     
     os.chdir(PROJECT_ROOT)
     
-    success, output = run_cmd("git remote -v")
-    if not success or not output.strip():
-        print("❌ 致命错误：当前目录未配置 Git 远程仓库！请先执行 git remote add ...")
-        return
-
-    print("✅ 检测到远程仓库配置，进入静默监听模式...\n")
-
     while True:
         try:
             git_sync()
             time.sleep(SYNC_INTERVAL)
         except KeyboardInterrupt:
-            print("\n🛑 守护进程已手动停止。")
+            print("\n🛑 进程已停止。")
             break
         except Exception as e:
-            print(f"❌ 发生异常: {e}")
+            print(f"❌ 运行异常: {e}")
             time.sleep(SYNC_INTERVAL)
 
 if __name__ == "__main__":

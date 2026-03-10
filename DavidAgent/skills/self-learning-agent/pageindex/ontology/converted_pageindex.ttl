@@ -1,0 +1,1473 @@
+@prefix dva: <http://davidagent.ai/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+dva:Baoyu_Skill a dva:Agent_Tool ;
+    rdfs:label "Baoyu_Skill" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    rdfs:comment "基于特定模版将技术图谱翻译为高级扁平和 3D 信息插图的生图技能链。" .
+
+dva:Bionic_Brain_integration_test_passed_ a dva:Concept ;
+    rdfs:label "Bionic Brain integration test passed!" ;
+    dva:mentionedIn dva:Source_auto_generated_37611459,
+        dva:Source_auto_generated_37655970,
+        dva:Source_auto_generated_40004668,
+        dva:Source_auto_generated_41527541 ;
+    rdfs:comment "从文本中提到的：Bionic Brain integration test passed!" .
+
+dva:David a dva:Person ;
+    rdfs:label "David" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "DavidAgent项目的发起人和最终用户。" .
+
+dva:DavidAgent a dva:Concept,
+        dva:Framework,
+        dva:System ;
+    rdfs:label "DavidAgent" ;
+    dva:adopts dva:Blackboard_Architecture ;
+    dva:mentionedIn dva:Source_auto_generated_37611459,
+        dva:Source_auto_generated_37655970,
+        dva:Source_auto_generated_41527541,
+        dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629687431,
+        dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_6decdf2e7f_1771629626129,
+        dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_98ecad2069_1771629613320,
+        dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:使用 dva:ChromaDB,
+        dva:SQLite,
+        dva:信号量__Semaphore_,
+        dva:指数退避__Exponential_Backoff_,
+        dva:虚拟胼胝体 ;
+    dva:使用技术栈 dva:Asyncio,
+        dva:Python ;
+    dva:具备 dva:元认知,
+        dva:可观测性 ;
+    dva:包含 dva:主动引擎,
+        dva:元认知与情景记忆系统,
+        dva:右脑,
+        dva:左脑,
+        dva:海马体,
+        dva:防爆盾 ;
+    dva:基于 dva:仿生双脑哲学,
+        dva:仿生双脑多智能体系统,
+        dva:仿生学双脑模型,
+        dva:黑板架构 ;
+    dva:实现 dva:优雅降级,
+        dva:夜间反思,
+        dva:自我进化 ;
+    dva:对比 dva:RPC ;
+    dva:应用 dva:人类反馈强化学习 ;
+    dva:扩展 dva:执行器 ;
+    dva:接受建议来自 dva:G老师 ;
+    dva:提供 dva:Streamlit_Dashboard ;
+    dva:摒弃 dva:RPC ;
+    dva:构建于 dva:Python_Native ;
+    dva:源于 dva:ag__antigravity_ ;
+    dva:演进为 dva:群体智能 ;
+    dva:解决 dva:幻觉 ;
+    dva:采用 dva:Asyncio,
+        dva:Blackboard_Architecture,
+        dva:双脑架构,
+        dva:弹性设计,
+        dva:状态为中心,
+        dva:黑板架构,
+        dva:黑板模式 ;
+    rdfs:comment "一个仿生双脑多智能体系统架构，其设计注重工业级的可用性与弹性。",
+        "一个仿生双脑多智能体系统架构，分为负责逻辑的左脑和负责创意的右脑。",
+        "一个仿生双脑多智能体系统架构，旨在实现自主感知、思考、记忆与自我批判，用于处理信息流并生成结构化知识和内容。",
+        "一个仿生双脑多智能体系统架构，旨在通过元认知实现自我进化。",
+        "一个仿生双脑多智能体系统架构，设计用于自主信息处理、知识图谱构建和内容创作。",
+        "一个基于仿生双脑哲学的多智能体系统架构，设计用于实现工业级的稳定性与高I/O吞吐能力。",
+        "一个基于仿生双脑模型设计的多智能体系统架构。",
+        "一个数字分身系统，采用双脑架构进行内容生成和自我优化，旨在实现工业级部署。",
+        "一个采用黑板模式解决多智能体状态同步问题的特定系统实现。",
+        "一个采用黑板模式解决状态同步问题的多智能体系统实现。",
+        "一个采用黑板模式解决状态同步问题的多智能体系统实现，旨在替代传统的RPC直接调用。",
+        "一个采用黑板模式进行状态同步的多智能体系统实现。",
+        "一个集成了双脑架构、情景记忆和自主进化能力的智能体系统。",
+        "一种采用黑板模式进行状态同步的多智能体系统实现。",
+        "从文本中提到的：DavidAgent" .
+
+dva:DavidAgent_root_directory a dva:Concept ;
+    rdfs:label "DavidAgent root directory" ;
+    dva:mentionedIn dva:Source_auto_generated_40004668 ;
+    rdfs:comment "从文本中提到的：DavidAgent root directory" .
+
+dva:DoorDash a dva:Organization ;
+    rdfs:label "DoorDash" ;
+    dva:mentionedIn dva:Source_x_2024684307676025207_1771599689513 ;
+    dva:提供服务于 dva:Taco_Bell ;
+    dva:类比于 dva:Claude ;
+    rdfs:comment "一个提供在线食品订购和配送服务的平台。" .
+
+dva:Event_Bus a dva:Concept,
+        dva:Mechanism ;
+    rdfs:label "Event Bus" ;
+    dva:awakens dva:LeftBrainAnalyzer ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:唤醒 dva:LeftBrainAnalyzer ;
+    rdfs:comment "在黑板架构中，负责在数据更新时通知订阅者的消息传递机制。",
+        "黑板架构中用于分发事件和通知订阅者的组件。",
+        "黑板架构中的一个组件，负责在数据更新时通知订阅了该数据的其他组件。",
+        "黑板架构中的消息传递机制，负责在数据更新时自动通知并唤醒订阅了该数据的组件。" .
+
+dva:Git_RM a dva:Command ;
+    rdfs:label "Git_RM" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    rdfs:comment "从 Git 历史与索引中物理擦除脏数据的操作。" .
+
+dva:GraphData a dva:Concept ;
+    rdfs:label "GraphData" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    rdfs:comment "一个Pydantic数据模型，定义了左脑在信息提取阶段必须输出的数据结构，包含实体、三元组和摘要。" .
+
+dva:Multi_Agent_System a dva:Concept ;
+    rdfs:label "Multi-Agent System" ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:面临挑战 dva:State_Synchronization ;
+    rdfs:comment "一种由多个交互的智能体组成的计算系统，用于解决单个智能体难以处理的问题。",
+        "一种由多个可交互的、自治的智能体组成的计算系统。",
+        "一种由多个可交互的、自治的智能体组成的计算系统，用于解决单个智能体难以处理的复杂问题。",
+        "由多个交互的智能体组成的计算系统，用于解决单个智能体难以处理的问题。",
+        "由多个交互的自治智能体组成的计算系统，用于解决单个智能体难以处理的复杂问题。" .
+
+dva:OpenClaw a dva:Framework ;
+    rdfs:label "OpenClaw" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    dva:基于 dva:Node_js ;
+    dva:实现 dva:Multi_Agent ;
+    dva:对比 dva:LangChain ;
+    dva:采用 dva:事件总线机制 ;
+    dva:集成 dva:Gemini_2_5_Pro,
+        dva:qwen3_coder_plus ;
+    rdfs:comment "一个基于 Node.js 的事件驱动型多智能体编排框架。" .
+
+dva:Perceptor a dva:Component,
+        dva:Concept ;
+    rdfs:label "Perceptor" ;
+    dva:is_decoupled_from dva:LeftBrainAnalyzer ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:updates dva:Blackboard_Architecture ;
+    dva:写入数据到 dva:Blackboard_Architecture ;
+    dva:更新 dva:Blackboard_Architecture,
+        dva:raw_source ;
+    dva:解耦于 dva:LeftBrainAnalyzer ;
+    rdfs:comment "DavidAgent中负责从外部环境抓取新数据的组件。",
+        "DavidAgent系统中的感知器组件，作为数据生产者，负责从外部环境抓取原始数据并更新至黑板。",
+        "系统中的感知器组件，负责从外部环境抓取新数据。",
+        "系统中的感知组件，负责从环境中抓取新数据并更新到黑板。",
+        "系统中负责从外部环境抓取原始数据的组件，作为数据生产者。" .
+
+dva:PyVis a dva:Library ;
+    rdfs:label "PyVis" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    dva:渲染瓶颈受制于 dva:Streamlit ;
+    dva:通过注入解开限制 dva:Web_Fullscreen_API ;
+    rdfs:comment "核心 Python 知识图谱前端渲染引擎。" .
+
+dva:Pydantic_Schema a dva:Tool ;
+    rdfs:label "Pydantic Schema" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    dva:实现一种 dva:ETL_数据清洗 ;
+    dva:遏制 dva:幻觉 ;
+    rdfs:comment "一种用于在 Prompt 层面进行数据结构强制校验的技术或工具。" .
+
+dva:Pydantic_Structured_Output a dva:Technique ;
+    rdfs:label "Pydantic Structured Output" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "一种用于从语言模型获取结构化输出的技术，应用于左脑。" .
+
+dva:RLHF反馈 a dva:Concept ;
+    rdfs:label "RLHF反馈" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "一种基于人类反馈的强化学习机制，通过多维度打分指导模型进行精准微调。" .
+
+dva:ReviewResult a dva:Concept ;
+    rdfs:label "ReviewResult" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    rdfs:comment "一个Pydantic数据模型，定义了左脑在事实核查阶段的输出结构，包含布尔判断、反馈和幻觉列表。" .
+
+dva:Steven a dva:Person ;
+    rdfs:label "Steven" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "负责DavidAgent系统代码实现和集成的AI助手。" .
+
+dva:Temperature a dva:Concept ;
+    rdfs:label "Temperature" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    dva:遏制 dva:幻觉 ;
+    rdfs:comment "大语言模型的一个超参数，用于控制生成文本的随机性。较低的值使输出更确定。" .
+
+dva:Token经济学 a dva:Concept ;
+    rdfs:label "Token经济学" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:通过 dva:Streamlit ;
+    rdfs:comment "对大模型API调用的Token消耗进行记录、监控和可视化的成本管理方法。" .
+
+dva:ag__antigravity__引擎 a dva:Framework ;
+    rdfs:label "ag (antigravity) 引擎" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:应用 dva:并发控制 ;
+    rdfs:comment "DavidAgent系统的核心执行引擎，负责任务调度与资源管理。" .
+
+dva:asyncio_Semaphore a dva:Tool ;
+    rdfs:label "asyncio.Semaphore" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    rdfs:comment "Python asyncio库提供的组件，用于在异步编程中实现信号量机制。" .
+
+dva:ls a dva:Concept ;
+    rdfs:label "ls" ;
+    dva:mentionedIn dva:Source_auto_generated_37611459,
+        dva:Source_auto_generated_37655970,
+        dva:Source_auto_generated_41527541 ;
+    rdfs:comment "从文本中提到的：ls" .
+
+dva:ls_command a dva:Concept ;
+    rdfs:label "ls command" ;
+    dva:mentionedIn dva:Source_auto_generated_40004668 ;
+    rdfs:comment "从文本中提到的：ls command" .
+
+dva:start_all_py a dva:Script ;
+    rdfs:label "start_all.py" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    dva:底层调用 dva:Subprocess_Popen ;
+    rdfs:comment "统一负责引擎点火与监听 SIGINT (Ctrl+C) 中断退出的入口。" .
+
+dva:verification_success_txt a dva:Concept ;
+    rdfs:label "verification_success.txt" ;
+    dva:mentionedIn dva:Source_auto_generated_37611459,
+        dva:Source_auto_generated_37655970,
+        dva:Source_auto_generated_40004668,
+        dva:Source_auto_generated_41527541 ;
+    rdfs:comment "从文本中提到的：verification_success.txt" .
+
+dva:事件总线 a dva:Component,
+        dva:Concept ;
+    rdfs:label "事件总线" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    dva:唤醒 dva:左脑分析器 ;
+    rdfs:comment "黑板架构中的一个组件，负责在数据更新时通知订阅了该数据的其他组件。" .
+
+dva:人工智能架构 a dva:Concept ;
+    rdfs:label "人工智能架构" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    rdfs:comment "组织和构建人工智能系统组件的方法和结构。" .
+
+dva:多智能体系统 a dva:Concept ;
+    rdfs:label "多智能体系统" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    dva:面临挑战 dva:状态同步 ;
+    rdfs:comment "由多个可交互的智能体组成的计算系统，用于解决单个智能体难以处理的问题。",
+        "由多个相互作用的智能体组成的计算系统，用于解决单个智能体难以处理的复杂问题。",
+        "由多个相互作用的智能体组成的计算系统，用于解决单个智能体难以处理的问题。" .
+
+dva:夜间反思机制 a dva:Mechanism ;
+    rdfs:label "夜间反思机制" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:执行 dva:动态剪枝与合并 ;
+    rdfs:comment "DavidAgent在夜间自动执行的流程，用于总结错误、合并并剪枝规则。" .
+
+dva:工业级高可用基座 a dva:Component ;
+    rdfs:label "工业级高可用基座" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "系统的底层基础设施，负责并发控制、弹性设计和可观测性。" .
+
+dva:异步任务队列 a dva:Mechanism ;
+    rdfs:label "异步任务队列" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:实现 dva:API熔断保护 ;
+    rdfs:comment "基于asyncio.Queue的缓冲队列，用于管理并发任务，防止API请求瞬间过载。" .
+
+dva:情境路由 a dva:Mechanism ;
+    rdfs:label "情境路由" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:依赖于 dva:ChromaDB ;
+    rdfs:comment "将规则向量化存入ChromaDB，根据当前任务上下文检索适用规则的机制。" .
+
+dva:情景记忆 a dva:Concept ;
+    rdfs:label "情景记忆" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:存储于 dva:SQLite ;
+    rdfs:comment "一种记忆系统，通过存储任务生命周期快照，为人类复盘和系统自我反思提供数据基础。" .
+
+dva:感知器 a dva:Component,
+        dva:Concept ;
+    rdfs:label "感知器" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    dva:更新 dva:raw_source ;
+    dva:解耦于 dva:左脑分析器 ;
+    rdfs:comment "DavidAgent中负责抓取新数据并更新黑板的组件。",
+        "系统与外部世界交互的组件，负责从互联网数据流中抓取原始信号，并进行去重和初筛。",
+        "系统中的一个组件，负责从外部环境抓取新数据。",
+        "系统中的一个组件，负责从外部环境抓取新数据并将其写入共享数据区。" .
+
+dva:数字生命体 a dva:Concept ;
+    rdfs:label "数字生命体" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "该系统旨在实现的一种具有自主认知架构的智能体形态的最终目标。" .
+
+dva:节点 a dva:Concept ;
+    rdfs:label "节点" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771599789_0_1771599814769 ;
+    dva:构成 dva:PageIndex_图谱 ;
+    rdfs:comment "构成图谱的基本元素，代表一个实体。" .
+
+dva:规则剪枝与合并 a dva:Concept ;
+    rdfs:label "规则剪枝与合并" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    dva:更新 dva:dynamic_guidelines_md ;
+    rdfs:comment "一种防止Prompt膨胀的机制，通过融合、提炼和删除规则来保持规则库的精简和高效。" .
+
+dva:API熔断保护 a dva:Mechanism ;
+    rdfs:label "API熔断保护" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    rdfs:comment "在检测到API限流错误时，自动暂停任务并执行指数退避的系统保护机制。" .
+
+dva:Claude a dva:Tool ;
+    rdfs:label "Claude" ;
+    dva:mentionedIn dva:Source_x_2024684307676025207_1771599689513 ;
+    rdfs:comment "一个由Anthropic开发的人工智能语言模型，文本中以'claude code'形式提及，指其代码生成能力。" .
+
+dva:ETL_数据清洗 a dva:Concept ;
+    rdfs:label "ETL 数据清洗" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    rdfs:comment "一种数据处理机制，通过提取、转换、加载的过程来提升数据质量。" .
+
+dva:Entity a dva:Concept,
+        dva:Data_Structure ;
+    rdfs:label "Entity" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:构成 dva:PageIndex_图谱 ;
+    rdfs:comment "一种由Pydantic定义的、用于信息抽取的数据结构。",
+        "一种由Pydantic定义的、用于表示实体的数据结构。",
+        "一种由Pydantic定义的、用于表示核心节点的数据结构。",
+        "一种由Pydantic定义的严格数据结构，是信息抽取的目标产物之一。",
+        "一种由Pydantic定义的严格数据结构，用于信息抽取。",
+        "一种由Pydantic定义的严格数据结构，用于表示实体。",
+        "由Pydantic定义的严格数据结构，用于表示信息抽取出的核心节点。" .
+
+dva:Gemini a dva:Tool ;
+    rdfs:label "Gemini" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "一个AI模型，在DavidAgent系统中作为“左脑”，负责结构化数据提取和事实验证。" .
+
+dva:Gemini_3_1_Pro a dva:Tool ;
+    rdfs:label "Gemini 3.1 Pro" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    rdfs:comment "Google的大语言模型，被用作左脑的物理基座，具备原生结构化输出和长上下文处理能力。" .
+
+dva:Google_Gemini_3_1_Pro a dva:Tool ;
+    rdfs:label "Google Gemini 3.1 Pro" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一个大型语言模型，作为DavidAgent系统中“左脑中枢”组件的物理载体。" .
+
+dva:G老师 a dva:Person ;
+    rdfs:label "G老师" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "DavidAgent项目的架构顾问，提供了多个阶段的高阶设计建议。" .
+
+dva:LangChain a dva:Framework ;
+    rdfs:label "LangChain" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    rdfs:comment "一个用于开发由语言模型驱动的应用程序的开源框架。" .
+
+dva:Left_Brain a dva:Component,
+        dva:Concept ;
+    rdfs:label "Left Brain" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:使用 dva:Pydantic ;
+    dva:利用 dva:Pydantic ;
+    dva:属于 dva:双脑架构 ;
+    dva:强制输出 dva:JSON ;
+    dva:执行 dva:信息抽取 ;
+    dva:生成 dva:PageIndex_图谱 ;
+    dva:输出 dva:JSON ;
+    rdfs:comment "DavidAgent双脑架构中的逻辑中枢，基于Gemini Pro模型，负责执行严格的、结构化的信息抽取（ETL），构建知识图谱。",
+        "“双脑架构”中的逻辑组件，基于Gemini模型，负责将非结构化信息提取为结构化数据，并进行事实核查。",
+        "双脑架构中的一个组件，通过强制模型输出结构化数据来约束其行为。",
+        "双脑架构中的一个组件，通过强制输出结构化的JSON数据来约束模型行为。",
+        "双脑架构中负责执行严格信息抽取任务的组件。",
+        "双脑架构中负责执行严格信息抽取的组件，强制输出结构化数据。",
+        "双脑架构中负责执行严格信息抽取的组件，通过强制数据结构和低随机性设置来保证输出的客观性。",
+        "双脑架构中负责执行结构化信息抽取的组件。",
+        "双脑架构中负责通过Pydantic和特定参数设定，强制模型输出结构化数据的组件。" .
+
+dva:Midjourney___Flux a dva:Tool ;
+    rdfs:label "Midjourney / Flux" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991 ;
+    rdfs:comment "AI图像生成服务，用于根据右脑生成的提示词创建文章配图。" .
+
+dva:Multi_Agent a dva:Concept ;
+    rdfs:label "Multi-Agent" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    rdfs:comment "一种由多个自主智能体组成的计算系统，通过交互与协作解决复杂问题。" .
+
+dva:Node_js a dva:Tool ;
+    rdfs:label "Node.js" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    rdfs:comment "一个开源、跨平台的 JavaScript 运行时环境，用于执行服务器端代码。" .
+
+dva:Prompt膨胀 a dva:Concept ;
+    rdfs:label "Prompt膨胀" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    rdfs:comment "系统提示词因不断追加新规则而变得过长、冗余和低效的问题。" .
+
+dva:Python a dva:Tool ;
+    rdfs:label "Python" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "该系统选用的主要后端编程语言。" .
+
+dva:Python_Native a dva:Framework ;
+    rdfs:label "Python Native" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "指代以Python语言为核心的开发生态系统，因其在AI领域的支持和成熟的类型系统而被选为主要技术栈。" .
+
+dva:Qwen a dva:Tool ;
+    rdfs:label "Qwen" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "一个AI模型，在DavidAgent系统中作为“右脑”，负责创造性内容生成和技术总结。" .
+
+dva:Qwen_Coder_Plus a dva:Tool ;
+    rdfs:label "Qwen-Coder-Plus" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "用于实现“右脑”创造与表达核心功能的大语言模型。" .
+
+dva:RAG a dva:Concept ;
+    rdfs:label "RAG" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991 ;
+    rdfs:comment "一种结合了信息检索与生成的技术，被右脑用于访问海马体记忆库以生成上下文相关的内容。" .
+
+dva:RLHF a dva:Technique ;
+    rdfs:label "RLHF" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "一种基于人类反馈的强化学习方法，用于将外部指导转化为系统规则。" .
+
+dva:SQLite_WAL模式 a dva:Concept ;
+    rdfs:label "SQLite WAL模式" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "SQLite数据库的一种日志模式（Write-Ahead Logging），用于支持高并发的读写操作。" .
+
+dva:SQLite__WAL_Mode_ a dva:Tool ;
+    rdfs:label "SQLite (WAL Mode)" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一个轻量级数据库，在写前日志（WAL）模式下用于存储任务生命周期快照，支持高并发读写。" .
+
+dva:Streamlit_Dashboard a dva:Tool ;
+    rdfs:label "Streamlit Dashboard" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一个用于系统可观测性的交互式Web应用，提供实时状态监控和人工介入（HITL）功能。" .
+
+dva:Subprocess_Popen a dva:Python_Module ;
+    rdfs:label "Subprocess_Popen" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    rdfs:comment "规避 `asyncio` 回调地狱、用于并行启动多组完全独立进程的解决方案。" .
+
+dva:Taco_Bell a dva:Organization ;
+    rdfs:label "Taco Bell" ;
+    dva:mentionedIn dva:Source_x_2024684307676025207_1771599689513 ;
+    rdfs:comment "一家主营墨西哥风味食品的美国快餐连锁店。" .
+
+dva:Token_经济学 a dva:Concept ;
+    rdfs:label "Token 经济学" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:依赖于 dva:SQLite ;
+    rdfs:comment "对大型语言模型API的Token消耗进行监控、审计和分析，以管理运营成本。" .
+
+dva:Triple a dva:Concept,
+        dva:Data_Structure ;
+    rdfs:label "Triple" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:构成 dva:PageIndex_图谱 ;
+    rdfs:comment "一种由Pydantic定义的、用于表示三元组关系的数据结构。",
+        "一种由Pydantic定义的、用于表示实体关系三元组的数据结构。",
+        "一种由Pydantic定义的、用于表示实体间关系的数据结构。",
+        "一种由Pydantic定义的严格数据结构，是信息抽取的目标产物之一。",
+        "一种由Pydantic定义的严格数据结构，用于信息抽取。",
+        "一种由Pydantic定义的严格数据结构，用于表示实体关系。",
+        "一种由Pydantic定义的严格数据结构，用于表示实体间关系。",
+        "由Pydantic定义的严格数据结构，用于表示信息抽取出的核心关系（边）。" .
+
+dva:WAL模式 a dva:Concept ;
+    rdfs:label "WAL模式" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    rdfs:comment "SQLite的一种日志模式，通过分离读写操作来允许多任务高并发访问数据库，防止锁死。" .
+
+dva:Web_Fullscreen_API a dva:JS_Specification ;
+    rdfs:label "Web_Fullscreen_API" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026 ;
+    rdfs:comment "突破 IFrame 与容器限制的浏览器原生 API。" .
+
+dva:ag__antigravity_ a dva:Framework ;
+    rdfs:label "ag (antigravity)" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395 ;
+    rdfs:comment "DavidAgent系统所依托的底层自动化项目引擎。" .
+
+dva:asyncio a dva:Framework ;
+    rdfs:label "asyncio" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "Python的原生异步编程框架，用于在DavidAgent中配合信号量实现流量控制。" .
+
+dva:dynamic_guidelines_md a dva:Tool ;
+    rdfs:label "dynamic_guidelines.md" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    rdfs:comment "一个Markdown文件，用于存储经过动态更新和压缩的系统核心行为指南。" .
+
+dva:qwen3_coder_plus a dva:Model ;
+    rdfs:label "qwen3-coder-plus" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    rdfs:comment "阿里巴巴通义千问系列下的大型语言模型，专注于代码能力。" .
+
+dva:主动创作 a dva:Concept ;
+    rdfs:label "主动创作" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    rdfs:comment "Agent基于内部数据分析主动生成新内容的能力，区别于被动响应。" .
+
+dva:主动引擎 a dva:Tool ;
+    rdfs:label "主动引擎" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    dva:执行 dva:图谱涌现 ;
+    rdfs:comment "一个系统组件，能主动分析聚合的历史数据，以发现隐藏趋势并创造新知识。" .
+
+dva:事件总线机制 a dva:Concept ;
+    rdfs:label "事件总线机制" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263 ;
+    rdfs:comment "一种软件设计模式，允许不同组件之间通过发布和订阅事件进行解耦通信。" .
+
+dva:事实核查 a dva:Concept ;
+    rdfs:label "事实核查" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    dva:属于 dva:内部对抗过程 ;
+    rdfs:comment "左脑的核心职责之一，作为系统的免疫系统，审查右脑生成内容的准确性，拦截模型幻觉。" .
+
+dva:人类反馈强化学习 a dva:Concept ;
+    rdfs:label "人类反馈强化学习" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    dva:依赖于 dva:Streamlit ;
+    rdfs:comment "一种通过收集和利用人类对系统输出的评分和评论来指导系统自我优化的方法。" .
+
+dva:人类神经系统 a dva:Concept ;
+    rdfs:label "人类神经系统" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    rdfs:comment "生物体内负责信息传递和处理的系统，其机制为某些软件架构提供了设计灵感。" .
+
+dva:仿生双脑哲学 a dva:Concept ;
+    rdfs:label "仿生双脑哲学" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "DavidAgent的核心设计理念，将系统功能划分为负责逻辑分析的“左脑”和负责创造统筹的“右脑”。" .
+
+dva:仿生双脑多智能体系统 a dva:Concept ;
+    rdfs:label "仿生双脑多智能体系统" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    dva:包含 dva:右脑,
+        dva:左脑,
+        dva:海马体,
+        dva:虚拟胼胝体 ;
+    rdfs:comment "一种将系统认知功能划分为逻辑（左脑）和创造（右脑）两个独立模块的系统架构。" .
+
+dva:仿生多智能体架构 a dva:Concept ;
+    rdfs:label "仿生多智能体架构" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    dva:是___的演进 dva:单体大模型 ;
+    rdfs:comment "一种模仿生物大脑结构，由多个独立智能体协作完成任务的人工智能系统架构。" .
+
+dva:仿生学双脑模型 a dva:Concept ;
+    rdfs:label "仿生学双脑模型" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395 ;
+    dva:包含 dva:右脑中枢,
+        dva:左脑中枢 ;
+    rdfs:comment "一种模仿人脑左右半球分工的系统架构哲学，将逻辑处理与创造性表达分配给不同的智能体。" .
+
+dva:优雅降级 a dva:Concept ;
+    rdfs:label "优雅降级" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:应用于 dva:ChromaDB ;
+    rdfs:comment "当非核心组件失效时，系统能够继续提供核心服务的设计策略。" .
+
+dva:信号量 a dva:Concept ;
+    rdfs:label "信号量" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:用于处理 dva:突发流量 ;
+    rdfs:comment "一种同步原语，用于限制在任何给定时间点可以访问特定资源的协程或线程的数量。" .
+
+dva:信号量__Semaphore_ a dva:Concept ;
+    rdfs:label "信号量 (Semaphore)" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一种并发控制原语，用于限制同时访问共享资源（如LLM API）的任务数量，以防止速率超限。" .
+
+dva:信息抽取 a dva:Concept,
+        dva:Process ;
+    rdfs:label "信息抽取" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931 ;
+    dva:产出 dva:核心节点,
+        dva:边 ;
+    dva:构建 dva:PageIndex_图谱 ;
+    rdfs:comment "一个从非结构化文本中提取结构化信息（如节点和边）的过程。",
+        "从非结构化或半结构化数据中提取结构化信息的过程。",
+        "从非结构化或半结构化文本中提取结构化信息的过程，简称ETL。",
+        "从非结构化文本中提取结构化信息的过程。",
+        "从非结构化文本中提取结构化信息的过程，也称为ETL。",
+        "从非结构化文本中提取结构化信息（如实体和关系）的过程。",
+        "从非结构化文本中提取结构化信息（如实体和关系）的过程，也称ETL。",
+        "即ETL（Extract-Transform-Load），指从非结构化或半结构化的数据源中提取结构化信息的过程。" .
+
+dva:元认知 a dva:Component,
+        dva:Concept ;
+    rdfs:label "元认知" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_4b816ff38c_1771629674319 ;
+    dva:应用 dva:RLHF ;
+    dva:通过___实现 dva:夜间反思与自我进化机制 ;
+    rdfs:comment "系统对自身思考过程进行反思以实现自我优化的能力。",
+        "系统的高级反思模块，负责夜间工作流、规则优化和从人类反馈中学习。" .
+
+dva:元认知与情景记忆系统 a dva:System ;
+    rdfs:label "元认知与情景记忆系统" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:依赖于 dva:SQLite,
+        dva:Streamlit ;
+    rdfs:comment "DavidAgent中用于记录、反思和学习的核心系统，是实现自主智能的基础。" .
+
+dva:内部对抗过程 a dva:Concept ;
+    rdfs:label "内部对抗过程" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    rdfs:comment "一种无需人类参与的系统自愈机制，左脑（红军）审查并驳回右脑（蓝军）包含事实错误的草稿。" .
+
+dva:动态剪枝与合并 a dva:Mechanism ;
+    rdfs:label "动态剪枝与合并" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129 ;
+    rdfs:comment "夜间反思机制中用于防止规则无限增长的优化策略。" .
+
+dva:千问 a dva:Tool ;
+    rdfs:label "千问" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991 ;
+    rdfs:comment "一种AI模型，被右脑用于执行文本和代码生成任务。" .
+
+dva:千问_qwen3_max_2026_01_23 a dva:Tool ;
+    rdfs:label "千问 qwen3-max-2026-01-23" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一个大型语言模型，作为DavidAgent系统中“右脑中枢”组件的物理载体。" .
+
+dva:单体大模型 a dva:Concept ;
+    rdfs:label "单体大模型" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    rdfs:comment "一种将所有功能集成在单一、庞大模型中的早期人工智能架构。" .
+
+dva:反思智能体 a dva:Tool ;
+    rdfs:label "反思智能体" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    dva:查询 dva:海马体 ;
+    rdfs:comment "一个独立进程，负责在夜间反思流程中执行根因分析并生成新的行为规则。" .
+
+dva:可观测性 a dva:Concept ;
+    rdfs:label "可观测性" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:包含 dva:Token_经济学 ;
+    dva:通过___实现 dva:Streamlit ;
+    rdfs:comment "通过系统的外部输出（如日志、指标）来衡量其内部状态的能力，以支持监控和调试。" .
+
+dva:向量检索__RAG_ a dva:Technique ;
+    rdfs:label "向量检索 (RAG)" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "一种结合了信息检索与文本生成的技术，用于增强模型输出的相关性和准确性。" .
+
+dva:图谱涌现 a dva:Concept,
+        dva:Mechanism ;
+    rdfs:label "图谱涌现" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_6decdf2e7f_1771629626129 ;
+    dva:实现 dva:主动创作 ;
+    rdfs:comment "主动引擎通过分析大量离散的实体和关系，发现其底层共性或趋势的过程。",
+        "通过分析知识图谱中的三元组发现隐藏连接，从而主动构思和生成新内容。" .
+
+dva:夜间反思与自我进化机制 a dva:Concept ;
+    rdfs:label "夜间反思与自我进化机制" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905 ;
+    dva:包含 dva:反思智能体 ;
+    dva:解决 dva:Prompt膨胀 ;
+    rdfs:comment "系统在低负载时段分析历史任务、整合经验教训并动态更新自身规则的自动化流程。" .
+
+dva:左脑中枢 a dva:Component ;
+    rdfs:label "左脑中枢" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_8541c200dc_1771629628395 ;
+    dva:使用 dva:Gemini_2_5_Pro,
+        dva:Google_Gemini_3_1_Pro ;
+    dva:依赖于 dva:Pydantic,
+        dva:结构化输出 ;
+    dva:制衡 dva:右脑中枢 ;
+    dva:生成 dva:PageIndex ;
+    rdfs:comment "DavidAgent中负责逻辑提取、图谱构建和事实核查的智能体，基于Gemini 2.5 Pro，强制输出结构化数据。",
+        "系统的逻辑与分析核心，负责将非结构化数据转换为结构化实体与三元组，并对右脑生成内容进行质量保证。" .
+
+dva:并发控制 a dva:Concept ;
+    rdfs:label "并发控制" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:通过___实现 dva:信号量 ;
+    rdfs:comment "管理对共享资源的同步访问的技术，用于防止系统因流量过载而崩溃。" .
+
+dva:幻觉问题 a dva:Concept ;
+    rdfs:label "幻觉问题" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913 ;
+    dva:限制应用 dva:大语言模型 ;
+    rdfs:comment "大语言模型生成不符合事实或上下文内容的现象，是其在严谨领域应用的核心痛点。",
+        "大语言模型生成不符合事实或无意义信息的现象。",
+        "大语言模型生成不符合源文本事实或凭空捏造信息的现象。",
+        "大语言模型生成与事实不符或无依据内容的现象。",
+        "大语言模型生成与事实不符或无依据内容的现象，是其在严谨领域应用的限制因素。" .
+
+dva:异步事件驱动架构 a dva:Concept ;
+    rdfs:label "异步事件驱动架构" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319 ;
+    rdfs:comment "一种系统设计范式，其中组件通过生产和消费异步事件进行解耦通信。" .
+
+dva:弹性设计 a dva:Concept ;
+    rdfs:label "弹性设计" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:包含 dva:指数退避,
+        dva:熔断 ;
+    rdfs:comment "一种系统设计原则，旨在使系统能够承受并从故障和非预期条件下恢复。" .
+
+dva:执行器 a dva:Concept ;
+    rdfs:label "执行器" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991 ;
+    rdfs:comment "DavidAgent中解耦的输出组件，监听黑板上的特定状态，与WordPress、Twitter等外部系统交互。" .
+
+dva:指数退避 a dva:Concept ;
+    rdfs:label "指数退避" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    rdfs:comment "一种错误处理策略，在操作失败后以递增的时间间隔进行重试，以避免加剧系统拥堵。" .
+
+dva:指数退避__Exponential_Backoff_ a dva:Concept ;
+    rdfs:label "指数退避 (Exponential Backoff)" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一种错误处理策略，在API调用失败后以指数级增加的延迟时间进行重试，以提高系统韧性。" .
+
+dva:数据契约 a dva:Concept ;
+    rdfs:label "数据契约" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455 ;
+    rdfs:comment "一种通过预定义数据模型（如Pydantic类）来驱动和约束程序输出的方法，取代了传统的Prompt工程。" .
+
+dva:核心节点 a dva:Concept ;
+    rdfs:label "核心节点" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913 ;
+    dva:构成 dva:PageIndex_图谱,
+        dva:PageIndex图谱 ;
+    rdfs:comment "从文本中提取出的核心实体，构成图谱的基本单元，也称Nodes。",
+        "构成PageIndex图谱的基本元素之一，由信息抽取过程产出。",
+        "构成PageIndex图谱的基本元素，代表实体。",
+        "构成图谱的基本单元，代表实体，也称Nodes。" .
+
+dva:死信队列 a dva:Concept ;
+    rdfs:label "死信队列" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    rdfs:comment "用于存放经过多次重试后仍无法成功处理的任务或消息的队列，以供后续分析。" .
+
+dva:熔断 a dva:Concept ;
+    rdfs:label "熔断" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    dva:将任务移至 dva:死信队列 ;
+    rdfs:comment "一种设计模式，在检测到连续故障后，阻止对可能已失效服务的进一步调用。" .
+
+dva:状态为中心 a dva:Concept ;
+    rdfs:label "状态为中心" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "一种辐射型网络架构模式，其中各个组件通过一个共享的中心状态（黑板）进行间接通信，而非直接点对点调用。" .
+
+dva:知识图谱 a dva:Concept ;
+    rdfs:label "知识图谱" ;
+    dva:mentionedIn dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    dva:存储为 dva:PageIndex ;
+    dva:构建依赖于 dva:Triples ;
+    rdfs:comment "一种以图结构表示实体及其相互关系的知识库模型。",
+        "由实体和关系三元组构成的结构化知识库，由左脑从非结构化信息中提取并构建。" .
+
+dva:突发流量 a dva:Concept ;
+    rdfs:label "突发流量" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629687431 ;
+    rdfs:comment "指系统在短时间内接收到远超其平均处理能力的请求或数据量。" .
+
+dva:结构化输出 a dva:Concept ;
+    rdfs:label "结构化输出" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395 ;
+    rdfs:comment "一种强制大型语言模型按预定义格式（如JSON）输出的技术，用于DavidAgent左脑以确保数据严谨性。" .
+
+dva:群体智能 a dva:Concept ;
+    rdfs:label "群体智能" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991 ;
+    rdfs:comment "DavidAgent的远期演进形态，作为一个由多个专业化智能体协作处理复杂任务的多智能体系统。" .
+
+dva:自我进化 a dva:Concept ;
+    rdfs:label "自我进化" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:依赖于 dva:夜间反思 ;
+    rdfs:comment "系统根据历史任务表现，通过动态更新System Prompt等方式持续优化自身性能的能力。" .
+
+dva:规则剪枝 a dva:Concept ;
+    rdfs:label "规则剪枝" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    rdfs:comment "一种在夜间反思过程中强制压缩规则数量的机制，旨在防止System Prompt过度膨胀。" .
+
+dva:边 a dva:Concept ;
+    rdfs:label "边" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913 ;
+    dva:构成 dva:PageIndex_图谱,
+        dva:PageIndex图谱 ;
+    rdfs:comment "构成PageIndex图谱的基本元素之一，连接核心节点，由信息抽取过程产出。",
+        "构成PageIndex图谱的基本元素，代表实体间的关系。",
+        "构成图谱中连接核心节点的单元，代表关系，也称Edges。",
+        "构成图谱的基本元素，代表实体间的关系。",
+        "表示核心节点之间关系的连接，构成图谱的基本单元，也称Edges。" .
+
+dva:通义千问 a dva:Tool ;
+    rdfs:label "通义千问" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395 ;
+    rdfs:comment "一种大型语言模型，在DavidAgent中用作右脑中枢的物理基座，执行创意生成任务。" .
+
+dva:遗忘曲线 a dva:Concept ;
+    rdfs:label "遗忘曲线" ;
+    dva:mentionedIn dva:Source_doc_6decdf2e7f_1771629626129,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:应用于 dva:ChromaDB ;
+    rdfs:comment "一种在ChromaDB中通过时间衰减实现的机制，用于优先处理较新的记忆，保持记忆库的时效性。",
+        "应用于长期记忆管理的模型，根据时间衰减降低旧记忆的权重，防止信息污染。" .
+
+dva:防爆盾 a dva:Concept ;
+    rdfs:label "防爆盾" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:使用 dva:asyncio ;
+    rdfs:comment "一种系统保护机制，结合全局信号量和指数退避熔断策略，防止因请求过多导致API服务中断。" .
+
+dva:Asyncio a dva:Framework ;
+    rdfs:label "Asyncio" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629695191 ;
+    rdfs:comment "Python中用于实现异步事件驱动架构的核心库。",
+        "Python的异步编程框架，被选为系统的并发模型以高效处理I/O密集型任务，避免多线程的开销和复杂性。" .
+
+dva:DavidAgent_系统 a dva:Tool ;
+    rdfs:label "DavidAgent 系统" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    dva:是___的实例 dva:仿生多智能体架构 ;
+    dva:采用 dva:黑板模式 ;
+    rdfs:comment "一个采用仿生多智能体架构，将逻辑处理与创意生成功能分离的示例系统。" .
+
+dva:JSON a dva:Concept,
+        dva:Format ;
+    rdfs:label "JSON" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931 ;
+    dva:约束 dva:大语言模型 ;
+    rdfs:comment "JavaScript Object Notation，一种轻量级的数据交换格式，易于人阅读和编写，也易于机器解析和生成。",
+        "一种数据交换格式，Left Brain强制模型输出此格式以保证结构化。",
+        "一种被强制要求输出的数据格式，用于结构化信息抽取的结果。",
+        "一种轻量级的数据交换格式，用于表示结构化数据。",
+        "一种轻量级的数据交换格式，被强制作为Left Brain的输出格式。",
+        "一种轻量级的数据交换格式，被用作强制的模型输出格式。",
+        "一种轻量级的数据交换格式，被用作强制输出格式以确保模型生成结构化和事实性的数据。",
+        "一种轻量级的数据交换格式，被用作模型强制输出的格式。" .
+
+dva:PageIndex图谱 a dva:Concept ;
+    rdfs:label "PageIndex图谱" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913 ;
+    rdfs:comment "由核心节点和边构成的知识图谱，作为系统的认知基础。",
+        "由核心节点和边构成的知识图谱，作为系统的认知核心。" .
+
+dva:RPC a dva:Concept ;
+    rdfs:label "RPC" ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    rdfs:comment "一种允许程序调用另一地址空间中过程或函数的协议，常用于分布式系统中的直接通信。",
+        "一种允许程序调用另一地址空间中过程或函数的协议，常用于分布式系统通信。",
+        "一种允许程序调用另一地址空间中过程或子程序的协议，属于一种直接通信方式。",
+        "远程过程调用（Remote Procedure Call），一种允许程序直接调用另一地址空间中过程或函数的协议。",
+        "远程过程调用，一种允许程序调用另一地址空间中过程或函数的协议。",
+        "远程过程调用，一种允许程序调用另一地址空间中过程或函数的协议，常用于分布式系统通信。",
+        "远程过程调用，一种允许程序调用另一地址空间中过程或子程序的协议。",
+        "远程过程调用，一种允许程序调用另一地址空间（通常是共享网络上另一台机器）上过程或子程序的协议。" .
+
+dva:Triples a dva:Concept ;
+    rdfs:label "Triples" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    dva:持久化为 dva:PageIndex ;
+    rdfs:comment "由主语、谓语、宾语构成的三元组，用于描述实体间的精确关系。" .
+
+dva:双脑架构 a dva:Architecture,
+        dva:Concept,
+        dva:Framework ;
+    rdfs:label "双脑架构" ;
+    dva:mentionedIn dva:Source_doc_98ecad2069_1771629613320,
+        dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:包含 dva:Gemini,
+        dva:Left_Brain,
+        dva:Qwen ;
+    dva:旨在解决 dva:幻觉 ;
+    dva:解决 dva:幻觉问题 ;
+    rdfs:comment "DavidAgent项目的核心架构哲学，模仿生物学双脑机制，将不同职责赋予不同的大语言模型，分为负责逻辑的左脑和负责创造的右脑。",
+        "DavidAgent项目的核心设计，模仿大脑分工，由负责逻辑的“左脑”和负责创造的“右脑”构成。",
+        "一种包含Left Brain组件的系统架构，旨在约束大语言模型的信息抽取过程。",
+        "一种包含Left Brain组件的系统架构，旨在解决大语言模型的幻觉问题。",
+        "一种包含Left Brain组件的系统架构，用于约束模型输出。",
+        "一种包含Left Brain组件的系统架构，用于解决LLM的幻觉问题。",
+        "一种包含Left Brain组件的系统架构，用于解决大语言模型的幻觉问题。",
+        "一种架构模式，结合一个负责创造性任务的AI模型（右脑）和一个负责逻辑性任务的AI模型（左脑）。",
+        "一种系统架构，通过其Left Brain组件约束大语言模型，以解决幻觉问题。",
+        "一种系统架构，通过功能分离（如信息抽取与内容生成）来约束大语言模型的输出，以缓解幻觉问题。" .
+
+dva:右脑中枢 a dva:Component ;
+    rdfs:label "右脑中枢" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_8541c200dc_1771629628395 ;
+    dva:使用 dva:千问_qwen3_max_2026_01_23,
+        dva:通义千问 ;
+    dva:利用 dva:ChromaDB ;
+    rdfs:comment "DavidAgent中负责创意生成、内容撰写和Persona演绎的智能体，基于通义千问，将结构化数据转化为自然语言文本。",
+        "系统的创造与统筹核心，负责结合人设与历史记忆进行内容创作和代码生成。" .
+
+dva:夜间反思 a dva:Concept ;
+    rdfs:label "夜间反思" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:执行 dva:规则剪枝 ;
+    rdfs:comment "DavidAgent的自进化机制，通过分析失败案例和人类反馈，动态更新系统提示词，实现持续优化。",
+        "一个自动化流程，通过分析失败任务来生成优化规则，并更新系统配置以实现自我进化。" .
+
+dva:左脑分析器 a dva:Component,
+        dva:Concept ;
+    rdfs:label "左脑分析器" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    dva:依赖于 dva:raw_source ;
+    dva:订阅 dva:raw_source ;
+    rdfs:comment "DavidAgent中订阅黑板数据并进行分析处理的组件。",
+        "系统中的一个分析组件，订阅并处理黑板上的特定数据更新。",
+        "系统中的一个组件，负责订阅并处理黑板上特定键的数据。" .
+
+dva:状态同步 a dva:Concept ;
+    rdfs:label "状态同步" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657 ;
+    rdfs:comment "在分布式或多智能体系统中，确保各个独立单元之间状态信息一致性的过程。",
+        "在多智能体或分布式系统中，确保各个独立单元之间状态信息一致性的过程。" .
+
+dva:虚拟胼胝体 a dva:Component,
+        dva:Concept ;
+    rdfs:label "虚拟胼胝体" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:实现于 dva:黑板模式 ;
+    dva:应用 dva:异步事件驱动架构,
+        dva:黑板模式 ;
+    rdfs:comment "一种基于黑板模式的通信机制，用于实现DavidAgent系统内部组件间的解耦通信。",
+        "系统的通信总线，基于黑板模式实现，通过一个全局内存对象解耦左右脑及其他组件的交互。",
+        "负责左右脑之间状态同步与通信的模块，采用黑板模式和事件驱动架构。" .
+
+dva:黑板架构 a dva:Concept ;
+    rdfs:label "黑板架构" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_8541c200dc_1771629628395 ;
+    rdfs:comment "一种系统架构，其中解耦的组件通过读写共享数据存储（黑板）进行异步通信，以实现高可扩展性。",
+        "一种系统设计模式，通过一个共享数据区（黑板）实现模块间的解耦，用于DavidAgent中左右脑的异步协作。" .
+
+dva:PageIndex a dva:Component,
+        dva:Concept,
+        dva:Tool ;
+    rdfs:label "PageIndex" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_article_1771596408_1_1771599810197 ;
+    rdfs:comment "一种将知识图谱物理化存储的规范，采用带有双链语法的Markdown文件格式。",
+        "一种用于持久化结构化数据的格式，文内特指 Markdown 格式，便于机器索引和人工审查。",
+        "一种知识管理规范，用于存储DavidAgent左脑提取的结构化知识图谱，形成逻辑记忆。",
+        "用于构建知识图谱和管理逻辑记忆的双链Markdown系统。" .
+
+dva:Source_x_2024684307676025207_1771599689513 a dva:DocumentSource ;
+    rdfs:label "x_2024684307676025207_1771599689513" .
+
+dva:State_Synchronization a dva:Concept ;
+    rdfs:label "State Synchronization" ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540 ;
+    rdfs:comment "在分布式或多智能体系统中，确保各个独立单元状态信息保持一致的过程。",
+        "在分布式系统中，确保各个独立单元或智能体状态保持一致的过程。",
+        "在多智能体或分布式系统中，确保各个独立单元状态保持一致的过程或挑战。" .
+
+dva:右脑 a dva:Component,
+        dva:Concept ;
+    rdfs:label "右脑" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    dva:使用 dva:千问 ;
+    dva:受约束于 dva:左脑 ;
+    dva:委托 dva:Midjourney___Flux ;
+    dva:实现于 dva:Qwen_Coder_Plus ;
+    dva:属于 dva:DavidAgent_系统 ;
+    dva:应用 dva:RAG ;
+    dva:被审查 dva:左脑 ;
+    rdfs:comment "DavidAgent中负责创造性综合、内容生成和自动化撰写技术文章的组件。",
+        "DavidAgent架构中负责创意内容生成的组件，其产出物需要经过左脑的事实核查。",
+        "DavidAgent系统中专注于情感表达和创意生成功能的组件。",
+        "系统中的创造性表达单元，负责人设演绎、上下文管理和内容生成。" .
+
+dva:海马体 a dva:Component,
+        dva:Concept ;
+    rdfs:label "海马体" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629695191 ;
+    dva:使用 dva:ChromaDB,
+        dva:SQLite__WAL_Mode_ ;
+    dva:应用 dva:ChromaDB,
+        dva:SQLite ;
+    rdfs:comment "DavidAgent的记忆组件，利用ChromaDB和SQLite进行长期信息存储和检索（RAG）。",
+        "系统用于存储情景记忆（如任务快照和反馈）的持久化存储模块，以SQLite实现。",
+        "系统的数据持久化层，采用三级存储结构（SQLite、ChromaDB、File System）分别记录情景、语义和逻辑记忆。",
+        "系统的记忆与检索中心，管理语义、逻辑和情景记忆。" .
+
+dva:Gemini_2_5_Pro a dva:Model,
+        dva:Tool ;
+    rdfs:label "Gemini 2.5 Pro" ;
+    dva:mentionedIn dva:Source_Auto_Extracted_Topic_1771646420263,
+        dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_8541c200dc_1771629628395 ;
+    rdfs:comment "Google 开发的多模态大型语言模型，具备处理文本、图像等多种信息的能力。",
+        "一种多模态AI模型，计划集成到左脑以实现对架构图等视觉数据的解析能力。",
+        "一种大型语言模型，在DavidAgent中用作左脑中枢的物理基座，执行逻辑提取任务。",
+        "用于实现“左脑”逻辑与真理核心功能的大语言模型。" .
+
+dva:LeftBrainAnalyzer a dva:Component,
+        dva:Concept ;
+    rdfs:label "LeftBrainAnalyzer" ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:subscribes_to dva:Blackboard_Architecture,
+        dva:raw_source ;
+    dva:订阅 dva:Blackboard_Architecture,
+        dva:raw_source ;
+    dva:读取数据自 dva:Blackboard_Architecture ;
+    rdfs:comment "DavidAgent中负责订阅并分析黑板上特定数据的组件。",
+        "DavidAgent系统中的分析器组件，作为数据消费者，负责订阅并处理黑板上的特定数据。",
+        "系统中的分析器组件，负责处理黑板上的特定数据。",
+        "系统中的分析组件，订阅黑板上的特定数据键并进行处理。",
+        "系统中负责分析和处理黑板上特定数据的组件，作为数据消费者。" .
+
+dva:Pydantic a dva:Tool ;
+    rdfs:label "Pydantic" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:定义 dva:数据契约 ;
+    rdfs:comment "一个Python库，在DavidAgent中与结构化输出结合，用于定义和验证左脑输出的数据模型。",
+        "一个Python库，用于定义数据契约，强制约束左脑的输出格式，确保其符合预定义的Schema。",
+        "一个Python库，用于数据验证和设置管理。在DavidAgent中，它被用来定义严格的数据结构（如Entity、Triple），强制LLM输出格式化的JSON。",
+        "一个Python库，用于数据验证和设置管理。在本文中，它被用来定义严格的数据契约（如Entity和Triple）。",
+        "一个Python库，用于数据验证和设置管理，在此架构中被用来定义严格的数据结构。",
+        "一个Python库，用于通过类型提示进行数据验证和设置管理。",
+        "一个Python库，用于通过预定义的数据结构进行数据验证和解析。",
+        "一个Python数据验证库，用于定义数据契约，强制约束大语言模型的输入输出格式，取代正则表达式解析。",
+        "一个数据验证库，用于为DavidAgent处理的信息强制执行严格的数据契约，确保数据完整性。",
+        "一个用于定义Entity和Triple等严格数据结构的工具。",
+        "一个用于定义严格数据结构（如Entity和Triple）的工具。",
+        "一个用于定义数据结构和进行数据验证的Python库。",
+        "一个用于数据验证和设置管理的Python库。" .
+
+dva:Source_auto_generated_37611459 a dva:DocumentSource ;
+    rdfs:label "auto_generated_37611459" .
+
+dva:Source_auto_generated_37655970 a dva:DocumentSource ;
+    rdfs:label "auto_generated_37655970" .
+
+dva:Source_auto_generated_40004668 a dva:DocumentSource ;
+    rdfs:label "auto_generated_40004668" .
+
+dva:Source_auto_generated_41527541 a dva:DocumentSource ;
+    rdfs:label "auto_generated_41527541" .
+
+dva:大语言模型 a dva:Concept,
+        dva:Tool ;
+    rdfs:label "大语言模型" ;
+    dva:mentionedIn dva:Source_x_mock_article_1771596408_1_1771599810197,
+        dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771597924_0_1771599726404,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771598309_0_1771599758280,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771618414_0_1771618436913,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:用于提取 dva:Triples ;
+    rdfs:comment "一种基于大量文本数据训练的深度学习模型，用于处理和生成自然语言。",
+        "一种基于大量文本数据训练的深度学习模型，用于处理和生成自然语言，文内以 Gemini 3.1 Pro 为例。",
+        "一种基于海量文本数据训练的大规模神经网络模型，用于理解和生成自然语言。",
+        "一种基于海量文本数据训练的大规模神经网络模型，简称LLM。",
+        "一种大规模的语言处理模型，文本中指出其存在幻觉问题。",
+        "一种大规模的语言处理模型，能够理解和生成人类语言。",
+        "一种大规模语言处理模型，文本指出其存在幻觉问题，限制了其在严谨领域的应用。",
+        "一种经过大规模数据训练的深度学习模型，能够理解和生成人类语言，但也存在事实不准确的问题。" .
+
+dva:左脑 a dva:Component,
+        dva:Concept ;
+    rdfs:label "左脑" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629658991,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_fcbb990e7b_1771629639455,
+        dva:Source_x_mock_article_1771596408_0_1771599798023 ;
+    dva:使用 dva:Pydantic ;
+    dva:基于 dva:Gemini_3_1_Pro ;
+    dva:实现于 dva:Gemini_2_5_Pro ;
+    dva:属于 dva:DavidAgent_系统 ;
+    dva:执行 dva:事实核查 ;
+    dva:构建 dva:知识图谱 ;
+    dva:职责分离于 dva:右脑 ;
+    dva:集成 dva:Gemini_2_5_Pro ;
+    rdfs:comment "DavidAgent中负责真理提取、事实核查以及将非结构化数据转换为结构化知识的组件。",
+        "DavidAgent架构中负责逻辑与真理的组件，用于结构化数据提取、知识图谱构建和事实核查。",
+        "DavidAgent系统中负责数据提取、实体识别和事实回溯等逻辑处理功能的组件。",
+        "系统中的逻辑处理单元，负责结构化知识提取、记忆固化和事实核查。" .
+
+dva:幻觉 a dva:Concept ;
+    rdfs:label "幻觉" ;
+    dva:mentionedIn dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_x_mock_article_1771596408_1_1771599810197,
+        dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:是 dva:大语言模型 ;
+    dva:是___的问题 dva:大语言模型 ;
+    rdfs:comment "大型语言模型在生成文本时捏造不存在事实或关系的现象，是DavidAgent架构试图解决的核心问题之一。",
+        "大语言模型在生成内容时产生不符合事实或逻辑的虚构信息的现象。",
+        "大语言模型在生成文本时，捏造不存在或与上下文不符的事实、细节或来源的现象。",
+        "大语言模型生成与事实不符或无上下文依据内容的现象。",
+        "大语言模型生成与事实不符或无意义信息的一种现象，是其在严谨领域应用的主要障碍。",
+        "大语言模型（LLM）生成与上下文事实不符或完全捏造内容的现象，是其在严谨领域应用的核心痛点。" .
+
+dva:黑板模式 a dva:Concept ;
+    rdfs:label "黑板模式" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_x_mock_article_1771596408_0_1771599798023,
+        dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218 ;
+    dva:实现 dva:状态同步 ;
+    dva:设计灵感来源于 dva:人类神经系统 ;
+    rdfs:comment "一种架构模式，允许多个组件通过一个共享的数据存储区（黑板）进行异步通信。",
+        "一种软件架构模式，通过一个共享的数据存储（黑板）实现组件间的间接通信和协作。",
+        "一种软件架构模式，通过一个共享的知识库（黑板）来协调多个独立模块或智能体之间的通信与协作。",
+        "一种软件架构模式，通过一个共享的知识库（黑板）来协调多个独立模块或智能体的工作。",
+        "一种软件设计模式，允许多个独立模块通过一个共享数据区进行异步通信和协作。",
+        "一种软件设计模式，通过一个共享数据存储区（黑板）来协调和触发系统中各个独立模块的活动。" .
+
+dva:Streamlit a dva:Framework,
+        dva:Tool ;
+    rdfs:label "Streamlit" ;
+    dva:mentionedIn dva:Source_System_Architecture_Update_2026,
+        dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_4b816ff38c_1771629687431,
+        dva:Source_doc_6decdf2e7f_1771629626129,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:读取自 dva:SQLite ;
+    rdfs:comment "一个Python框架，用于为DavidAgent构建Web监控仪表盘。",
+        "一个Python框架，用于快速构建数据可视化界面，如DavidAgent的可视化控制台。",
+        "一个用于构建Web应用的框架，在此系统中用于创建人类反馈的控制台界面。",
+        "基础前后端交互呈现层。",
+        "用于可视化DavidAgent运行日志、反馈收集和成本监控的用户界面框架。" .
+
+dva:SQLite a dva:Tool ;
+    rdfs:label "SQLite" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629649905,
+        dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629687431,
+        dva:Source_doc_6decdf2e7f_1771629626129,
+        dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:启用 dva:SQLite_WAL模式,
+        dva:WAL模式 ;
+    rdfs:comment "一个嵌入式SQL数据库引擎，用于存储DavidAgent的任务状态、错误堆栈和监控指标。",
+        "一个嵌入式数据库，在DavidAgent中用于记录任务生命周期快照，形成情景记忆。",
+        "一个轻量级数据库，在WAL模式下用于存储情景记忆和系统生命周期快照。",
+        "一个轻量级数据库，用于存储情景记忆，记录完整的任务生命周期快照。",
+        "一种轻量级数据库，被DavidAgent用作其“海马体”来存储任务记录和反馈数据。",
+        "用于存储DavidAgent情景记忆和日志的轻量级关系型数据库。" .
+
+dva:raw_source a dva:Concept,
+        dva:Data_Key ;
+    rdfs:label "raw_source" ;
+    dva:mentionedIn dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771598142_1_1771599747341,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771599804_1_1771599840657,
+        dva:Source_x_proper_mock_1771618429_1_1771618452218,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    rdfs:comment "黑板上用于存储原始感知数据的特定键名。",
+        "黑板上的一个数据键，用于存储感知器抓取的原始数据。",
+        "黑板上的一个特定数据键，用于存储由Perceptor抓取的、未经处理的原始数据。",
+        "黑板上的一个特定键，用于存储感知器抓取的原始数据。" .
+
+dva:ChromaDB a dva:Tool ;
+    rdfs:label "ChromaDB" ;
+    dva:mentionedIn dva:Source_doc_4b816ff38c_1771629674319,
+        dva:Source_doc_4b816ff38c_1771629687431,
+        dva:Source_doc_4b816ff38c_1771629695191,
+        dva:Source_doc_6decdf2e7f_1771629626129,
+        dva:Source_doc_8541c200dc_1771629628395,
+        dva:Source_doc_98ecad2069_1771629613320 ;
+    dva:实现 dva:遗忘曲线 ;
+    dva:用于实现 dva:向量检索__RAG_ ;
+    rdfs:comment "一个向量数据库，在DavidAgent中用于存储和检索长期记忆以支持RAG。",
+        "一个向量数据库，在DavidAgent中用于存储语义记忆，支持右脑创作时的RAG模糊关联。",
+        "一个向量数据库，用于存储知识的向量化表示，以支持RAG检索。",
+        "一个向量数据库，用于实现系统的语义记忆和向量检索功能。",
+        "一个向量数据库，用作系统的长期记忆，支持语义搜索、相关性阈值和时间衰减功能。",
+        "用于存储和检索向量化规则和长期记忆的向量数据库。" .
+
+dva:PageIndex_图谱 a dva:Component,
+        dva:Concept,
+        dva:Data_Asset ;
+    rdfs:label "PageIndex 图谱" ;
+    dva:mentionedIn dva:Source_x_mock_real_1_1771599709431,
+        dva:Source_x_proper_mock_1771596779_0_1771599709424,
+        dva:Source_x_proper_mock_1771598142_1_1771599741620,
+        dva:Source_x_proper_mock_1771599789_0_1771599814769,
+        dva:Source_x_proper_mock_1771629987_0_1771630032931,
+        dva:Source_x_proper_mock_1771630921_0_1771630969095 ;
+    dva:构成自 dva:Entity,
+        dva:Triple ;
+    rdfs:comment "DavidAgent项目中的本地知识图谱专有名称，由Left Brain提取的节点和边构成，是系统长期逻辑记忆的载体和认知基础。",
+        "由Left Brain提取的Entity和Triple构成的本地知识图谱，是DavidAgent系统的核心逻辑记忆与认知基础。",
+        "由提取出的核心节点和边构成的知识图谱。",
+        "由提取出的核心节点和边构成的知识图谱，作为系统认知基础。",
+        "由提取出的核心节点（Entity）和边（Triple）构成的知识图谱，作为系统的认知基础。",
+        "由提取的核心节点和边构成的知识图谱。" .
+
+dva:Source_Auto_Extracted_Topic_1771646420263 a dva:DocumentSource ;
+    rdfs:label "Auto_Extracted_Topic_1771646420263" .
+
+dva:Source_System_Architecture_Update_2026 a dva:DocumentSource ;
+    rdfs:label "System_Architecture_Update_2026" .
+
+dva:Source_x_mock_article_1771596408_0_1771599798023 a dva:DocumentSource ;
+    rdfs:label "x_mock_article_1771596408_0_1771599798023" .
+
+dva:Source_x_proper_mock_1771597924_0_1771599731540 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771597924_0_1771599731540" .
+
+dva:Source_x_proper_mock_1771629987_0_1771630032931 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771629987_0_1771630032931" .
+
+dva:Blackboard_Architecture a dva:Concept ;
+    rdfs:label "Blackboard Architecture" ;
+    dva:mentionedIn dva:Source_x_mock_real_2_1771599706445,
+        dva:Source_x_proper_mock_1771597185_1_1771599727936,
+        dva:Source_x_proper_mock_1771597924_0_1771599731540,
+        dva:Source_x_proper_mock_1771599310_1_1771599795155,
+        dva:Source_x_proper_mock_1771630002_1_1771630041526,
+        dva:Source_x_proper_mock_1771630936_1_1771630982158 ;
+    dva:应用于 dva:State_Synchronization ;
+    dva:解决 dva:State_Synchronization ;
+    rdfs:comment "一种软件架构模式，通过一个共享的知识库（黑板）来协调多个独立的知识源（组件）进行协作。",
+        "一种通过共享数据存储（黑板）进行通信和协作的软件架构模式。",
+        "一种通过共享数据存储（黑板）进行间接通信和协作的软件架构模式，用于实现组件解耦。",
+        "一种通过共享知识库（黑板）进行通信和协作的软件架构模式，实现组件解耦。",
+        "一种通过共享知识库（黑板）进行通信和协作的软件架构模式，组件之间不直接交互。" .
+
+dva:Source_x_mock_article_1771596408_1_1771599810197 a dva:DocumentSource ;
+    rdfs:label "x_mock_article_1771596408_1_1771599810197" .
+
+dva:Source_x_mock_real_2_1771599706445 a dva:DocumentSource ;
+    rdfs:label "x_mock_real_2_1771599706445" .
+
+dva:Source_x_proper_mock_1771599310_1_1771599795155 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771599310_1_1771599795155" .
+
+dva:Source_x_proper_mock_1771630002_1_1771630041526 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771630002_1_1771630041526" .
+
+dva:Source_x_proper_mock_1771630921_0_1771630969095 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771630921_0_1771630969095" .
+
+dva:Source_x_proper_mock_1771630936_1_1771630982158 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771630936_1_1771630982158" .
+
+dva:Source_x_proper_mock_1771597185_1_1771599727936 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771597185_1_1771599727936" .
+
+dva:Source_x_proper_mock_1771598142_1_1771599747341 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771598142_1_1771599747341" .
+
+dva:Source_x_proper_mock_1771599804_1_1771599840657 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771599804_1_1771599840657" .
+
+dva:Source_x_proper_mock_1771618429_1_1771618452218 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771618429_1_1771618452218" .
+
+dva:Source_x_mock_real_1_1771599709431 a dva:DocumentSource ;
+    rdfs:label "x_mock_real_1_1771599709431" .
+
+dva:Source_doc_4b816ff38c_1771629658991 a dva:DocumentSource ;
+    rdfs:label "doc_4b816ff38c_1771629658991" .
+
+dva:Source_doc_fcbb990e7b_1771629639455 a dva:DocumentSource ;
+    rdfs:label "doc_fcbb990e7b_1771629639455" .
+
+dva:Source_x_proper_mock_1771596779_0_1771599709424 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771596779_0_1771599709424" .
+
+dva:Source_x_proper_mock_1771597924_0_1771599726404 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771597924_0_1771599726404" .
+
+dva:Source_x_proper_mock_1771598142_1_1771599741620 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771598142_1_1771599741620" .
+
+dva:Source_x_proper_mock_1771598309_0_1771599758280 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771598309_0_1771599758280" .
+
+dva:Source_x_proper_mock_1771599789_0_1771599814769 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771599789_0_1771599814769" .
+
+dva:Source_x_proper_mock_1771618414_0_1771618436913 a dva:DocumentSource ;
+    rdfs:label "x_proper_mock_1771618414_0_1771618436913" .
+
+dva:Source_doc_4b816ff38c_1771629649905 a dva:DocumentSource ;
+    rdfs:label "doc_4b816ff38c_1771629649905" .
+
+dva:Source_doc_6decdf2e7f_1771629626129 a dva:DocumentSource ;
+    rdfs:label "doc_6decdf2e7f_1771629626129" .
+
+dva:Source_doc_8541c200dc_1771629628395 a dva:DocumentSource ;
+    rdfs:label "doc_8541c200dc_1771629628395" .
+
+dva:Source_doc_4b816ff38c_1771629687431 a dva:DocumentSource ;
+    rdfs:label "doc_4b816ff38c_1771629687431" .
+
+dva:Source_doc_4b816ff38c_1771629695191 a dva:DocumentSource ;
+    rdfs:label "doc_4b816ff38c_1771629695191" .
+
+dva:Source_doc_98ecad2069_1771629613320 a dva:DocumentSource ;
+    rdfs:label "doc_98ecad2069_1771629613320" .
+
+dva:Source_doc_4b816ff38c_1771629674319 a dva:DocumentSource ;
+    rdfs:label "doc_4b816ff38c_1771629674319" .
+

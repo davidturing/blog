@@ -1,0 +1,8 @@
+/Users/zhaoqinhuang/david_project/symbol_switch_rust_plugin/target/release/build/target-lexicon-fa62fac77a56f4ab/build_script_build-fa62fac77a56f4ab.d: /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/build.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/data_model.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/triple.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/targets.rs
+
+/Users/zhaoqinhuang/david_project/symbol_switch_rust_plugin/target/release/build/target-lexicon-fa62fac77a56f4ab/build_script_build-fa62fac77a56f4ab: /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/build.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/data_model.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/triple.rs /Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/targets.rs
+
+/Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/build.rs:
+/Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/data_model.rs:
+/Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/triple.rs:
+/Users/zhaoqinhuang/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/target-lexicon-0.12.16/src/targets.rs:

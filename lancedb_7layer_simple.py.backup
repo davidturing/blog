@@ -1,0 +1,307 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+LanceDB 7层混合检索模块 - 简化实现
+基于 Google Gemini 和现有工具实现核心功能
+"""
+
+import os
+import json
+import math
+import time
+from datetime import datetime, timedelta
+from typing import List, Dict, Any, Tuple
+import numpy as np
+import pandas as pd
+from google.generativeai import GenerativeModel
+import google.generativeai as genai
+
+# 配置 Google API Key
+def setup_gemini():
+    """设置 Google Gemini API"""
+    # 从环境变量或凭据文件获取 API key
+    api_key = None
+    
+    # 尝试从多个位置获取 API key
+    possible_paths = [
+        '.credentials/api_keys.env',
+        '.env',
+        os.path.expanduser('~/.gemini_api_key')
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                for line in f:
+                    if line.strip() and not line.startswith('#'):
+                        if 'GEMINI_API_KEY' in line:
+                            api_key = line.split('=')[1].strip().strip('"\'')
+                            break
+            if api_key:
+                break
+    
+    if not api_key:
+        raise ValueError("未找到 GEMINI_API_KEY，请在 .credentials/api_keys.env 中设置")
+    
+    genai.configure(api_key=api_key)
+    return GenerativeModel('gemini-1.5-flash')
+
+class MemoryRecord:
+    """记忆记录类"""
+    def __init__(self, content: str, metadata: Dict[str, Any] = None):
+        self.content = content
+        self.metadata = metadata or {}
+        self.embedding = None
+        self.score = 0.0
+        self.timestamp = self.metadata.get('timestamp', time.time())
+        
+    def to_dict(self):
+        return {
+            'content': self.content,
+            'metadata': self.metadata,
+            'score': self.score,
+            'timestamp': self.timestamp
+        }
+
+class LanceDB7LayerRetriever:
+    """LanceDB 7层混合检索器"""
+    
+    def __init__(self):
+        self.model = setup_gemini()
+        self.memory_records = []
+        self.load_memory()
+        
+    def load_memory(self):
+        """加载记忆库"""
+        # 这里应该从实际的记忆存储中加载
+        # 为简化，我们假设记忆存储在 memory/ 目录下的 JSON 文件中
+        memory_dir = 'memory'
+        if os.path.exists(memory_dir):
+            for filename in os.listdir(memory_dir):
+                if filename.endswith('.json') and filename != 'heartbeat-state.json':
+                    filepath = os.path.join(memory_dir, filename)
+                    try:
+                        with open(filepath, 'r') as f:
+                            data = json.load(f)
+                            if isinstance(data, list):
+                                for item in data:
+                                    record = MemoryRecord(
+                                        content=item.get('content', ''),
+                                        metadata=item.get('metadata', {})
+                                    )
+                                    self.memory_records.append(record)
+                    except Exception as e:
+                        print(f"加载记忆文件 {filename} 时出错: {e}")
+        
+        print(f"加载了 {len(self.memory_records)} 条记忆记录")
+    
+    def generate_embedding(self, text: str) -> List[float]:
+        """生成文本嵌入向量"""
+        # 使用 Gemini 生成嵌入
+        result = genai.embed_content(
+            model="models/embedding-001",
+            content=text,
+            task_type="retrieval_document"
+        )
+        return result['embedding']
+    
+    def layer1_vector_search(self, query: str, top_k: int = 20) -> List[MemoryRecord]:
+        """第1层：向量检索"""
+        print("执行第1层：向量检索...")
+        
+        # 为查询生成嵌入
+        query_embedding = self.generate_embedding(query)
+        
+        # 计算相似度（余弦相似度）
+        similarities = []
+        for record in self.memory_records:
+            if record.embedding is None:
+                # 为记录生成嵌入（如果还没有）
+                record.embedding = self.generate_embedding(record.content)
+            
+            # 计算余弦相似度
+            dot_product = sum(a*b for a, b in zip(query_embedding, record.embedding))
+            norm_query = math.sqrt(sum(a*a for a in query_embedding))
+            norm_record = math.sqrt(sum(a*a for a in record.embedding))
+            similarity = dot_product / (norm_query * norm_record) if norm_query > 0 and norm_record > 0 else 0
+            
+            similarities.append((record, similarity))
+        
+        # 按相似度排序，取 top_k
+        similarities.sort(key=lambda x: x[1], reverse=True)
+        top_records = [record for record, _ in similarities[:top_k]]
+        
+        # 设置初始分数
+        for i, record in enumerate(top_records):
+            record.score = similarities[i][1]
+        
+        return top_records
+    
+    def layer2_bm25_keyword_search(self, query: str, records: List[MemoryRecord]) -> List[MemoryRecord]:
+        """第2层：BM25 关键词检索"""
+        print("执行第2层：BM25 关键词检索...")
+        
+        # 简化的关键词匹配（实际应该使用 BM25 算法）
+        query_words = set(query.lower().split())
+        
+        for record in records:
+            content_words = set(record.content.lower().split())
+            keyword_score = len(query_words.intersection(content_words)) / len(query_words) if query_words else 0
+            
+            # 提升技术术语、命令、配置项的权重
+            tech_keywords = ['command', 'config', 'code', 'python', 'bash', 'api', 'model', 'tool']
+            tech_bonus = 0
+            for word in content_words:
+                if any(tech in word.lower() for tech in tech_keywords):
+                    tech_bonus += 0.1
+            
+            # 更新分数
+            record.score = record.score * 0.7 + keyword_score * 0.3 + tech_bonus
+        
+        return records
+    
+    def layer3_mmr_deduplication(self, records: List[MemoryRecord], diversity_lambda: float = 0.7) -> List[MemoryRecord]:
+        """第3层：MMR 多样性去重"""
+        print("执行第3层：MMR 多样性去重...")
+        
+        if len(records) <= 1:
+            return records
+        
+        # 简化的 MMR 实现
+        selected = [records[0]]  # 选择最高分的
+        
+        for record in records[1:]:
+            # 计算与已选记录的最大相似度
+            max_sim = 0
+            for selected_record in selected:
+                if selected_record.embedding and record.embedding:
+                    dot_product = sum(a*b for a, b in zip(selected_record.embedding, record.embedding))
+                    norm1 = math.sqrt(sum(a*a for a in selected_record.embedding))
+                    norm2 = math.sqrt(sum(a*a for a in record.embedding))
+                    sim = dot_product / (norm1 * norm2) if norm1 > 0 and norm2 > 0 else 0
+                    max_sim = max(max_sim, sim)
+            
+            # MMR 分数 = lambda * relevance - (1-lambda) * max_similarity
+            mmr_score = diversity_lambda * record.score - (1 - diversity_lambda) * max_sim
+            
+            if mmr_score > 0.3:  # 阈值
+                selected.append(record)
+        
+        return selected[:10]  # 限制数量
+    
+    def layer4_metadata_filter(self, records: List[MemoryRecord]) -> List[MemoryRecord]:
+        """第4层：元数据过滤"""
+        print("执行第4层：元数据过滤...")
+        
+        filtered = []
+        for record in records:
+            # 只保留标记为 solved=1 的已解决问题
+            if record.metadata.get('solved', 0) == 1:
+                # 过滤闲聊、无效对话、噪声
+                if not record.metadata.get('is_noise', False):
+                    filtered.append(record)
+        
+        return filtered
+    
+    def layer5_time_decay_weighting(self, records: List[MemoryRecord]) -> List[MemoryRecord]:
+        """第5层：时间衰减加权"""
+        print("执行第5层：时间衰减加权...")
+        
+        current_time = time.time()
+        for record in records:
+            days_diff = (current_time - record.timestamp) / (24 * 3600)
+            time_weight = math.exp(-0.01 * days_diff)
+            record.score *= time_weight
+        
+        return records
+    
+    def layer6_preference_weighting(self, records: List[MemoryRecord]) -> List[MemoryRecord]:
+        """第6层：用户偏好加权"""
+        print("执行第6层：用户偏好加权...")
+        
+        for record in records:
+            content = record.content.lower()
+            bonus = 0
+            
+            # 对包含命令、步骤、代码的记忆加分
+            if any(keyword in content for keyword in ['command', 'step', 'code', 'run', 'execute']):
+                bonus += 0.2
+            
+            # 对技术方案、架构说明额外加权
+            if any(keyword in content for keyword in ['architecture', 'design', 'solution', 'implementation']):
+                bonus += 0.15
+            
+            record.score += bonus
+        
+        return records
+    
+    def layer7_rerank(self, records: List[MemoryRecord]) -> List[MemoryRecord]:
+        """第7层：交叉编码器重排序"""
+        print("执行第7层：交叉编码器重排序...")
+        
+        # 由于没有小模型，我们使用简单的重新排序
+        # 按分数排序并返回 top 3
+        records.sort(key=lambda x: x.score, reverse=True)
+        return records[:3]
+    
+    def retrieve(self, query: str) -> List[MemoryRecord]:
+        """执行完整的7层检索"""
+        print(f"开始7层混合检索，查询: {query}")
+        
+        # 第1层：向量检索
+        results = self.layer1_vector_search(query)
+        if not results:
+            return []
+        
+        # 第2层：BM25 关键词检索
+        results = self.layer2_bm25_keyword_search(query, results)
+        
+        # 第3层：MMR 多样性去重
+        results = self.layer3_mmr_deduplication(results)
+        if not results:
+            return []
+        
+        # 第4层：元数据过滤
+        results = self.layer4_metadata_filter(results)
+        if not results:
+            return []
+        
+        # 第5层：时间衰减加权
+        results = self.layer5_time_decay_weighting(results)
+        
+        # 第6层：用户偏好加权
+        results = self.layer6_preference_weighting(results)
+        
+        # 第7层：交叉编码器重排序
+        results = self.layer7_rerank(results)
+        
+        print(f"7层检索完成，返回 {len(results)} 条结果")
+        return results
+
+def format_results(results: List[MemoryRecord]) -> str:
+    """格式化检索结果"""
+    if not results:
+        return "【记忆召回·已解决】\n无相关历史记忆"
+    
+    output = "【记忆召回·已解决】\n"
+    for i, record in enumerate(results, 1):
+        # 获取对话日期
+        timestamp = record.timestamp
+        date_str = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+        
+        output += f"\n{i}. {record.content}\n   来源: {date_str} 的对话\n"
+    
+    return output
+
+# 主函数
+def main():
+    """主函数 - 测试用"""
+    retriever = LanceDB7LayerRetriever()
+    
+    # 测试查询
+    test_query = "如何实现 LanceDB 7层混合检索"
+    results = retriever.retrieve(test_query)
+    print(format_results(results))
+
+if __name__ == "__main__":
+    main()

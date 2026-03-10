@@ -1,0 +1,1 @@
+/Users/zhaoqinhuang/david_project/symbol_switch_rust_plugin/target/release/libsymbol_switch_rust_plugin.dylib: /Users/zhaoqinhuang/david_project/symbol_switch_rust_plugin/src/lib.rs
