@@ -31,3 +31,51 @@ analysis_failure_report.md
 memory/
 DavidAgent/.share_context/
 DavidAgent/skills/self-learning-agent/pageindex/knowledge/
+
+# ==========================================
+# 🛡️ DavidAgent 强制安全过滤规则 (严禁修改)
+# ==========================================
+
+# 1. 密钥、API Key、Token、密码
+*.key
+*-key.json
+credentials.json
+.credentials/*.env
+.credentials/*.json
+*secret*
+*password*
+*token*
+*apikey*
+
+# 2. 数据库文件 (严禁上传本地业务数据与向量库)
+*.db
+*.sqlite
+*.sqlite3
+*.lancedb
+*.chroma
+*-shm
+*-wal
+david_agent_memory.db*
+devpulse_cache.db*
+
+# 3. 缓存文件
+*.pyo
+.cache/
+.pytest_cache/
+.baoyu-skills/
+
+# 4. 日志文件
+*.log
+logs/
+
+# 5. 临时文件、归档文件
+temp/
+temp_images/
+temp_tech_repo/
+*.bak
+*.tmp
+*.swp
+*~
+*.tar.gz
+*.zip
+*.rar
