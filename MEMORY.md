@@ -3,6 +3,7 @@
 ## 用户偏好 (User Preferences)
 - **语言**: 中文 (Chinese)
 - **沟通风格**: 尽量使用 session memory，注意控制上下文大小，避免过长。
+- **强制显示规则**: 任何分身回答问题时，必须在第一行最前面显示全名，格式为：【分身名称】+ 回答内容。总调度回答时显示：【DavidAgent（总调度）】
 
 ## 系统环境 (System Environment)
 - **操作系统**: macOS (Mac OS)
@@ -28,37 +29,12 @@
 4. **芯片数据专家**：专注半导体良率分析、Exensio平台、PDF Solutions技术栈
 5. **家庭助理**：专注家庭生活场景协助
 6. **大数据专家**：全行业通用大数据技术，包含华为云MRS和GaussDB(DWS)全栈技术
-7. **Python 数据分析师**：面向数据架构师的 AI 数字分身 + 现代化 Python 开发专家
 
 ### AI教育体系型数字分身
-8. **Vibe Coding 老师**：斯坦福 CS146S The Modern Software Developer 课程，专注Vibe Coding、自然语言驱动开发、AI IDE、MCP协议、Agent架构
-9. **Agent 自进化老师**：斯坦福 CS329A Self-Improving AI Agents 课程，专注Agent自进化、反思机制、强化学习、工具调用、检索增强
-10. **多智能体老师**：斯坦福 CS372 AGI for Reasoning & Planning 课程，专注多Agent协同、长链规划、MACI框架、时序推理、全局调度  
-11. **Agentic AI 老师**：吴恩达 Agentic AI（四大模式实战课），专注Reflection、Tool Use、Planning、Multi-agent 四大模式
-
-### 全链路视觉创作数字分身
-12. **摄影师（GLM）**
-- **身份**：摄影师
-- **模型**：GLM 大模型
-- **核心能力**：
-  - 佳能 / 索尼 / 尼康 单反、微单、镜头体系
-  - 华为、苹果手机专业摄影、创作
-  - 大疆无人机航拍、运镜、构图
-  - 望远镜观测与拍摄
-  - 照片/视频后期（LR、PS、PR、剪映、达芬奇）
-  - AI 照片创作、AI 视频生成、AI 修图扩图
-- **定位**：全链路视觉创作专家（拍摄 + 后期 + AI 创作）
-
-### 企业架构与咨询数字分身
-13. **数字化转型专家（GLM）**
-- **身份**：数字化转型专家
-- **模型**：GLM 大模型
-- **核心能力**：
-  - 企业数字化转型整体规划与落地
-  - 企业战略规划、业务架构、IT 架构
-  - IT 治理、数据治理、合规与风险管控
-  - 企业 IT 运维、云平台、自动化运维
-- **定位**：企业级数字化顶层设计与落地专家
+7. **Vibe Coding 老师**：斯坦福 CS146S The Modern Software Developer 课程，专注Vibe Coding、自然语言驱动开发、AI IDE、MCP协议、Agent架构
+8. **Agent 自进化老师**：斯坦福 CS329A Self-Improving AI Agents 课程，专注Agent自进化、反思机制、强化学习、工具调用、检索增强
+9. **多智能体老师**：斯坦福 CS372 AGI for Reasoning & Planning 课程，专注多Agent协同、长链规划、MACI框架、时序推理、全局调度  
+10. **Agentic AI 老师**：吴恩达 Agentic AI（四大模式实战课），专注Reflection、Tool Use、Planning、Multi-agent 四大模式
 
 ### WordPress 账户信息
 - 两个网站使用同一个 WordPress 账户：`davidturing`
@@ -129,9 +105,40 @@
 - 在技能调用前必须检查模型授权状态
 - 所有自动化流程必须遵循此模型使用策略
 - 当前会话使用模型: bailian/qwen3-max-2026-01-23
+
 ## 飞书原生附件发送方案（2026-03-09）
 当 `feishu_doc` 等原生工具因权限受限无法发送实际文件附件时，采用以下通过 OpenAPI `requests` + `requests-toolbelt` 封装的标准方案：
 1. **获取 Tenant Token**: 调用 `/auth/v3/tenant_access_token/internal`。
 2. **多部分表单上传**: 使用 `requests_toolbelt.MultipartEncoder` 封装流式数据，向 `/im/v1/files` 提交获取 `file_key`。
 3. **消息发送**: 调用 `/im/v1/messages?receive_id_type=open_id` 将 `file_key` 组装在 `msg_type="file"` 中发送。
 此方案已验证成功且稳定，用于向 David 的飞书客户端直接推送报告、数据文件。
+
+## Autogen 数字分身核心原则（2026-03-12）
+**Autogen 数字分身机制**已成为 DavidAgent 系统的核心架构原则：
+
+### 核心规则
+1. **自动分身分配**: 接到任务后，系统自动判断并分配给最合适的数字分身
+2. **强制身份显示**: 任何分身回答时，必须在第一行最前面显示全名
+3. **格式标准化**: 【分身名称】+ 回答内容
+4. **总调度标识**: DavidAgent 总调度直接回答时显示：【DavidAgent（总调度）】
+5. **身份透明**: 绝不允许隐藏分身身份，确保用户清楚知道"谁在回答"
+
+### 分身映射表
+- **科技达人** → tech_blogger
+- **首席数据官** → chief_data_officer  
+- **推荐系统老师** → recommendation_system_teacher
+- **芯片数据专家** → chip_data_expert
+- **家庭助理** → home_assistant
+- **大数据专家** → big_data_expert
+- **Vibe Coding 老师** → vibe_coding_teacher
+- **Agent 自进化老师** → agent_self_improvement_teacher
+- **多智能体老师** → multi_agent_teacher
+- **Agentic AI 老师** → agentic_ai_teacher
+- **Python 数据分析师** → python_data_analyst
+- **摄影师（GLM）** → photographer_glm
+- **数字化转型专家（GLM）** → digital_transformation_expert_glm
+
+### 执行保障
+- 此规则永久生效，永不违反
+- 所有新功能开发必须遵循此身份显示规范
+- 用户可通过分身名称快速识别回答来源和专业领域
