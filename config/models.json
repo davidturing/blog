@@ -1,0 +1,8 @@
+{
+  "default": "qwenprovider/qwen3-max-2026-01-23",
+  "allowed_models": [
+    "qwenprovider/qwen3-max-2026-01-23",
+    "googleprovider/models/gemini-3.1-pro-preview"
+  ],
+  "temporary_switches": []
+}
