@@ -1,34 +1,34 @@
+"""
+Memory Alpha (智能记忆层) 
+重构版：移除假向量，与 LanceDB、RL 真正连通。
+"""
+
 import numpy as np
 from datetime import datetime
 from collections import deque
+from core_embedding import get_embedding
 
-# ==============================
-# Mem-α 智能记忆核心
-# 三级记忆 + 强化学习式自动筛选 + 时间遗忘
-# ==============================
 class MemoryAlpha:
-    def __init__(self, 
-                 sensory_size=20,    # 感知缓存
-                 working_size=100,   # 工作记忆
-                 forget_rate=0.01):  # 遗忘系数
-        # 三级记忆
-        self.sensory = deque(maxlen=sensory_size)    # 最短期
-        self.working = []                            # 活跃记忆
-        self.long_term_db = None                     # LanceDB 外部接入
-
+    def __init__(self, sensory_size=50, working_size=200, forget_rate=0.01):
+        self.sensory = deque(maxlen=sensory_size)  # 最短期缓存 (MDP 轨迹收集站)
+        self.working = []                          # 活跃工作记忆
+        self.long_term_db = None                   # LanceDB table instance
         self.forget_rate = forget_rate
         self.working_size = working_size
 
-    # 绑定 LanceDB 长期记忆
     def set_long_term(self, lancedb_table):
         self.long_term_db = lancedb_table
 
-    # 加入新记忆
-    def add(self, content, importance=0.5, timestamp=None):
-        ts = timestamp or int(datetime.now().timestamp())
+    def add(self, content, importance=0.5):
+        """添加新记忆"""
+        ts = int(datetime.now().timestamp())
+        # 计算真实向量 (State Embedding)
+        vector = get_embedding(str(content))
+        
         memory = {
             "content": content,
-            "importance": np.clip(importance, 0, 1),
+            "vector": vector,
+            "importance": np.clip(importance, 0.0, 1.0),
             "timestamp": ts,
             "retrieve_count": 0,
             "last_access": ts
@@ -36,72 +36,65 @@ class MemoryAlpha:
         self.sensory.append(memory)
         self._evolve()
 
-    # 记忆进化：感知 → 工作 → 长期（自动筛选）
     def _evolve(self):
-        # 从感知缓存晋升到工作记忆
+        """感知 -> 工作 -> 长期的进化机制"""
         while len(self.sensory) > 0 and len(self.working) < self.working_size:
-            mem = self.sensory.popleft()
-            self.working.append(mem)
-
-        # 工作记忆按价值排序
+            self.working.append(self.sensory.popleft())
+        
         self.working.sort(key=lambda x: -self._score(x))
+        # 保留前 N 个
+        self.working = self.working[:self.working_size]
 
-        # 自动遗忘低分记忆
-        self.working = [m for m in self.working if self._score(m) > 0.2]
-
-    # 记忆评分 = 重要性 + 访问频率 + 时间衰减
     def _score(self, mem):
+        """Value function heuristics for memory retention"""
         now = int(datetime.now().timestamp())
         days = (now - mem["timestamp"]) / 86400
         time_decay = np.exp(-self.forget_rate * days)
         freq_bonus = np.log1p(mem["retrieve_count"])
         return mem["importance"] * time_decay + freq_bonus
 
-    # 检索：自动更新访问计数
-    def retrieve(self, query_embedding=None, top_k=5):
+    def retrieve(self, query: str, top_k=5):
+        """从工作记忆中基于真实语义向量检索"""
+        if not self.working:
+            return []
+            
+        query_vector = get_embedding(query)
         scored = []
         for mem in self.working:
-            score = self._score(mem)
-            scored.append((mem, score))
-
-        # 按记忆价值倒排
+            # Cosine similarity
+            vec = mem["vector"]
+            sim = np.dot(query_vector, vec) / (np.linalg.norm(query_vector) * np.linalg.norm(vec) + 1e-9)
+            
+            # Combine semantic similarity with memory value score
+            combined_score = 0.7 * sim + 0.3 * self._score(mem)
+            scored.append((mem, combined_score))
+            
         scored.sort(key=lambda x: -x[1])
         retrieved = [m for m, s in scored[:top_k]]
-
-        # 更新访问
+        
         for mem in retrieved:
             mem["retrieve_count"] += 1
             mem["last_access"] = int(datetime.now().timestamp())
-
+            
         return retrieved
 
-    # 把高价值记忆写入 LanceDB 长期存储
     def persist_to_long_term(self, threshold=0.7):
+        """把高价值记忆写入 LanceDB 长期存储 (写入真实的 vector)"""
         if self.long_term_db is None:
-            return
+            return 0
+            
         to_save = [m for m in self.working if self._score(m) >= threshold]
-        if to_save:
-            # 实际使用时替换为真实向量
-            data = [{
-                "question": m["content"].get("q", ""),
-                "answer": m["content"].get("a", ""),
-                "vector": np.random.rand(1536).tolist(),
-                "solved": 1,
-                "timestamp": m["timestamp"],
-                "has_code": 1 if "```" in str(m["content"]) else 0
-            } for m in to_save]
-            self.long_term_db.add(data)
+        if not to_save:
+            return 0
+            
+        data = [{
+            "question": str(m["content"])[:200],  # Snapshot
+            "answer": str(m["content"]),
+            "vector": m["vector"].tolist(),       # REAL EMBEDDING
+            "solved": 1,
+            "timestamp": m["timestamp"],
+            "has_code": 1 if "```" in str(m["content"]) else 0
+        } for m in to_save]
+        
+        self.long_term_db.add(data)
         return len(to_save)
-
-# ==============================
-# 调用示例
-# ==============================
-if __name__ == "__main__":
-    mem = MemoryAlpha()
-    mem.add({"q": "LanceDB 7层检索", "a": "向量+关键词+去重..."}, importance=0.9)
-    mem.add({"q": "SkillRL 技能提炼", "a": "高频问题变成本能"}, importance=0.85)
-
-    result = mem.retrieve(top_k=2)
-    print("Mem-α 工作记忆（最有价值前2条）：")
-    for item in result:
-        print(item["content"])
