@@ -180,9 +180,9 @@ PERSONA_REGISTRY = {agent.name: agent for agent in ALL_DIGITAL_PERSONAS}
 # 4. Global Cognitive Enhancement
 # ==============================
 try:
-    from cognitive_enhancer import AgentEnhancer
+    from cognitive_enhancer_v2 import AgentEnhancerV2
     print("\n🚀 [System] 正在为全部 16 个数字分身挂载【四重认知增强中间件】...")
-    global_enhancer = AgentEnhancer()
+    global_enhancer = AgentEnhancerV2()
     for agent in ALL_DIGITAL_PERSONAS:
         global_enhancer.enhance(agent)
     print("✅ [System] 全部分身四重认知架构（LanceDB+MemoryAlpha+ReasoningBank+SkillRL）挂载完毕，全局生效！\n")
