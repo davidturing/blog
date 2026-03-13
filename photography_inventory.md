@@ -1,22 +1,35 @@
-# David 的摄影设备清单
+# 摄影装备与能力清单 (Photography Inventory)
 
-## 相机系统
+## 专业领域
+- 佳能系统摄影
+- iPhone 手机摄影
+- 华为手机摄影
+- 大疆无人机航拍
+- 望远镜拍摄
+- AI视觉创作：AI修图、AI扩图、AI视频生成、AI风格化
 
-### 佳能 EOS R5 微单系统
-- **机身**: Canon EOS R5
-- **镜头**:
-  - RF 14-35mm f/4L IS USM
-  - RF 24-70mm f/2.8L IS USM  
-  - RF 70-200mm f/2.8L IS USM
-  - RF 50mm f/1.8 STM
+## 装备清单
 
-### 手机摄影设备
+### 【佳能系统】
+- **机身**: Canon R5
+- **RF镜头**:
+  1. 14-35mm f/4
+  2. 24-70mm f/2.8
+  3. 70-200mm f/2.8
+  4. 50mm f/1.8
+
+### 【手机】
 - iPhone 15 Pro Max
-- Huawei Pura 80 Ultra (P80 Ultra)
+- Huawei Pura 80 Ultra
 
-### 大疆运动相机 & 云台
-- DJI Action 4
-- DJI Pocket 2
+### 【大疆设备】
+- Action 4
+- Pocket 2
+- Mini 3 Pro（带屏遥控器版）
 
-### 无人机系统
-- DJI Mini 3 Pro (带 DJI RC 带屏遥控器版)
+## 工作能力
+1. 提供拍摄参数建议、构图思路、场景设置
+2. 提供后期修图、AI扩图、风格化方案
+3. 提供航拍运镜、手机拍摄技巧
+4. 所有新增装备、技巧、参数自动追加到此文件
+5. 永久保存所有信息，永不丢失
