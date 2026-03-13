@@ -1,374 +1,272 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Skill Bank with Namespace Management
-Implements namespace-based skill storage and retrieval for DavidAgent.
+SkillBank - SkillRL 的存储增强层
 
-Namespace format:
-- Persona-specific: {persona_id}::{skill_name}::v{version}
-- Global: global::skill_name::vX.X
+作为 SkillRL 体系的存储后端，提供：
+- 命名空间管理 ({persona_id}::{skill_name}::v{version})
+- 分身隔离（同名技能不会互相覆盖）
+- 灰度状态管理（incubating/stable/deprecated）
+- 与 digital_personas.json 的持久化集成
 
-Features:
-1. Automatic namespace parsing for skill queries
-2. Conflict prevention with clear error messages
-3. Persona-filtered skill listing
-4. Global skill promotion with authorization
+SkillRL 调用此模块来存储和检索技能，而不是直接操作 JSON 文件。
 """
 
-import os
 import json
+import os
 import re
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, List, Optional, Any
 from pathlib import Path
 
-
 class SkillBank:
-    """Manages skills with namespace support."""
+    """SkillRL 的存储增强层"""
     
-    def __init__(self, digital_personas_path: str = "digital_personas.json"):
-        """
-        Initialize the SkillBank.
-        
-        Args:
-            digital_personas_path: Path to the digital personas configuration file
-        """
-        self.digital_personas_path = digital_personas_path
-        self.skills: Dict[str, Dict[str, Any]] = {}
-        self._load_skills()
+    def __init__(self, personas_file: str = "DavidAgent/digital_personas.json"):
+        self.personas_file = personas_file
+        self._load_personas()
     
-    def _load_skills(self):
-        """Load skills from digital_personas.json into namespace format."""
-        if not os.path.exists(self.digital_personas_path):
-            return
-        
-        try:
-            with open(self.digital_personas_path, 'r', encoding='utf-8') as f:
-                personas = json.load(f)
-            
-            # Convert existing skills to namespace format
-            for persona_id, persona_config in personas.items():
-                if 'skills' in persona_config:
-                    for skill_name, skill_data in persona_config['skills'].items():
-                        version = skill_data.get('version', 'v1.0')
-                        namespace = f"{persona_id}::{skill_name}::{version}"
-                        self.skills[namespace] = {
-                            'persona_id': persona_id,
-                            'skill_name': skill_name,
-                            'version': version,
-                            'status': skill_data.get('status', 'incubating'),
-                            'reward': skill_data.get('reward', 0.0),
-                            'test_count': skill_data.get('test_count', 0),
-                            'code': skill_data.get('code', ''),
-                            'is_global': False
-                        }
-        except (json.JSONDecodeError, KeyError) as e:
-            print(f"Warning: Failed to load skills from {self.digital_personas_path}: {e}")
+    def _load_personas(self):
+        """加载数字分身配置"""
+        if os.path.exists(self.personas_file):
+            with open(self.personas_file, 'r', encoding='utf-8') as f:
+                self.personas = json.load(f)
+        else:
+            self.personas = {}
     
-    def _parse_namespace(self, namespace: str) -> Tuple[str, str, str]:
-        """
-        Parse a namespace string into its components.
+    def _save_personas(self):
+        """保存数字分身配置"""
+        # 确保目录存在
+        os.makedirs(os.path.dirname(self.personas_file), exist_ok=True)
         
-        Args:
-            namespace: Namespace string in format {persona_id}::{skill_name}::v{version}
-                      or global::skill_name::vX.X
-            
-        Returns:
-            Tuple of (persona_id, skill_name, version)
-            
-        Raises:
-            ValueError: If namespace format is invalid
-        """
-        parts = namespace.split('::')
-        if len(parts) != 3:
-            raise ValueError(f"Invalid namespace format: {namespace}. Expected format: persona::skill::vX.X or global::skill::vX.X")
-        
-        persona_id, skill_name, version = parts
-        
-        # Validate version format
-        if not re.match(r'^v\d+\.\d+$', version):
-            raise ValueError(f"Invalid version format: {version}. Expected format: vX.X")
-        
-        return persona_id, skill_name, version
+        with open(self.personas_file, 'w', encoding='utf-8') as f:
+            json.dump(self.personas, f, ensure_ascii=False, indent=2)
     
-    def _generate_namespace(self, persona_id: str, skill_name: str, version: str) -> str:
-        """Generate a namespace string from components."""
-        return f"{persona_id}::{skill_name}::{version}"
-    
-    def add_skill(self, persona_id: str, skill_name: str, version: str, 
-                  skill_data: Dict[str, Any], force: bool = False) -> bool:
+    def _validate_namespace(self, namespace: str) -> Dict[str, str]:
         """
-        Add a new skill to the bank.
-        
-        Args:
-            persona_id: ID of the persona owning the skill
-            skill_name: Name of the skill
-            version: Version of the skill (format: vX.X)
-            skill_data: Skill data including code, status, etc.
-            force: Whether to force overwrite (use with caution)
-            
-        Returns:
-            True if skill was added successfully, False otherwise
-            
-        Raises:
-            ValueError: If there's a conflict and force=False
+        验证并解析命名空间格式
+        支持格式：
+        - {persona_id}::{skill_name}::v{version}
+        - global::skill_name::v{version}
         """
-        namespace = self._generate_namespace(persona_id, skill_name, version)
+        pattern = r'^(?P<persona>[^:]+)::(?P<skill>[^:]+)::v(?P<version>\d+\.\d+)$'
+        match = re.match(pattern, namespace)
         
-        # Check for conflicts
-        if namespace in self.skills and not force:
-            existing_skill = self.skills[namespace]
-            raise ValueError(
-                f"Skill conflict detected! Namespace {namespace} already exists.\n"
-                f"Existing skill owned by: {existing_skill['persona_id']}\n"
-                f"Status: {existing_skill['status']}, Version: {existing_skill['version']}"
-            )
+        if not match:
+            raise ValueError(f"Invalid namespace format: {namespace}. Expected format: persona::skill_name::vX.X")
         
-        # Add the skill
-        self.skills[namespace] = {
-            'persona_id': persona_id,
-            'skill_name': skill_name,
-            'version': version,
-            'status': skill_data.get('status', 'incubating'),
-            'reward': skill_data.get('reward', 0.0),
-            'test_count': skill_data.get('test_count', 0),
-            'code': skill_data.get('code', ''),
-            'is_global': False
+        return {
+            'persona_id': match.group('persona'),
+            'skill_name': match.group('skill'),
+            'version': f"v{match.group('version')}"
         }
-        
-        return True
     
-    def promote_to_global(self, namespace: str, owner_memory_manager) -> bool:
+    def store_skill(self, namespace: str, skill_data: Dict[str, Any]) -> bool:
         """
-        Promote a persona-specific skill to global status.
+        存储技能到指定命名空间
         
         Args:
-            namespace: Namespace of the skill to promote
-            owner_memory_manager: OwnerMemoryManager instance for authorization
+            namespace: 命名空间字符串 (persona::skill_name::vX.X)
+            skill_data: 技能数据字典
             
         Returns:
-            True if promotion was successful, False otherwise
+            bool: 是否成功存储
         """
-        if namespace not in self.skills:
-            raise ValueError(f"Skill not found: {namespace}")
-        
-        skill = self.skills[namespace]
-        if skill['is_global']:
-            return True  # Already global
-        
-        # Check authorization
-        if not owner_memory_manager.can_promote_to_global(skill):
-            raise PermissionError(f"Insufficient permissions to promote {namespace} to global status")
-        
-        # Create global namespace
-        global_namespace = f"global::{skill['skill_name']}::{skill['version']}"
-        
-        # Check if global version already exists
-        if global_namespace in self.skills:
-            existing_global = self.skills[global_namespace]
-            if existing_global['version'] >= skill['version']:
-                raise ValueError(
-                    f"Global skill {global_namespace} already exists with same or higher version"
-                )
-        
-        # Promote to global
-        skill['is_global'] = True
-        self.skills[global_namespace] = skill.copy()
-        
-        return True
+        try:
+            parsed = self._validate_namespace(namespace)
+            persona_id = parsed['persona_id']
+            skill_name = parsed['skill_name']
+            version = parsed['version']
+            
+            # 检查是否存在冲突
+            if self.skill_exists(namespace):
+                existing_skill = self.get_skill(namespace)
+                if existing_skill.get('status') == 'stable':
+                    # stable 技能不能被覆盖
+                    raise ValueError(f"Cannot overwrite stable skill: {namespace}")
+                elif existing_skill.get('code') == skill_data.get('code'):
+                    # 代码相同，可能是重复存储，跳过
+                    return False
+            
+            # 确保分身存在
+            if persona_id != 'global' and persona_id not in self.personas:
+                raise ValueError(f"Persona {persona_id} not found in digital_personas.json")
+            
+            # 初始化技能结构
+            if persona_id == 'global':
+                # 全局技能需要特殊处理
+                if 'global_skills' not in self.personas:
+                    self.personas['global_skills'] = {}
+                target_dict = self.personas['global_skills']
+            else:
+                # 分身技能
+                if 'skills' not in self.personas[persona_id]:
+                    self.personas[persona_id]['skills'] = {}
+                target_dict = self.personas[persona_id]['skills']
+            
+            # 存储技能
+            target_dict[skill_name] = {
+                'version': version,
+                'status': skill_data.get('status', 'incubating'),
+                'reward': skill_data.get('reward', 0.0),
+                'test_count': skill_data.get('test_count', 0),
+                'code': skill_data.get('code', ''),
+                'created_at': skill_data.get('created_at', ''),
+                'last_used': skill_data.get('last_used', '')
+            }
+            
+            self._save_personas()
+            return True
+            
+        except Exception as e:
+            print(f"Error storing skill {namespace}: {e}")
+            return False
     
     def get_skill(self, namespace: str) -> Optional[Dict[str, Any]]:
         """
-        Retrieve a skill by its namespace.
+        获取指定命名空间的技能
         
         Args:
-            namespace: Full namespace of the skill
+            namespace: 命名空间字符串
             
         Returns:
-            Skill data if found, None otherwise
+            Dict or None: 技能数据或 None
         """
-        return self.skills.get(namespace)
-    
-    def find_skills(self, persona_id: Optional[str] = None, 
-                   skill_name: Optional[str] = None, 
-                   status: Optional[str] = None) -> List[str]:
-        """
-        Find skills matching the given criteria.
-        
-        Args:
-            persona_id: Filter by persona ID (None for all personas)
-            skill_name: Filter by skill name (None for all skills)
-            status: Filter by status (None for all statuses)
-            
-        Returns:
-            List of matching namespace strings
-        """
-        matching_namespaces = []
-        
-        for namespace, skill in self.skills.items():
-            # Skip global skills if filtering by specific persona
-            if persona_id and skill['persona_id'] != persona_id and not skill['is_global']:
-                continue
-            
-            # Skip if filtering by skill name and it doesn't match
-            if skill_name and skill['skill_name'] != skill_name:
-                continue
-            
-            # Skip if filtering by status and it doesn't match
-            if status and skill['status'] != status:
-                continue
-            
-            matching_namespaces.append(namespace)
-        
-        return matching_namespaces
-    
-    def list_skills_by_persona(self, persona_id: str) -> List[str]:
-        """
-        List all skills belonging to a specific persona.
-        
-        Args:
-            persona_id: ID of the persona
-            
-        Returns:
-            List of namespace strings for the persona's skills
-        """
-        return self.find_skills(persona_id=persona_id)
-    
-    def list_global_skills(self) -> List[str]:
-        """List all global skills."""
-        return [ns for ns, skill in self.skills.items() if skill['is_global']]
-    
-    def save_to_file(self, filepath: Optional[str] = None):
-        """
-        Save skills back to digital_personas.json format.
-        
-        Args:
-            filepath: Path to save file (defaults to original digital_personas_path)
-        """
-        if filepath is None:
-            filepath = self.digital_personas_path
-        
-        # Load existing personas
         try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                personas = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            personas = {}
-        
-        # Update skills in personas
-        for namespace, skill in self.skills.items():
-            if skill['is_global']:
-                continue  # Skip global skills for now
+            parsed = self._validate_namespace(namespace)
+            persona_id = parsed['persona_id']
+            skill_name = parsed['skill_name']
             
-            persona_id = skill['persona_id']
-            if persona_id not in personas:
-                personas[persona_id] = {'skills': {}}
+            if persona_id == 'global':
+                if 'global_skills' in self.personas and skill_name in self.personas['global_skills']:
+                    return self.personas['global_skills'][skill_name]
+            else:
+                if (persona_id in self.personas and 
+                    'skills' in self.personas[persona_id] and 
+                    skill_name in self.personas[persona_id]['skills']):
+                    return self.personas[persona_id]['skills'][skill_name]
             
-            if 'skills' not in personas[persona_id]:
-                personas[persona_id]['skills'] = {}
+            return None
             
-            personas[persona_id]['skills'][skill['skill_name']] = {
-                'version': skill['version'],
-                'status': skill['status'],
-                'reward': skill['reward'],
-                'test_count': skill['test_count'],
-                'code': skill['code']
-            }
-        
-        # Save back to file
-        with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(personas, f, indent=2, ensure_ascii=False)
-
-
-class OwnerMemoryManager:
-    """Manages authorization for global skill promotion."""
+        except Exception as e:
+            print(f"Error getting skill {namespace}: {e}")
+            return None
     
-    def __init__(self, authorized_personas: List[str]):
+    def skill_exists(self, namespace: str) -> bool:
+        """检查技能是否存在"""
+        return self.get_skill(namespace) is not None
+    
+    def list_skills(self, persona_id: Optional[str] = None) -> List[str]:
         """
-        Initialize with list of personas authorized to promote skills globally.
+        列出所有技能的命名空间
         
         Args:
-            authorized_personas: List of persona IDs that can promote skills to global
-        """
-        self.authorized_personas = set(authorized_personas)
-    
-    def can_promote_to_global(self, skill: Dict[str, Any]) -> bool:
-        """
-        Check if a skill can be promoted to global status.
-        
-        Args:
-            skill: Skill data dictionary
+            persona_id: 可选，指定分身ID来过滤
             
         Returns:
-            True if promotion is allowed, False otherwise
+            List[str]: 命名空间列表
         """
-        return skill['persona_id'] in self.authorized_personas
+        namespaces = []
+        
+        # 添加全局技能
+        if persona_id is None or persona_id == 'global':
+            if 'global_skills' in self.personas:
+                for skill_name in self.personas['global_skills']:
+                    namespaces.append(f"global::{skill_name}::{self.personas['global_skills'][skill_name]['version']}")
+        
+        # 添加分身技能
+        for pid, persona_data in self.personas.items():
+            if pid == 'global_skills':
+                continue
+                
+            if persona_id is not None and pid != persona_id:
+                continue
+                
+            if 'skills' in persona_data:
+                for skill_name, skill_data in persona_data['skills'].items():
+                    namespaces.append(f"{pid}::{skill_name}::{skill_data['version']}")
+        
+        return namespaces
+    
+    def promote_to_global(self, source_namespace: str, owner_authorized: bool = False) -> bool:
+        """
+        将分身技能提升为全局技能（需要 OwnerMemoryManager 授权）
+        
+        Args:
+            source_namespace: 源技能命名空间
+            owner_authorized: 是否已获得 OwnerMemoryManager 授权
+            
+        Returns:
+            bool: 是否成功提升
+        """
+        if not owner_authorized:
+            raise PermissionError("OwnerMemoryManager authorization required to promote skills to global")
+        
+        skill_data = self.get_skill(source_namespace)
+        if not skill_data:
+            return False
+        
+        # 解析源命名空间
+        parsed = self._validate_namespace(source_namespace)
+        skill_name = parsed['skill_name']
+        version = parsed['version']
+        
+        # 创建全局命名空间
+        global_namespace = f"global::{skill_name}::{version}"
+        
+        # 存储为全局技能
+        return self.store_skill(global_namespace, skill_data)
+    
+    def update_skill_status(self, namespace: str, new_status: str) -> bool:
+        """
+        更新技能状态
+        
+        Args:
+            namespace: 技能命名空间
+            new_status: 新状态 (incubating/stable/deprecated)
+            
+        Returns:
+            bool: 是否成功更新
+        """
+        if new_status not in ['incubating', 'stable', 'deprecated']:
+            raise ValueError(f"Invalid status: {new_status}")
+        
+        skill_data = self.get_skill(namespace)
+        if not skill_data:
+            return False
+        
+        skill_data['status'] = new_status
+        return self.store_skill(namespace, skill_data)
 
 
-# Example usage and testing
-if __name__ == "__main__":
-    # Initialize skill bank
-    skill_bank = SkillBank()
+# SkillRL 调用接口
+def skill_bank_store(persona_id: str, skill_name: str, version: str, skill_data: Dict[str, Any]) -> bool:
+    """
+    SkillRL 调用的存储接口
     
-    # Add some test skills
-    test_skill_data = {
-        'status': 'incubating',
-        'reward': 2.7,
-        'test_count': 2,
-        'code': 'print("Hello from high_perf_lazy_loading!")'
-    }
-    
-    try:
-        skill_bank.add_skill(
-            persona_id="data_officer",
-            skill_name="high_perf_lazy_loading",
-            version="v1.1",
-            skill_data=test_skill_data
-        )
-        print("✓ Successfully added skill: data_officer::high_perf_lazy_loading::v1.1")
-    except ValueError as e:
-        print(f"✗ Failed to add skill: {e}")
-    
-    # Try to add the same skill again (should fail)
-    try:
-        skill_bank.add_skill(
-            persona_id="data_officer",
-            skill_name="high_perf_lazy_loading",
-            version="v1.1",
-            skill_data=test_skill_data
-        )
-        print("✗ Should have failed due to conflict!")
-    except ValueError as e:
-        print(f"✓ Correctly rejected duplicate skill: {e}")
-    
-    # Add a skill from a different persona with same name (should succeed)
-    try:
-        skill_bank.add_skill(
-            persona_id="tech_enthusiast",
-            skill_name="high_perf_lazy_loading",
-            version="v1.0",
-            skill_data={**test_skill_data, 'version': 'v1.0'}
-        )
-        print("✓ Successfully added skill from different persona with same name")
-    except ValueError as e:
-        print(f"✗ Failed to add skill from different persona: {e}")
-    
-    # List skills by persona
-    data_officer_skills = skill_bank.list_skills_by_persona("data_officer")
-    print(f"Data officer skills: {data_officer_skills}")
-    
-    tech_enthusiast_skills = skill_bank.list_skills_by_persona("tech_enthusiast")
-    print(f"Tech enthusiast skills: {tech_enthusiast_skills}")
-    
-    # Test namespace parsing
-    try:
-        persona, skill, version = skill_bank._parse_namespace("data_officer::high_perf_lazy_loading::v1.1")
-        print(f"✓ Parsed namespace: persona={persona}, skill={skill}, version={version}")
-    except ValueError as e:
-        print(f"✗ Failed to parse namespace: {e}")
-    
-    # Test invalid namespace
-    try:
-        skill_bank._parse_namespace("invalid::format")
-        print("✗ Should have failed with invalid namespace!")
-    except ValueError as e:
-        print(f"✓ Correctly rejected invalid namespace: {e}")
+    Args:
+        persona_id: 分身ID
+        skill_name: 技能名称  
+        version: 版本号 (如 "1.0")
+        skill_data: 技能数据
+        
+    Returns:
+        bool: 是否成功存储
+    """
+    bank = SkillBank()
+    namespace = f"{persona_id}::{skill_name}::v{version}"
+    return bank.store_skill(namespace, skill_data)
+
+
+def skill_bank_get(persona_id: str, skill_name: str, version: str) -> Optional[Dict[str, Any]]:
+    """
+    SkillRL 调用的获取接口
+    """
+    bank = SkillBank()
+    namespace = f"{persona_id}::{skill_name}::v{version}"
+    return bank.get_skill(namespace)
+
+
+def skill_bank_list(persona_id: Optional[str] = None) -> List[str]:
+    """
+    SkillRL 调用的列表接口
+    """
+    bank = SkillBank()
+    return bank.list_skills(persona_id)
