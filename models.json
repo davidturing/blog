@@ -1,0 +1,11 @@
+{
+  "providers": {
+    "zhipu": {
+      "type": "openai-compatible",
+      "baseUrl": "https://open.bigmodel.cn/api/paas/v4/",
+      "apiKey": "${GLM_API_KEY}",
+      "models": ["glm-5"],
+      "defaultModel": "glm-5"
+    }
+  }
+}
