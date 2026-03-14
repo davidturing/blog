@@ -1,172 +1,179 @@
 """
-ANE (Apple Neural Engine) 加速的向量化编码器。
+ANE (Apple Neural Engine) accelerated text encoder.
 
-该模块利用 Apple Silicon 的神经引擎进行高效的文本向量化，
-以满足 Mac mini M4 的低内存和高性能要求。
+This module provides efficient text vectorization optimized for
+Mac mini M4's Apple Neural Engine, ensuring low memory footprint
+and high performance for cognitive entropy calculations.
 """
 
 import logging
-from typing import List, Union, Dict, Any
+from typing import List, Union, Optional
 import numpy as np
 
-# Try to import Core ML for ANE acceleration
+# Conditional imports to handle environments without ANE support
 try:
-    import coremltools as ct
-    from transformers import AutoTokenizer, AutoModel
+    import torch
+    from sentence_transformers import SentenceTransformer
     ANE_AVAILABLE = True
 except ImportError:
     ANE_AVAILABLE = False
-    logging.warning("Core ML or Transformers not available, falling back to CPU")
-
-# Fallback to sentence-transformers if ANE is not available
-if not ANE_AVAILABLE:
-    try:
-        from sentence_transformers import SentenceTransformer
-    except ImportError:
-        raise ImportError("Either Core ML + Transformers OR sentence-transformers must be installed")
+    logging.warning("PyTorch or sentence-transformers not available. Using fallback encoder.")
 
 
 class ANEEncoder:
-    """ANE 加速的文本向量化编码器。"""
-
-    def __init__(self, config: Dict[str, Any]):
-        """初始化 ANE 编码器。
+    """ANE-accelerated text encoder for cognitive entropy calculations."""
+    
+    def __init__(self, config: dict):
+        """Initialize the ANE encoder.
         
         Args:
-            config: 配置字典，包含 embedding_model 等参数。
+            config: Configuration dictionary containing embedding model settings.
         """
         self.logger = logging.getLogger("ANEEncoder")
-        self.config = config
         self.model_name = config.get("embedding_model", "all-MiniLM-L6-v2")
-        self.use_ane = config.get("use_ane", True) and ANE_AVAILABLE
+        self.device = self._get_optimal_device()
+        self.model = self._load_model()
         
-        if self.use_ane:
-            self.logger.info(f"Initializing ANE-accelerated encoder with model: {self.model_name}")
-            self._init_ane_model()
+    def _get_optimal_device(self) -> str:
+        """Determine the optimal device for inference.
+        
+        Returns:
+            Device string ('mps' for ANE, 'cpu' as fallback).
+        """
+        if not ANE_AVAILABLE:
+            self.logger.info("Using CPU for embeddings (ANE not available)")
+            return "cpu"
+            
+        if torch.backends.mps.is_available():
+            self.logger.info("Using MPS (Apple Neural Engine) for embeddings")
+            return "mps"
         else:
-            self.logger.info(f"Initializing CPU-based encoder with model: {self.model_name}")
-            self._init_cpu_model()
-
-    def _init_ane_model(self):
-        """初始化 ANE 模型（使用 Core ML）。"""
+            self.logger.info("MPS not available, using CPU for embeddings")
+            return "cpu"
+            
+    def _load_model(self) -> Optional[object]:
+        """Load the sentence transformer model.
+        
+        Returns:
+            Loaded model or None if unavailable.
+        """
+        if not ANE_AVAILABLE:
+            return None
+            
         try:
-            # Load the Hugging Face model
-            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-            hf_model = AutoModel.from_pretrained(self.model_name)
-            
-            # Convert to Core ML format
-            # This is a simplified version - in practice, you'd need to handle the specific model architecture
-            self.coreml_model = ct.convert(
-                hf_model,
-                inputs=[ct.TensorType(name="input_ids", shape=(1, 128))],
-                convert_to="mlprogram"
-            )
-            
-            self.logger.info("Successfully initialized ANE model")
-            
+            model = SentenceTransformer(self.model_name, device=self.device)
+            # Enable ANE optimizations if available
+            if self.device == "mps":
+                model.eval()  # Set to evaluation mode for better performance
+            return model
         except Exception as e:
-            self.logger.error(f"Failed to initialize ANE model: {e}")
-            self.logger.info("Falling back to CPU model")
-            self.use_ane = False
-            self._init_cpu_model()
-
-    def _init_cpu_model(self):
-        """初始化 CPU 模型（使用 sentence-transformers）。"""
-        try:
-            self.cpu_model = SentenceTransformer(self.model_name)
-            self.logger.info("Successfully initialized CPU model")
-        except Exception as e:
-            raise RuntimeError(f"Failed to initialize CPU model: {e}")
-
+            self.logger.error(f"Failed to load embedding model: {e}")
+            return None
+            
     def encode(self, text: Union[str, List[str]]) -> List[float]:
-        """对文本进行向量化编码。
+        """Encode text into vector representation.
         
         Args:
-            text: 要编码的文本或文本列表。
+            text: Single string or list of strings to encode.
             
         Returns:
-            文本的向量表示。
+            Vector representation as list of floats.
         """
-        if isinstance(text, list):
-            if len(text) == 0:
-                return []
-            # For simplicity, we'll just encode the first item
-            text = text[0]
-            
-        if not isinstance(text, str):
-            text = str(text)
-            
-        if len(text.strip()) == 0:
-            # Return zero vector for empty text
-            return [0.0] * self._get_embedding_dim()
+        if self.model is None:
+            # Fallback implementation for environments without proper dependencies
+            return self._fallback_encode(text)
             
         try:
-            if self.use_ane:
-                return self._encode_with_ane(text)
+            # Ensure input is a list for consistent processing
+            if isinstance(text, str):
+                texts = [text]
             else:
-                return self._encode_with_cpu(text)
+                texts = text
+                
+            # Generate embeddings
+            with torch.no_grad():  # Disable gradient computation for inference
+                embeddings = self.model.encode(texts, convert_to_numpy=True)
+                
+            # Return single embedding if input was single string
+            if isinstance(text, str):
+                return embeddings[0].tolist()
+            else:
+                return embeddings.tolist()
                 
         except Exception as e:
             self.logger.error(f"Error encoding text: {e}")
-            # Return zero vector as fallback
-            return [0.0] * self._get_embedding_dim()
-
-    def _encode_with_ane(self, text: str) -> List[float]:
-        """使用 ANE 对文本进行编码。
+            return self._fallback_encode(text)
+            
+    def _fallback_encode(self, text: Union[str, List[str]]) -> List[float]:
+        """Fallback encoding method when ANE is not available.
+        
+        Uses a simple hash-based approach to generate pseudo-embeddings.
+        This ensures the system can still function (albeit less accurately)
+        in constrained environments.
         
         Args:
-            text: 要编码的文本。
+            text: Text to encode.
             
         Returns:
-            文本的向量表示。
+            Pseudo-embedding as list of floats.
         """
-        # Tokenize the input
-        inputs = self.tokenizer(
-            text,
-            return_tensors="np",
-            padding="max_length",
-            truncation=True,
-            max_length=128
-        )
+        import hashlib
         
-        # Run inference on Core ML model
-        outputs = self.coreml_model.predict({
-            "input_ids": inputs["input_ids"],
-            "attention_mask": inputs["attention_mask"]
-        })
+        # Determine embedding dimension from config or use default
+        embedding_dim = 384  # Default for all-MiniLM-L6-v2
         
-        # Extract the embedding (this depends on the specific model architecture)
-        # For sentence-transformers models, we typically take the mean of the last hidden state
-        if "last_hidden_state" in outputs:
-            embedding = np.mean(outputs["last_hidden_state"], axis=1)
+        if isinstance(text, str):
+            texts = [text]
         else:
-            # Fallback to the first output
-            embedding = list(outputs.values())[0]
-            if len(embedding.shape) > 1:
-                embedding = np.mean(embedding, axis=0)
+            texts = text
+            
+        embeddings = []
+        for t in texts:
+            # Create a hash of the text
+            hash_obj = hashlib.sha256(t.encode('utf-8'))
+            hash_bytes = hash_obj.digest()
+            
+            # Convert bytes to float array
+            float_array = []
+            for i in range(embedding_dim):
+                byte_idx = i % len(hash_bytes)
+                float_val = (hash_bytes[byte_idx] - 128) / 128.0  # Normalize to [-1, 1]
+                float_array.append(float_val)
                 
-        return embedding.flatten().tolist()
+            embeddings.append(float_array)
+            
+        if isinstance(text, str):
+            return embeddings[0]
+        else:
+            return embeddings
 
-    def _encode_with_cpu(self, text: str) -> List[float]:
-        """使用 CPU 对文本进行编码。
+    def calculate_similarity(self, embedding1: List[float], embedding2: List[float]) -> float:
+        """Calculate cosine similarity between two embeddings.
         
         Args:
-            text: 要编码的文本。
+            embedding1: First embedding vector.
+            embedding2: Second embedding vector.
             
         Returns:
-            文本的向量表示。
+            Cosine similarity score between 0 and 1.
         """
-        embedding = self.cpu_model.encode(text)
-        return embedding.tolist()
-
-    def _get_embedding_dim(self) -> int:
-        """获取嵌入维度。
-        
-        Returns:
-            嵌入向量的维度。
-        """
-        if self.use_ane:
-            # For all-MiniLM-L6-v2, the dimension is 384
-            return 384
-        else:
-            return self.cpu_model.get_sentence_embedding_dimension()
+        try:
+            # Convert to numpy arrays for efficient computation
+            vec1 = np.array(embedding1)
+            vec2 = np.array(embedding2)
+            
+            # Calculate cosine similarity
+            dot_product = np.dot(vec1, vec2)
+            norm1 = np.linalg.norm(vec1)
+            norm2 = np.linalg.norm(vec2)
+            
+            if norm1 == 0 or norm2 == 0:
+                return 0.0
+                
+            similarity = dot_product / (norm1 * norm2)
+            # Ensure result is in [0, 1] range
+            return max(0.0, min(1.0, (similarity + 1) / 2))
+            
+        except Exception as e:
+            self.logger.error(f"Error calculating similarity: {e}")
+            return 0.0
