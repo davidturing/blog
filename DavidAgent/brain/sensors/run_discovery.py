@@ -23,7 +23,7 @@ from cognitive_filter import CognitiveEntropyFilter
 class DiscoveryOrchestrator:
     """感知收割机总调度器"""
     
-    def __init__(self, config_path: str = "DavidAgent/brain/sensors/config.json"):
+    def __init__(self, config_path: str = "config.json"):
         """初始化总调度器
         
         Args:
@@ -316,7 +316,7 @@ class DiscoveryOrchestrator:
             report = self.generate_daily_report(filtered_insights)
             
             # 保存报告
-            report_dir = Path("DavidAgent/reports")
+            report_dir = Path(__file__).parent.parent.parent / "reports"
             report_dir.mkdir(parents=True, exist_ok=True)
             report_file = report_dir / f"daily_report_{datetime.now().strftime('%Y%m%d')}.md"
             
