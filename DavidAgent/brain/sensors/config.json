@@ -1,5 +1,6 @@
 {
   "github_topics": ["polars", "autogen", "llm", "rust", "ai-agent", "data-engineering"],
+  "github_days_back": 7,
   "rss_feeds": [
     "https://arxiv.org/rss/cs.AI",
     "https://arxiv.org/rss/cs.DB", 

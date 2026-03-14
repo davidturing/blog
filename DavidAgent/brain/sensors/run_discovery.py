@@ -37,7 +37,11 @@ class DiscoveryOrchestrator:
         self.config = self._load_config(config_path)
         
         # 初始化各感知模块
-        self.github_watcher = GitHubWatcher(self.config)
+        # GitHubWatcher 需要特殊初始化参数
+        credentials_path = ".credentials/api_keys.env"
+        memory_dir = "DavidAgent/hippocampus/episodic"
+        os.makedirs(memory_dir, exist_ok=True)
+        self.github_watcher = GitHubWatcher(credentials_path, memory_dir)
         self.rss_gatherer = RSSGatherer(self.config)
         self.social_sniffer = SocialSniffer(self.config)
         self.doc_spider = DocSpider(self.config)
