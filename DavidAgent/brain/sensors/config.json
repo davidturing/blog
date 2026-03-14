@@ -1,0 +1,21 @@
+{
+  "github_topics": ["polars", "autogen", "llm", "rust", "ai-agent", "data-engineering"],
+  "rss_feeds": [
+    "https://arxiv.org/rss/cs.AI",
+    "https://arxiv.org/rss/cs.DB", 
+    "https://hnrss.org/frontpage",
+    "https://openai.com/blog/rss.xml",
+    "https://netflixtechblog.com/feed"
+  ],
+  "social_keywords": ["Polars", "AutoGen", "GLM", "Gemini", "M4", "AI Agent"],
+  "docs_targets": ["https://docs.polars.rs", "https://openclaw.ai/docs"],
+  "qa_tags": ["python", "polars", "openclaw", "llm"],
+  "cognitive_threshold": 0.65,
+  "max_fetch_per_cycle": 5,
+  "memory_limit_mb": 2048,
+  "bandwidth_limit_mb": 100,
+  "execution_window": {
+    "start_hour": 1,
+    "end_hour": 6
+  }
+}
