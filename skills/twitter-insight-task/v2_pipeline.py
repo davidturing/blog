@@ -92,8 +92,8 @@ class AIKeywordEngine:
 class CuriosityEngine:
     """好奇心引擎 - 评估推文价值"""
     
-    def __init__(self, gemini_key=None):
-        self.gemini_key = gemini_key or GEMINI_API_KEY
+    def __init__(self):
+        pass
     
     def evaluate(self, tweet_data):
         """评估单条推文的好奇心价值"""
@@ -106,7 +106,7 @@ class CuriosityEngine:
         engagement_score = min(10, (like_count + retweet_count * 2 + reply_count * 3) / 100)
         
         # AI 内容评估
-        ai_analysis = self._ai_evaluate(text) if self.gemini_key else {}
+        ai_analysis = self._ai_evaluate(text) if (GLM_API_KEY or GEMINI_API_KEY) else {}
         
         # 综合评分
         info_value = ai_analysis.get('info_value', 5)
@@ -132,9 +132,6 @@ class CuriosityEngine:
     
     def _ai_evaluate(self, text):
         """使用 AI 评估内容价值"""
-        if not self.gemini_key:
-            return {}
-        
         prompt = f"""评估这条 AI/科技推文的价值（输出 JSON）：
 
 推文内容：
@@ -148,22 +145,20 @@ class CuriosityEngine:
     "reason": "简短理由"
 }}"""
         
+        raw = call_llm(prompt)
+        
+        if not raw:
+            return {}
+        
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={self.gemini_key}"
-            payload = {"contents": [{"parts": [{"text": prompt}]}]}
-            
-            resp = requests.post(url, json=payload, timeout=30)
-            if resp.status_code == 200:
-                data = resp.json()
-                raw = data["candidates"][0]["content"]["parts"][0]["text"]
-                # 提取 JSON
-                if "```json" in raw:
-                    raw = raw.split("```json")[1].split("```")[0]
-                elif "```" in raw:
-                    raw = raw.split("```")[1].split("```")[0]
-                return json.loads(raw.strip())
+            # 提取 JSON
+            if "```json" in raw:
+                raw = raw.split("```json")[1].split("```")[0]
+            elif "```" in raw:
+                raw = raw.split("```")[1].split("```")[0]
+            return json.loads(raw.strip())
         except Exception as e:
-            print(f"  ⚠️ AI 评估失败: {e}")
+            print(f"  ⚠️ AI 评估解析失败: {e}")
         
         return {}
 
