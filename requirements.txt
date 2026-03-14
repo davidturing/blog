@@ -1,33 +1,25 @@
 # World Grounding & Proactive Exploration System Dependencies
+# Optimized for Mac mini M4 environment
 
 # Core dependencies
-tomli>=2.0.1
-numpy>=1.21.0
-requests>=2.28.0
-feedparser>=6.0.0
+tomli>=2.0.1            # TOML parsing for configuration
+lancedb>=0.5.0          # Disk-based vector database for low memory usage
+sentence-transformers>=2.2.0  # For embeddings (supports ANE acceleration)
+torch>=2.0.0            # PyTorch with ANE support on macOS
+feedparser>=6.0.0       # RSS/Atom feed parsing
+aiohttp>=3.8.0          # Async HTTP client for efficient network requests
+docker>=6.0.0           # Docker SDK for shadow sandbox isolation
+pydantic>=2.0.0         # Data validation and settings management
 
-# Embedding and NLP
-sentence-transformers>=2.2.0
-transformers>=4.30.0
+# Optional dependencies (for specific sources)
+PyGithub>=1.55          # GitHub API client
+praw>=7.0.0             # Reddit API client
+beautifulsoup4>=4.10.0  # HTML parsing for doc crawling
 
-# ANE acceleration (optional, for Apple Silicon)
-coremltools>=7.0  # Only needed if using ANE
-
-# Docker for sandboxing
-docker>=6.0.0
-
-# Logging and utilities
-python-dateutil>=2.8.0
-
-# Testing dependencies
+# Development and testing
 pytest>=7.0.0
-pytest-asyncio>=0.20.0
+black>=22.0.0           # Code formatting
+mypy>=0.950             # Type checking
 
-# Note: Some dependencies are optional based on system capabilities:
-# - coremltools: Only required on Apple Silicon Macs with ANE support
-# - docker: Required for sandbox validation (system dependency)
-
-# Installation notes:
-# 1. On Mac mini M4, ensure you have Docker Desktop installed
-# 2. For ANE acceleration, make sure you're running on macOS with Apple Silicon
-# 3. Virtual environment recommended: python3 -m venv venv && source venv/bin/activate
+# Note: All dependencies are chosen to be lightweight and compatible with
+# macOS ARM64 (M-series chips) and ANE acceleration where possible.
