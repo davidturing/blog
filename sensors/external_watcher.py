@@ -23,6 +23,7 @@ from sensors.embedding.ane_encoder import ANEEncoder
 from sensors.distiller.brain_balance import DualBrainDistiller
 from sensors.sandbox.shadow_runner import ShadowSandbox
 from sensors.cpep.align_broadcast import CPEPAlign
+from sensors.daily_reporter import DailyReporter
 
 
 class ExternalWatcher:
@@ -40,6 +41,7 @@ class ExternalWatcher:
         self.distiller = DualBrainDistiller(self.config["algorithms"]["dual_brain_distiller"])
         self.sandbox = ShadowSandbox(self.config["algorithms"]["shadow_sandbox"])
         self.cpep = CPEPAlign(self.config["algorithms"]["cpep"])
+        self.reporter = DailyReporter(self.config)
         
         # Track bandwidth usage
         self.bandwidth_used = 0
@@ -416,7 +418,7 @@ class ExternalWatcher:
                 self.logger.error(f"Error processing item: {e}")
                 continue
                 
-        # Generate daily report
+        # Generate daily report data
         report_data = {
             "new_tech_count": len(filtered_data),
             "validated_skills": len(validated_skills),
@@ -425,6 +427,9 @@ class ExternalWatcher:
             "bandwidth_used": round(self.bandwidth_used / (1024 * 1024), 2),  # MB
             "entropy_reduction": round(len(filtered_data) * 0.5, 2)  # Simulated
         }
+        
+        # Generate and save daily report
+        self.reporter.run_daily_report(report_data)
         
         self.logger.info("World grounding cycle completed successfully")
         return report_data
