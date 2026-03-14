@@ -16,9 +16,11 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
-# Load env
+# Load env - 从多个位置加载
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv()  # 默认 .env
+load_dotenv('.credentials/api_keys.env')  # API keys
+load_dotenv('skills/twitter-insight-task/.env')  # 技能配置
 
 # AI Config - 优先使用 GLM-5，备选 Gemini
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
