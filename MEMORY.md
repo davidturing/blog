@@ -44,6 +44,27 @@
 ## 知识库
 **科技达人**和**首席数据官**两个角色的**知识总结**都应存放于 GitHub 仓库: `https://github.com/davidturing/tech`
 
+## GitHub tech 仓库目录结构与命名规范（2026-03-14）
+
+### 目录结构
+- `davidagent_evolution/` - DavidAgent 演进日志
+- `twitter-summary/` - Twitter 每日精选
+- `brain/` - 大脑/知识库相关
+- `course/` - 课程资料
+- `damabook/` - DAMA-DMBOK2 教程
+- `datacourse/` - 数据课程
+- `docs/` - 文档
+
+### 文件命名规范
+| 内容类型 | 目录 | 命名格式 | 示例 |
+|---------|------|---------|------|
+| DavidAgent 演进日志 | `davidagent_evolution/` | `davidagent_evolution_YYYY-MM-DD.md` | `davidagent_evolution_2026-03-13.md` |
+| Twitter 每日精选 | `twitter-summary/` | `twitter_summary_YYYY-MM-DD.md` | `twitter_summary_2026-03-14.md` |
+
+### 本地仓库路径
+- **tech 仓库**: `/Users/zhaoqinhuang/github/tech/`
+- **发布流程**: 复制文件 → git add → git commit → git push
+
 ## DAMA-DMBOK2 教程图像标准（2026-02-25）
 
 ### 蓝图风格 sRGB 背景颜色标准
