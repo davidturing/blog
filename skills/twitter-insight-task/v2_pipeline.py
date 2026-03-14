@@ -20,8 +20,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
-# AI Config
+# AI Config - 优先使用 GLM-5，备选 Gemini
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GLM_API_KEY = os.getenv("GLM_API_KEY")
+GLM_ENDPOINT = os.getenv("GLM_ENDPOINT", "https://open.bigmodel.cn/api/paas/v4/")
 
 # ==================== 动态热词库 ====================
 class AIKeywordEngine:
@@ -166,21 +168,57 @@ class CuriosityEngine:
         return {}
 
 
+# ==================== AI 调用封装 ====================
+def call_llm(prompt, max_retries=2):
+    """统一的 LLM 调用接口 - 优先 GLM-5，备选 Gemini"""
+    
+    # 1. 尝试 GLM-5
+    if GLM_API_KEY:
+        try:
+            url = f"{GLM_ENDPOINT.rstrip('/')}/chat/completions"
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {GLM_API_KEY}"
+            }
+            payload = {
+                "model": "glm-5",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.7
+            }
+            
+            resp = requests.post(url, json=payload, headers=headers, timeout=30)
+            if resp.status_code == 200:
+                data = resp.json()
+                return data['choices'][0]['message']['content']
+            else:
+                print(f"  ⚠️ GLM-5 调用失败: {resp.status_code}")
+        except Exception as e:
+            print(f"  ⚠️ GLM-5 异常: {e}")
+    
+    # 2. 备选 Gemini
+    if GEMINI_API_KEY:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
+            payload = {"contents": [{"parts": [{"text": prompt}]}]}
+            
+            resp = requests.post(url, json=payload, timeout=30)
+            if resp.status_code == 200:
+                data = resp.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            else:
+                print(f"  ⚠️ Gemini 调用失败: {resp.status_code}")
+        except Exception as e:
+            print(f"  ⚠️ Gemini 异常: {e}")
+    
+    return None
+
+
 # ==================== AI 摘要引擎 ====================
 class SummaryEngine:
     """AI 摘要引擎 - 深度提炼观点"""
     
-    def __init__(self, gemini_key=None):
-        self.gemini_key = gemini_key or GEMINI_API_KEY
-    
     def summarize(self, text, author=""):
         """生成核心观点和深度解读"""
-        if not self.gemini_key:
-            return {
-                'key_point': 'AI 摘要服务暂不可用',
-                'deep_insight': '请检查 GEMINI_API_KEY 配置'
-            }
-        
         prompt = f"""你是一位资深 AI 科技博主。请深度分析这条推文：
 
 作者: @{author}
@@ -196,36 +234,28 @@ class SummaryEngine:
 3. 不用"这是一条关于..."这种开头
 4. 直接输出内容，不要加序号"""
         
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={self.gemini_key}"
-            payload = {"contents": [{"parts": [{"text": prompt}]}]}
-            
-            resp = requests.post(url, json=payload, timeout=30)
-            if resp.status_code == 200:
-                data = resp.json()
-                raw = data["candidates"][0]["content"]["parts"][0]["text"]
-                
-                # 解析输出
-                key_point = ""
-                deep_insight = ""
-                
-                for line in raw.split('\n'):
-                    line = line.strip()
-                    if line.startswith('核心观点') or line.startswith('核心观点：'):
-                        key_point = line.split('：', 1)[-1].strip() if '：' in line else line.split(':', 1)[-1].strip()
-                    elif line.startswith('深度解读') or line.startswith('深度解读：'):
-                        deep_insight = line.split('：', 1)[-1].strip() if '：' in line else line.split(':', 1)[-1].strip()
-                
-                return {
-                    'key_point': key_point or raw[:50],
-                    'deep_insight': deep_insight or ''
-                }
-        except Exception as e:
-            print(f"  ⚠️ AI 摘要失败: {e}")
+        raw = call_llm(prompt)
+        
+        if not raw:
+            return {
+                'key_point': 'AI 摘要服务暂不可用',
+                'deep_insight': ''
+            }
+        
+        # 解析输出
+        key_point = ""
+        deep_insight = ""
+        
+        for line in raw.split('\n'):
+            line = line.strip()
+            if '核心观点' in line and ('：' in line or ':' in line):
+                key_point = line.split('：', 1)[-1].strip() if '：' in line else line.split(':', 1)[-1].strip()
+            elif '深度解读' in line and ('：' in line or ':' in line):
+                deep_insight = line.split('：', 1)[-1].strip() if '：' in line else line.split(':', 1)[-1].strip()
         
         return {
-            'key_point': '摘要生成失败',
-            'deep_insight': ''
+            'key_point': key_point or raw[:50],
+            'deep_insight': deep_insight or ''
         }
 
 
