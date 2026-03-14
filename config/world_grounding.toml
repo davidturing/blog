@@ -1,0 +1,86 @@
+# World Grounding & Proactive Exploration System Configuration
+# Optimized for Mac mini M4 (ANE, low memory, low bandwidth)
+
+[system]
+# Runtime constraints for Mac mini M4
+max_memory_mb = 2048
+daily_bandwidth_limit_mb = 100
+ane_enabled = true
+background_only = true
+run_window_start = "02:00"  # Start time in 24-hour format (local timezone)
+run_window_end = "06:00"    # End time to avoid impacting daytime usage
+
+[storage]
+# Use disk-based LanceDB for low memory footprint
+vector_db_path = "./data/lancedb"
+reasoning_bank_path = "./data/reasoning_bank.jsonl"
+skill_rl_path = "./data/skill_rl.jsonl"
+daily_notes_path = "./memory"
+
+[sources]
+# Source-specific configurations and rate limits
+
+[github]
+enabled = true
+trending_url = "https://api.github.com/trending"
+rate_limit_per_hour = 30
+user_agent = "DavidAgent-WorldGrounding/1.0"
+
+[rss]
+enabled = true
+feeds = [
+    "https://arxiv.org/rss/cs.AI",
+    "https://arxiv.org/rss/cs.LG",
+    "https://arxiv.org/rss/cs.CL",
+    "https://hnrss.org/frontpage",
+    "https://feeds.feedburner.com/oreilly/radar"
+]
+rate_limit_per_hour = 20
+fetch_timeout_seconds = 30
+
+[social]
+enabled = true
+platforms = ["hackernews", "reddit"]
+subreddits = ["machinelearning", "artificial", "LocalLLaMA", "AGI"]
+rate_limit_per_hour = 15
+
+[docs]
+enabled = true
+crawlers = ["readthedocs", "official_docs"]
+rate_limit_per_hour = 10
+respect_robots_txt = true
+
+[qa]
+enabled = true
+platforms = ["stackoverflow", "devto"]
+tags = ["ai", "llm", "agent", "mcp", "automation"]
+rate_limit_per_hour = 25
+
+[algorithms]
+# Algorithm-specific thresholds and parameters
+
+[curiosity_engine]
+similarity_threshold = 0.6  # Content with similarity < this will be prioritized
+min_popularity_score = 10   # Minimum score to be considered "hot"
+embedding_model = "all-MiniLM-L6-v2"  # Lightweight model for ANE
+
+[dual_brain_distiller]
+confidence_threshold = 0.7
+min_content_length = 100
+
+[shadow_sandbox]
+max_test_cases = 10
+min_test_cases = 5
+timeout_seconds = 60
+docker_image = "python:3.11-slim"
+
+[cpep]
+broadcast_delay_seconds = 5
+avatar_types = ["tech_blogger", "chief_data_officer", "vibe_coding_teacher", "agent_self_improvement_teacher", "multi_agent_teacher"]
+
+[reporting]
+daily_report_time = "08:00"
+report_template = """
+David，我已完成昨晚的世界探索：
+发现新技术：{new_tech_count} | 验证技能：{validated_skills} | 存入 SkillBank：{skillbank_entries} 条 | 存入 ReasoningBank：{reasoning_entries} 条避坑规则 | 已同步所有分身 | 流量使用：{bandwidth_used}MB | 认知熵降低：{entropy_reduction}%
+"""
