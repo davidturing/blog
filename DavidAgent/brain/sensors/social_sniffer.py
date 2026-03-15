@@ -1,135 +1,133 @@
-"""
-X/Twitter 趋势嗅探器 - 社交媒体热点发现
-"""
-
 import os
-import logging
-from typing import List, Dict, Any
+import praw
+import tweepy
+import polars as pl
 from datetime import datetime
-
+from typing import List, Dict
 
 class SocialSniffer:
-    """X/Twitter 趋势嗅探器"""
-    
-    def __init__(self, config: Dict[str, Any]):
-        """初始化社交嗅探器
-        
-        Args:
-            config: 配置字典
-        """
-        self.logger = logging.getLogger("SocialSniffer")
-        self.config = config
-        self.keywords = config.get("social_keywords", [])
-        self.x_bearer_token = self._load_x_token()
-        
-    def _load_x_token(self) -> Optional[str]:
-        """从凭据文件加载 X API Bearer Token"""
-        try:
-            credentials_path = ".credentials/api_keys.env"
-            if os.path.exists(credentials_path):
-                with open(credentials_path, "r") as f:
-                    for line in f:
-                        if line.strip().startswith("X_API_BEARER_TOKEN="):
-                            return line.strip().split("=", 1)[1].strip('"\'')
-        except Exception as e:
-            self.logger.warning(f"无法加载 X API token: {e}")
-        return None
-        
-    def search_trending_posts(self) -> List[Dict[str, Any]]:
-        """搜索趋势帖子（模拟实现）
-        
-        Returns:
-            帖子列表
-        """
-        self.logger.info("开始搜索社交媒体趋势...")
-        
-        # 模拟搜索结果（实际实现会调用 X API）
-        # 在生产环境中，这里会使用 Twitter/X API v2
-        trending_posts = [
-            {
-                "id": "1234567890",
-                "text": "Just released Polars 1.0! Blazingly fast DataFrame operations with 10x performance improvement over pandas. #Polars #DataScience",
-                "author": "@polars_dev",
-                "created_at": "2026-03-15T06:30:00Z",
-                "metrics": {"likes": 1250, "retweets": 320, "replies": 89}
-            },
-            {
-                "id": "1234567891", 
-                "text": "AutoGen framework now supports MCP protocol for standardized tool calling across AI platforms. Game changer for multi-agent systems! #AutoGen #AI #MCP",
-                "author": "@microsoft_ai",
-                "created_at": "2026-03-15T05:45:00Z",
-                "metrics": {"likes": 2100, "retweets": 560, "replies": 145}
-            },
-            {
-                "id": "1234567892",
-                "text": "Gemini 3 Pro Image (Nano Banana Pro) just dropped! Incredible image generation quality with 4K output and advanced prompt understanding. #Gemini #AI #ImageGeneration",
-                "author": "@google_ai",
-                "created_at": "2026-03-15T04:20:00Z", 
-                "metrics": {"likes": 3500, "retweets": 890, "replies": 230}
-            }
-        ]
-        
-        # 过滤包含关键词的帖子
-        filtered_posts = []
-        keywords_lower = [kw.lower() for kw in self.keywords]
-        
-        for post in trending_posts:
-            post_text_lower = post["text"].lower()
-            if any(keyword in post_text_lower for keyword in keywords_lower):
-                filtered_posts.append(post)
-                
-        max_fetch = self.config.get("max_fetch_per_cycle", 5)
-        return filtered_posts[:max_fetch]
-        
-    def extract_insights(self, posts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """从帖子中提取洞察
-        
-        Args:
-            posts: 帖子列表
-            
-        Returns:
-            提取的洞察列表
-        """
-        insights = []
-        
-        for post in posts:
-            insight = {
-                "source": "social",
-                "title": f"Social Trend: {post['author']}",
-                "content": post["text"],
-                "metadata": {
-                    "platform": "twitter",
-                    "author": post["author"],
-                    "post_id": post["id"],
-                    "engagement": post["metrics"],
-                    "url": f"https://twitter.com/{post['author'].replace('@', '')}/status/{post['id']}"
-                },
-                "timestamp": datetime.now().isoformat()
-            }
-            insights.append(insight)
-            
-        return insights
-        
-    def run_discovery(self) -> List[Dict[str, Any]]:
-        """运行完整的社交趋势发现流程
-        
-        Returns:
-            提取的洞察列表
-        """
-        try:
-            # 搜索趋势帖子
-            posts = self.search_trending_posts()
-            
-            if not posts:
-                self.logger.info("未发现相关社交趋势")
-                return []
-                
-            # 提取洞察
-            insights = self.extract_insights(posts)
-            
-            self.logger.info(f"社交嗅探完成，获得 {len(insights)} 项洞察")
-            return insights
-            
-        except Exception as e:
-            self.logger.error(f"社交嗅探失败: {e}")
-            return []
+ """
+ DavidAgent 的社交雷达 (X & Reddit 嗅探器)
+ 核心职责：捕捉技术圈突发 Bug、框架崩溃报警及大牛的最新吐槽。
+ """
+
+ def __init__(self, credentials_path: str, memory_dir: str):
+ self.memory_dir = memory_dir
+ self.cache_file = os.path.join(self.memory_dir, "social_seen_posts.parquet")
+ 
+ # 1. 凭据加载 (包含 Reddit 和 X 的 API Keys)
+ self.creds = self._load_credentials(credentials_path)
+ 
+ # 2. 初始化客户端
+ self.reddit = self._init_reddit()
+ self.x_client = self._init_x()
+
+ # 3. 初始化高速缓存
+ self.seen_posts = self._init_polars_cache()
+
+ def _load_credentials(self, path: str) -> Dict:
+ """从凭据中心读取社交媒体 API 密钥"""
+ # 实际逻辑应调用你的 credential_manager.py
+ # 这里模拟读取逻辑
+ creds = {}
+ if os.path.exists(path):
+ with open(path, 'r') as f:
+ for line in f:
+ if "=" in line:
+ k, v = line.strip().split("=")
+ creds[k] = v
+ return creds
+
+ def _init_reddit(self):
+ try:
+ return praw.Reddit(
+ client_id=self.creds.get("REDDIT_CLIENT_ID"),
+ client_secret=self.creds.get("REDDIT_CLIENT_SECRET"),
+ user_agent="DavidAgent:v2.1 (by /u/davidturing)"
+ )
+ except: return None
+
+ def _init_x(self):
+ try:
+ return tweepy.Client(bearer_token=self.creds.get("X_BEARER_TOKEN"))
+ except: return None
+
+ def _init_polars_cache(self) -> pl.DataFrame:
+ if os.path.exists(self.cache_file):
+ return pl.read_parquet(self.cache_file)
+ return pl.DataFrame(schema={"post_id": pl.Utf8, "platform": pl.Utf8, "scanned_at": pl.Utf8})
+
+ def sniff_reddit(self, subreddits: List[str] = ["programming", "rust", "dataengineering"], limit: int = 10):
+ """在 Reddit 挖掘高热度技术帖"""
+ if not self.reddit: return []
+ 
+ discoveries = []
+ for sub_name in subreddits:
+ print(f"探针已进入 r/{sub_name}...")
+ subreddit = self.reddit.subreddit(sub_name)
+ # 获取最近的热帖
+ for submission in subreddit.hot(limit=limit):
+ if submission.id not in self.seen_posts["post_id"].to_list():
+ # 只有包含特定负面/警示词的才会被视为“瓜”
+ is_urgent = any(word in submission.title.lower() for word in ["bug", "issue", "broken", "critical", "outage", "warning"])
+ 
+ discoveries.append({
+ "post_id": submission.id,
+ "platform": "reddit",
+ "title": submission.title,
+ "url": submission.url,
+ "score": submission.score,
+ "is_urgent": is_urgent,
+ "content": submission.selftext[:500]
+ })
+ return discoveries
+
+ def sniff_x(self, queries: List[str] = ["Polars bug", "LangGraph issue", "DuckDB crash"], limit: int = 5):
+ """在 X 上追踪技术关键词"""
+ if not self.x_client: return []
+ 
+ discoveries = []
+ for q in queries:
+ print(f"正在 X 检索关键词: {q}...")
+ # 搜索最近推文 (仅演示逻辑，需 API 权限)
+ tweets = self.x_client.search_recent_tweets(query=q, max_results=limit)
+ if tweets.data:
+ for tweet in tweets.data:
+ if str(tweet.id) not in self.seen_posts["post_id"].to_list():
+ discoveries.append({
+ "post_id": str(tweet.id),
+ "platform": "x",
+ "title": tweet.text[:100],
+ "url": f"https://x.com/user/status/{tweet.id}",
+ "score": 0, # X API V2 基础版获取点赞数较复杂，暂设 0
+ "is_urgent": True,
+ "content": tweet.text
+ })
+ return discoveries
+
+ def mark_as_seen(self, post_id: str, platform: str):
+ """持久化缓存"""
+ new_row = pl.DataFrame({
+ "post_id": [post_id],
+ "platform": [platform],
+ "scanned_at": [datetime.now().isoformat()]
+ })
+ self.seen_posts = pl.concat([self.seen_posts, new_row])
+ self.seen_posts.write_parquet(self.cache_file)
+
+# ==========================================
+# 独立测试
+# ==========================================
+if __name__ == "__main__":
+ sniffer = SocialSniffer(
+ credentials_path="../../.credentials/api_keys.env",
+ memory_dir="../../hippocampus/episodic/"
+ )
+ 
+ print("🕵️‍♂️ DavidAgent 正在潜入社交媒体...")
+ reddit_news = sniffer.sniff_reddit()
+ 
+ for news in reddit_news:
+ prefix = "🚨 [紧急]" if news['is_urgent'] else "ℹ️ [趋势]"
+ print(f"{prefix} 来自 {news['platform']}: {news['title']}")
+ sniffer.mark_as_seen(news['post_id'], news['platform'])
