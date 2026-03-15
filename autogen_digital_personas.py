@@ -190,3 +190,23 @@ except ImportError as e:
     print(f"\n⚠️ [System] 认知增强中间件加载失败，将使用基础形态运行。错误: {e}\n")
 except Exception as e:
     print(f"\n⚠️ [System] 认知增强过程发生错误: {e}\n")
+
+# ==============================
+# 5. Self-Evolving Agent V2.0 Enhancement (MANDATORY)
+# ==============================
+print("\n🤖 [System] 正在为全部 16 个数字分身强制挂载【自主演进智能体 V2.0】增强模块...")
+try:
+    from self_evolving_enhancer import apply_self_evolving_v2
+    v2_enhancer = apply_self_evolving_v2()
+    if v2_enhancer:
+        for agent in ALL_DIGITAL_PERSONAS:
+            v2_enhancer.enhance(agent)
+        status = v2_enhancer.get_enhancement_status()
+        print(f"✅ [System] 自主演进智能体 V2.0 增强完成！状态: {status}")
+        print("🔒 [System] 所有 16 个数字分身现在强制执行 V2.0 内生铁律！\n")
+    else:
+        print("❌ [System] 自主演进 V2.0 增强失败！\n")
+except ImportError as e:
+    print(f"\n❌ [System] 自主演进 V2.0 增强模块加载失败: {e}\n")
+except Exception as e:
+    print(f"\n❌ [System] 自主演进 V2.0 增强过程发生致命错误: {e}\n")
