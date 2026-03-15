@@ -54,6 +54,7 @@ class DiscoveryOrchestrator:
         
         # 初始化 GitHub 发布器
         self.github_publisher = GitHubPublisher()
+        self.weekly_reporter = WeeklyReporter()
         
         # 感知统计
         self.stats = {
