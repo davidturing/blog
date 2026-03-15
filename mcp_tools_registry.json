@@ -1,0 +1,20 @@
+{
+  "registered_tools": [
+    {
+      "name": "twitter_ai_insight_generator",
+      "version": "1.0",
+      "description": "Automatically fetches latest AI-related tweets, summarizes them, and generates Chinese blog posts",
+      "module_path": "mcp_twitter_insight_tool.py",
+      "registration_time": "2026-03-16T05:34:00+08:00",
+      "status": "active",
+      "compliance": "MCP_STANDARD_COMPLIANT",
+      "sandbox_test_passed": true,
+      "reward_score": 8.7
+    }
+  ],
+  "system_info": {
+    "self_evolving_agent_version": "2.0",
+    "total_tools": 1,
+    "last_update": "2026-03-16T05:34:00+08:00"
+  }
+}

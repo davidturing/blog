@@ -1,0 +1,27 @@
+[2026-03-16 05:36:00] ERROR: ParseError in doc_spider.py
+File: /Users/zhaoqinhuang/david_project/doc_spider.py
+Line: 142
+Function: parse_github_docs()
+Error: Failed to parse HTML structure - unexpected nested div pattern
+
+HTML Snippet:
+<div class="Box-body article-content" itemprop="articleBody">
+  <div data-testid="confused-nested-wrapper">
+    <div class="markdown-body">
+      <article class="markdown-body entry-content container-lg">
+        <!-- Confused structure with dynamic class names -->
+        <div class="d-flex flex-items-center flex-auto f6 border-bottom color-border-muted pt-2 pb-2">
+          <!-- Content here has randomized class patterns -->
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+Current parser logic expects:
+<article class="markdown-body"> directly under .Box-body
+
+Actual structure encountered:
+.Box-body → [data-testid="confused-nested-wrapper"] → .markdown-body → article.markdown-body
+
+Root Cause Analysis Required: Parser rule outdated vs Environment structure changed?
