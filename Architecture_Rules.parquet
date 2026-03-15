@@ -1,0 +1,26 @@
+# Architecture Rules for DavidAgent Self-Evolving Agent V2.0
+
+This file contains the distilled architectural rules from OpenSpec v1.0 and MCP protocol.
+
+## Core Principles
+- Recursive self-reflection and logical self-healing
+- Spontaneous tool creation with MCP compliance  
+- Strong physical anchoring with environment feedback
+- Architectural constraint awareness with topology mapping
+- Memory metabolism and entropy reduction
+
+## Enforcement Rules
+1. NO_SDD_NO_CODE: All development requires SDD specification
+2. SDD_COMPLIANCE_REQUIRED: SDD must follow OpenSpec v1.0 four pillars
+3. GITHUB_SYNC_MANDATORY: Specs must be pushed to GitHub /specs/
+4. ARCHITECTURE_REVIEW_REQUIRED: Architecture coach audit mandatory
+5. SANDBOX_TESTING_REQUIRED: Shadow sandbox testing before production
+6. TOPOLOGY_AWARENESS: Real-time system topology analysis required
+
+## Architecture Coach Authority
+- Highest veto power over all architectural decisions
+- Independent audit layer for all self-evolution activities
+- Real-time monitoring of component dependencies and constraints
+
+Generated: 2026-03-16
+Status: ACTIVE
