@@ -18,6 +18,7 @@ from social_sniffer import SocialSniffer
 from doc_spider import DocSpider
 from qa_miner import QAMiner
 from cognitive_filter import CognitiveEntropyFilter
+from github_publisher import GitHubPublisher
 
 
 class DiscoveryOrchestrator:
@@ -317,7 +318,7 @@ class DiscoveryOrchestrator:
             # 5. 生成每日报告
             report = self.generate_daily_report(filtered_insights)
             
-            # 保存报告
+            # 保存本地报告
             report_dir = Path(__file__).parent.parent.parent / "reports"
             report_dir.mkdir(parents=True, exist_ok=True)
             report_file = report_dir / f"daily_report_{datetime.now().strftime('%Y%m%d')}.md"
@@ -326,6 +327,9 @@ class DiscoveryOrchestrator:
                 f.write(report)
                 
             self.logger.info(f"📄 每日报告已生成: {report_file}")
+            
+            # 发布到 GitHub tech 仓库
+            self.publish_to_github_tech_repo(report, insights)
             
             elapsed = (datetime.now() - start_time).total_seconds()
             self.logger.info("=" * 60)
