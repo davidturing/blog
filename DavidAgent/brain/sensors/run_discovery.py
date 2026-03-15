@@ -19,6 +19,7 @@ from doc_spider import DocSpider
 from qa_miner import QAMiner
 from cognitive_filter import CognitiveEntropyFilter
 from github_publisher import GitHubPublisher
+from weekly_reporter import WeeklyReporter
 
 
 class DiscoveryOrchestrator:
