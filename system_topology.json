@@ -1,0 +1,97 @@
+{
+  "system_name": "DavidAgent Self-Evolving Agent V2.0",
+  "version": "2.0",
+  "last_updated": "2026-03-16T05:15:00+08:00",
+  "components": {
+    "main_orchestrator": {
+      "name": "DavidOrchestrator",
+      "type": "core",
+      "dependencies": ["digital_personas", "architecture_coach"],
+      "permissions": ["route_tasks", "manage_personas"],
+      "coupling": "loose"
+    },
+    "architecture_coach": {
+      "name": "ArchitectureCoach",
+      "type": "audit",
+      "dependencies": [],
+      "permissions": ["veto_architecture", "audit_sdd", "monitor_topology"],
+      "coupling": "independent",
+      "authority": "highest_veto"
+    },
+    "digital_personas": {
+      "name": "DigitalPersonas",
+      "type": "agents",
+      "count": 16,
+      "list": [
+        "Tech_Enthusiast",
+        "Chief_Data_Officer", 
+        "Recommendation_System_Teacher",
+        "Chip_Data_Expert",
+        "Home_Assistant",
+        "Big_Data_Expert",
+        "Python_Data_Analyst",
+        "Vibe_Coding_Teacher",
+        "Agent_Self_Improvement_Teacher",
+        "Multi_Agent_Teacher",
+        "Agentic_AI_Teacher",
+        "Photographer_GLM",
+        "Digital_Transformation_Expert_GLM",
+        "AutoGen_Arch_Review_Agent",
+        "Code_Agent",
+        "Code_Review_Agent"
+      ],
+      "dependencies": ["mcp_tools", "reasoning_bank"],
+      "permissions": ["execute_tasks", "create_tools", "access_memory"],
+      "constraints": ["sdd_required", "sandbox_testing"]
+    },
+    "mcp_tools": {
+      "name": "MCPTools",
+      "type": "tools",
+      "dependencies": [],
+      "permissions": ["standard_interface", "auto_registration"],
+      "constraints": ["mcp_compliance"]
+    },
+    "reasoning_bank": {
+      "name": "ReasoningBank",
+      "type": "memory",
+      "dependencies": [],
+      "permissions": ["store_rules", "retrieve_knowledge"],
+      "constraints": ["entropy_reduction", "regular_distillation"]
+    },
+    "shadow_sandbox": {
+      "name": "ShadowSandbox",
+      "type": "testing",
+      "dependencies": ["digital_personas", "system_metrics"],
+      "permissions": ["isolate_execution", "compare_metrics"],
+      "constraints": ["real_data_only", "reward_comparison"]
+    },
+    "system_metrics": {
+      "name": "SystemMetrics",
+      "type": "monitoring",
+      "dependencies": [],
+      "permissions": ["collect_performance", "calculate_reward"],
+      "constraints": ["physical_anchoring"]
+    }
+  },
+  "dependencies": {
+    "main_orchestrator": ["digital_personas", "architecture_coach"],
+    "digital_personas": ["mcp_tools", "reasoning_bank", "shadow_sandbox"],
+    "shadow_sandbox": ["system_metrics"]
+  },
+  "constraints": {
+    "circular_dependency_check": true,
+    "high_risk_modification_block": true,
+    "downstream_impact_analysis": true
+  },
+  "evolution_flow": [
+    "requirement",
+    "auto_generate_sdd", 
+    "architecture_coach_audit",
+    "architecture_reasoning",
+    "shadow_sandbox_test",
+    "test_pass",
+    "hot_swap_production",
+    "memory_distillation",
+    "entropy_reduction"
+  ]
+}
