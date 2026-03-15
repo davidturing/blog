@@ -51,6 +51,9 @@ class DiscoveryOrchestrator:
         # 初始化认知熵过滤器
         self.cognitive_filter = CognitiveEntropyFilter(self.config)
         
+        # 初始化 GitHub 发布器
+        self.github_publisher = GitHubPublisher()
+        
         # 感知统计
         self.stats = {
             "github": 0,
