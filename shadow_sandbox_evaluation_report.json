@@ -1,0 +1,33 @@
+{
+  "all_results": [
+    {
+      "name": "CSS_Selector_Flexible",
+      "parse_success_rate": 1.0,
+      "memory_usage_mb": 0.0002759297688802083,
+      "architecture_coupling": 0.3,
+      "reward_score": 9.25
+    },
+    {
+      "name": "Regex_Pattern_Matching",
+      "parse_success_rate": 1.0,
+      "memory_usage_mb": 0.0002759297688802083,
+      "architecture_coupling": 0.1,
+      "reward_score": 9.75
+    },
+    {
+      "name": "Content_Semantic_Analysis",
+      "parse_success_rate": 0.3333333333333333,
+      "memory_usage_mb": 0.0002759297688802083,
+      "architecture_coupling": 0.2,
+      "reward_score": 7.83
+    }
+  ],
+  "winner": {
+    "name": "Regex_Pattern_Matching",
+    "parse_success_rate": 1.0,
+    "memory_usage_mb": 0.0002759297688802083,
+    "architecture_coupling": 0.1,
+    "reward_score": 9.75
+  },
+  "test_cases_count": 3
+}
